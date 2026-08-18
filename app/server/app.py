@@ -2,6 +2,7 @@ import os
 from typing import Dict, List, Any, Optional
 from flask import Flask, jsonify, request, Response
 from models import init_db, db, Dog, Breed
+from models.dog import AdoptionStatus
 
 # Get the server directory path
 base_dir: str = os.path.abspath(os.path.dirname(__file__))
@@ -21,12 +22,31 @@ def get_dogs() -> Response:
     page = max(1, page)
     per_page = max(1, min(per_page, 100))
 
+    available_only_param = request.args.get('available_only')
+    if available_only_param is not None:
+        if available_only_param == 'true':
+            available_only = True
+        elif available_only_param == 'false':
+            available_only = False
+        else:
+            return jsonify({
+                'error': (
+                    f'Invalid value for available_only: "{available_only_param}". '
+                    'Must be "true" or "false".'
+                )
+            }), 400
+    else:
+        available_only = None
+
     query = db.session.query(
         Dog.id, 
         Dog.name, 
         Breed.name.label('breed')
     ).join(Breed, Dog.breed_id == Breed.id)
-    
+
+    if available_only:
+        query = query.filter(Dog.status == AdoptionStatus.AVAILABLE)
+
     total = query.count()
     dogs_query = query.offset((page - 1) * per_page).limit(per_page).all()
     
