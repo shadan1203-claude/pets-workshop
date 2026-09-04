@@ -14,7 +14,9 @@ test.describe('Tailspin Shelter Homepage', () => {
   test('should display dog list', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page.getByRole('heading', { name: 'Available Dogs' })).toBeVisible();
+    const heading = page.getByRole('heading', { name: 'Available Dogs (10)' });
+    await expect(heading).toBeVisible();
+    await expect(heading).toHaveText('Available Dogs (10)');
 
     const dogList = page.getByTestId('dog-list');
     await expect(dogList).toBeVisible();
