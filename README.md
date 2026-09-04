@@ -12,11 +12,11 @@ The available workshops are:
 
 > **[Get started learning about development with GitHub!](./content/README.md)**
 
-## License 
+## License
 
 This project is licensed under the terms of the MIT open source license. Please refer to the [LICENSE](./LICENSE) for the full terms.
 
-## Maintainers 
+## Maintainers
 
 You can find the list of maintainers in [CODEOWNERS](./.github/CODEOWNERS).
 
