@@ -8,6 +8,7 @@ const PAGE_SIZE = 6;
 let dogs = [];
 let page = 1;
 let totalPages = 1;
+let total = 0;
 let error: string | null = null;
 
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
@@ -19,6 +20,7 @@ try {
     dogs = data.dogs;
     page = data.page;
     totalPages = data.total_pages;
+    total = data.total;
   } else {
     error = `Failed to fetch data: ${response.status} ${response.statusText}`;
   }
@@ -40,7 +42,7 @@ try {
       </div>
     ) : (
       <>
-        <DogList dogs={dogs} />
+        <DogList dogs={dogs} total={total} />
 
         {totalPages > 1 && (
           <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
