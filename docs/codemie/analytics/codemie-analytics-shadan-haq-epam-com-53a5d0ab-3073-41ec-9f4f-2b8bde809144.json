@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T06:30:42.902Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 169405,
+      "turns": 13,
+      "files": 10,
+      "netLines": 0,
+      "toolCallsTotal": 17,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.4025787,
+      "cacheReadCostUSD": 0.0989847,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T06:24:15.631Z",
+    "periodEnd": "2026-08-28T06:27:05.036Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "53a5d0ab-3073-41ec-9f4f-2b8bde809144",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "@Developer Assistant",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787898255631,
+      "durationMs": 169405,
+      "turns": 13,
+      "fileOps": 10,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 17,
+      "toolCallsSuccess": 17,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "json",
+        "python",
+        "typescript",
+        "javascript",
+        "markdown"
+      ],
+      "tools": [
+        {
+          "toolName": "Read",
+          "totalCalls": 10,
+          "successCount": 10,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 6,
+          "successCount": 6,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 3837,
+        "output": 4719,
+        "cacheRead": 329949,
+        "cacheCreation": 36883,
+        "cacheCreation1h": 36883,
+        "total": 375388
+      },
+      "costUSD": 0.4025787,
+      "cacheReadCostUSD": 0.0989847,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 3837,
+            "output": 4719,
+            "cacheRead": 329949,
+            "cacheCreation": 36883,
+            "cacheCreation1h": 36883,
+            "total": 375388
+          },
+          "costUSD": 0.4025787,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787898275532,
+          "cost": 0.085005,
+          "tokens": 61146
+        },
+        {
+          "t": 1787898362512,
+          "cost": 0.132837,
+          "tokens": 122974
+        },
+        {
+          "t": 1787898365594,
+          "cost": 0.181011,
+          "tokens": 130830
+        },
+        {
+          "t": 1787898367581,
+          "cost": 0.2064429,
+          "tokens": 193124
+        },
+        {
+          "t": 1787898369919,
+          "cost": 0.2158413,
+          "tokens": 201930
+        },
+        {
+          "t": 1787898373464,
+          "cost": 0.222177,
+          "tokens": 211089
+        },
+        {
+          "t": 1787898377486,
+          "cost": 0.239763,
+          "tokens": 222253
+        },
+        {
+          "t": 1787898381429,
+          "cost": 0.2595453,
+          "tokens": 235619
+        },
+        {
+          "t": 1787898386397,
+          "cost": 0.2723202,
+          "tokens": 249766
+        },
+        {
+          "t": 1787898392581,
+          "cost": 0.304755,
+          "tokens": 267700
+        },
+        {
+          "t": 1787898396276,
+          "cost": 0.3259491,
+          "tokens": 287958
+        },
+        {
+          "t": 1787898412857,
+          "cost": 0.3632931,
+          "tokens": 310490
+        },
+        {
+          "t": 1787898425036,
+          "cost": 0.4025787,
+          "tokens": 375388
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "petsworkshop-developer",
+          "start": 1787898362512,
+          "durationMs": 10,
+          "costUSD": 0.2050242,
+          "tokens": {
+            "input": 547,
+            "output": 3153,
+            "cacheRead": 100534,
+            "cacheCreation": 20988,
+            "cacheCreation1h": 20988,
+            "total": 125222
+          },
+          "tools": [
+            {
+              "name": "Read",
+              "calls": 10
+            },
+            {
+              "name": "Bash",
+              "calls": 6
+            }
+          ]
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "petsworkshop-developer",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

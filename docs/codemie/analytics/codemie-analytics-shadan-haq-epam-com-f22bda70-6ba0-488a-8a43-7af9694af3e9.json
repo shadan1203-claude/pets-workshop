@@ -1,0 +1,432 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-18T09:25:22.434Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 921668,
+      "turns": 44,
+      "files": 13,
+      "netLines": 123,
+      "toolCallsTotal": 53,
+      "toolSuccessRate": 88.7,
+      "totalCostUSD": 1.5175467,
+      "cacheReadCostUSD": 0.7887867,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-17T13:54:55.085Z",
+    "periodEnd": "2026-08-17T14:10:16.753Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "f22bda70-6ba0-488a-8a43-7af9694af3e9",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "@PetsWorkshop - QA Assistant",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1786974895085,
+      "durationMs": 921668,
+      "turns": 44,
+      "fileOps": 13,
+      "linesAdded": 125,
+      "linesRemoved": 2,
+      "linesModified": 0,
+      "netLines": 123,
+      "filesChanged": 2,
+      "filesWritten": 1,
+      "filesEdited": 1,
+      "toolCallsTotal": 53,
+      "toolCallsSuccess": 47,
+      "toolCallsFailure": 6,
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "languages": [
+        "typescript",
+        "javascript",
+        "json",
+        "markdown",
+        "python"
+      ],
+      "tools": [
+        {
+          "toolName": "Read",
+          "totalCalls": 22,
+          "successCount": 21,
+          "failureCount": 1,
+          "successRate": 95.45454545454545
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 20,
+          "successCount": 15,
+          "failureCount": 5,
+          "successRate": 75
+        },
+        {
+          "toolName": "Glob",
+          "totalCalls": 6,
+          "successCount": 6,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Skill",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Write",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Edit",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 68,
+        "output": 21368,
+        "cacheRead": 2629289,
+        "cacheCreation": 68006,
+        "cacheCreation1h": 68006,
+        "total": 2718731
+      },
+      "costUSD": 1.5175467,
+      "cacheReadCostUSD": 0.7887867,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-4-6",
+          "tokens": {
+            "input": 68,
+            "output": 21368,
+            "cacheRead": 2629289,
+            "cacheCreation": 68006,
+            "cacheCreation1h": 68006,
+            "total": 2718731
+          },
+          "costUSD": 1.5175467,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1786974921661,
+          "cost": 0.0719799,
+          "tokens": 44029
+        },
+        {
+          "t": 1786974925451,
+          "cost": 0.089136,
+          "tokens": 88253
+        },
+        {
+          "t": 1786974930608,
+          "cost": 0.1244277,
+          "tokens": 135795
+        },
+        {
+          "t": 1786974939979,
+          "cost": 0.1436703,
+          "tokens": 183747
+        },
+        {
+          "t": 1786974970498,
+          "cost": 0.1618899,
+          "tokens": 231912
+        },
+        {
+          "t": 1786975001490,
+          "cost": 0.2062311,
+          "tokens": 330067
+        },
+        {
+          "t": 1786975009202,
+          "cost": 0.2389506,
+          "tokens": 354858
+        },
+        {
+          "t": 1786975011753,
+          "cost": 0.2516826,
+          "tokens": 379992
+        },
+        {
+          "t": 1786975015877,
+          "cost": 0.268923,
+          "tokens": 406325
+        },
+        {
+          "t": 1786975021698,
+          "cost": 0.2997669,
+          "tokens": 435721
+        },
+        {
+          "t": 1786975027351,
+          "cost": 0.3339171,
+          "tokens": 468579
+        },
+        {
+          "t": 1786975030395,
+          "cost": 0.3496887,
+          "tokens": 501968
+        },
+        {
+          "t": 1786975064254,
+          "cost": 0.4038906,
+          "tokens": 539855
+        },
+        {
+          "t": 1786975078647,
+          "cost": 0.4463694,
+          "tokens": 592082
+        },
+        {
+          "t": 1786975166946,
+          "cost": 0.4748046,
+          "tokens": 645273
+        },
+        {
+          "t": 1786975174076,
+          "cost": 0.5200389,
+          "tokens": 753008
+        },
+        {
+          "t": 1786975177573,
+          "cost": 0.5512296,
+          "tokens": 809367
+        },
+        {
+          "t": 1786975205707,
+          "cost": 0.6057009,
+          "tokens": 869822
+        },
+        {
+          "t": 1786975248281,
+          "cost": 0.6980703,
+          "tokens": 935689
+        },
+        {
+          "t": 1786975258285,
+          "cost": 0.7423758,
+          "tokens": 1001810
+        },
+        {
+          "t": 1786975273507,
+          "cost": 0.7737729,
+          "tokens": 1068963
+        },
+        {
+          "t": 1786975294600,
+          "cost": 0.8135616,
+          "tokens": 1137547
+        },
+        {
+          "t": 1786975301497,
+          "cost": 0.8417397,
+          "tokens": 1206343
+        },
+        {
+          "t": 1786975322574,
+          "cost": 0.8710593,
+          "tokens": 1275699
+        },
+        {
+          "t": 1786975456739,
+          "cost": 0.8964582,
+          "tokens": 1345504
+        },
+        {
+          "t": 1786975466503,
+          "cost": 0.9635556,
+          "tokens": 1488756
+        },
+        {
+          "t": 1786975544192,
+          "cost": 1.0491051,
+          "tokens": 1566030
+        },
+        {
+          "t": 1786975581512,
+          "cost": 1.0768644,
+          "tokens": 1643638
+        },
+        {
+          "t": 1786975592009,
+          "cost": 1.1072604,
+          "tokens": 1721668
+        },
+        {
+          "t": 1786975620399,
+          "cost": 1.135056,
+          "tokens": 1799945
+        },
+        {
+          "t": 1786975624753,
+          "cost": 1.1644614,
+          "tokens": 1878768
+        },
+        {
+          "t": 1786975632464,
+          "cost": 1.1922633,
+          "tokens": 1957847
+        },
+        {
+          "t": 1786975651051,
+          "cost": 1.2261561,
+          "tokens": 2038047
+        },
+        {
+          "t": 1786975657468,
+          "cost": 1.253799,
+          "tokens": 2118467
+        },
+        {
+          "t": 1786975660634,
+          "cost": 1.2804567,
+          "tokens": 2199062
+        },
+        {
+          "t": 1786975699460,
+          "cost": 1.3529946,
+          "tokens": 2365094
+        },
+        {
+          "t": 1786975730845,
+          "cost": 1.3808139,
+          "tokens": 2449176
+        },
+        {
+          "t": 1786975747460,
+          "cost": 1.428756,
+          "tokens": 2536684
+        },
+        {
+          "t": 1786975787221,
+          "cost": 1.4668773,
+          "tokens": 2625862
+        },
+        {
+          "t": 1786975816753,
+          "cost": 1.5175467,
+          "tokens": 2718731
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "skill",
+          "name": "codemie:codemie-sdk",
+          "start": 1786974925451,
+          "durationMs": 7,
+          "costUSD": 0.0171561,
+          "tokens": {
+            "input": 1,
+            "output": 124,
+            "cacheRead": 43737,
+            "cacheCreation": 362,
+            "cacheCreation1h": 362,
+            "total": 44224
+          }
+        },
+        {
+          "kind": "agent",
+          "name": "Explore",
+          "start": 1786975001490,
+          "durationMs": 63840,
+          "costUSD": 0.1976595,
+          "tokens": {
+            "input": 9,
+            "output": 3298,
+            "cacheRead": 191355,
+            "cacheCreation": 15126,
+            "cacheCreation1h": 15126,
+            "total": 209788
+          },
+          "tools": [
+            {
+              "name": "Read",
+              "calls": 9
+            },
+            {
+              "name": "Bash",
+              "calls": 5
+            },
+            {
+              "name": "Glob",
+              "calls": 2
+            }
+          ]
+        },
+        {
+          "kind": "skill",
+          "name": "review",
+          "start": 1786975456739,
+          "durationMs": 5,
+          "costUSD": 0.0253989,
+          "tokens": {
+            "input": 3,
+            "output": 210,
+            "cacheRead": 69353,
+            "cacheCreation": 239,
+            "cacheCreation1h": 239,
+            "total": 69805
+          }
+        }
+      ],
+      "skillInvocations": [
+        {
+          "name": "codemie:codemie-sdk",
+          "totalCalls": 8,
+          "successCount": 8,
+          "failureCount": 0
+        },
+        {
+          "name": "review",
+          "totalCalls": 4,
+          "successCount": 4,
+          "failureCount": 0
+        }
+      ],
+      "agentInvocations": [
+        {
+          "name": "Explore",
+          "totalCalls": 6,
+          "successCount": 6,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

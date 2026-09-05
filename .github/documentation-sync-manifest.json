@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "scope": {
+    "description": "Approved technical documentation targets for Automated Documentation Sync",
+    "generated_documentation": [
+      "README.md",
+      "architecture.md",
+      "design-review.md",
+      "impl-plan.md"
+    ],
+    "source_roots": [
+      "app/server",
+      "app/client/src",
+      "app/client/e2e-tests"
+    ],
+    "excluded_paths": [
+      "content/**",
+      "docs/**",
+      "app/client/README.md"
+    ]
+  },
+  "rules": {
+    "require_provenance": true,
+    "allow_write_to_source_code": false,
+    "not_found_output_required": true,
+    "atomic_write_required": true
+  },
+  "evidence_policy": {
+    "required_fields": [
+      "status",
+      "evidence",
+      "notes",
+      "source_files"
+    ],
+    "missing_evidence_value": "Not Found",
+    "provenance_required": true,
+    "contradictory_evidence_mode": "fail_validation",
+    "accepted_evidence_types": [
+      "source_code",
+      "tests",
+      "configuration",
+      "not_found"
+    ],
+    "status_values": [
+      "verified",
+      "not_found",
+      "contradictory"
+    ]
+  },
+  "documentation_contract": {
+    "section_schema": {
+      "status": "string",
+      "evidence": "string",
+      "notes": "string",
+      "source_files": [
+        "string"
+      ]
+    },
+    "validation_mode": "fail_on_missing_provenance_or_contradiction"
+  }
+}

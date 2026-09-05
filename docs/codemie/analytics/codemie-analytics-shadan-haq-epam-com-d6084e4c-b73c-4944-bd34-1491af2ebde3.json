@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-19T07:19:31.303Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 1610294,
+      "turns": 27,
+      "files": 3,
+      "netLines": 0,
+      "toolCallsTotal": 23,
+      "toolSuccessRate": 82.6,
+      "totalCostUSD": 0.6446409,
+      "cacheReadCostUSD": 0.1414479,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-18T09:56:52.513Z",
+    "periodEnd": "2026-08-18T10:23:42.807Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "d6084e4c-b73c-4944-bd34-1491af2ebde3",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "The user has invoked you as the PetsWorkshop Developer agent. Please introduce yourself and let the user know what you can help them with in the context of the Pets Workshop project. Check the current git status and branch context: - Current branch: feature/EPMCDMETST-60367-available-only-filter - Recent uncommitted changes: app/client/start-test-server.js (modified), app/client/e2e-tests/available-only-filter.spec.ts (new untracked file), docs/ (new untracked directory) - Most recent commit: feat(EPMCDMETST-60367): add available_only filter to GET /api/dogs Ask the user what they'd like to work on.",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787047012513,
+      "durationMs": 1610294,
+      "turns": 27,
+      "fileOps": 3,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 23,
+      "toolCallsSuccess": 19,
+      "toolCallsFailure": 4,
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "languages": [
+        "javascript",
+        "typescript",
+        "json"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 18,
+          "successCount": 14,
+          "failureCount": 4,
+          "successRate": 77.77777777777779
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 3,
+          "successCount": 3,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "SendMessage",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 131,
+        "output": 7932,
+        "cacheRead": 471493,
+        "cacheCreation": 63970,
+        "cacheCreation1h": 63970,
+        "total": 543526
+      },
+      "costUSD": 0.6446409,
+      "cacheReadCostUSD": 0.1414479,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-4-6",
+          "tokens": {
+            "input": 131,
+            "output": 7932,
+            "cacheRead": 471493,
+            "cacheCreation": 63970,
+            "cacheCreation1h": 63970,
+            "total": 543526
+          },
+          "costUSD": 0.6446409,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787047044458,
+          "cost": 0.0729279,
+          "tokens": 44112
+        },
+        {
+          "t": 1787047050401,
+          "cost": 0.1117449,
+          "tokens": 50190
+        },
+        {
+          "t": 1787047062272,
+          "cost": 0.1334028,
+          "tokens": 58757
+        },
+        {
+          "t": 1787047069930,
+          "cost": 0.1556928,
+          "tokens": 103641
+        },
+        {
+          "t": 1787047099333,
+          "cost": 0.1735461,
+          "tokens": 148838
+        },
+        {
+          "t": 1787047103587,
+          "cost": 0.1915239,
+          "tokens": 194350
+        },
+        {
+          "t": 1787047104972,
+          "cost": 0.2472129,
+          "tokens": 203285
+        },
+        {
+          "t": 1787047108357,
+          "cost": 0.3054249,
+          "tokens": 212851
+        },
+        {
+          "t": 1787047110647,
+          "cost": 0.3148659,
+          "tokens": 222552
+        },
+        {
+          "t": 1787047258436,
+          "cost": 0.3259143,
+          "tokens": 232938
+        },
+        {
+          "t": 1787047268205,
+          "cost": 0.3362211,
+          "tokens": 243768
+        },
+        {
+          "t": 1787047273452,
+          "cost": 0.3454215,
+          "tokens": 255015
+        },
+        {
+          "t": 1787047282124,
+          "cost": 0.3642147,
+          "tokens": 266746
+        },
+        {
+          "t": 1787047288543,
+          "cost": 0.3744801,
+          "tokens": 278840
+        },
+        {
+          "t": 1787047310242,
+          "cost": 0.3914679,
+          "tokens": 291848
+        },
+        {
+          "t": 1787047318836,
+          "cost": 0.4020249,
+          "tokens": 305051
+        },
+        {
+          "t": 1787047334440,
+          "cost": 0.4313025,
+          "tokens": 319374
+        },
+        {
+          "t": 1787047341483,
+          "cost": 0.4445187,
+          "tokens": 333909
+        },
+        {
+          "t": 1787047349351,
+          "cost": 0.4514595,
+          "tokens": 348657
+        },
+        {
+          "t": 1787047364729,
+          "cost": 0.4593201,
+          "tokens": 363713
+        },
+        {
+          "t": 1787047383565,
+          "cost": 0.4819248,
+          "tokens": 380038
+        },
+        {
+          "t": 1787047392273,
+          "cost": 0.495264,
+          "tokens": 396575
+        },
+        {
+          "t": 1787047402058,
+          "cost": 0.51615,
+          "tokens": 414444
+        },
+        {
+          "t": 1787047411396,
+          "cost": 0.5305332,
+          "tokens": 432641
+        },
+        {
+          "t": 1787047421616,
+          "cost": 0.5507019,
+          "tokens": 478975
+        },
+        {
+          "t": 1787048617625,
+          "cost": 0.6278826,
+          "tokens": 496783
+        },
+        {
+          "t": 1787048622807,
+          "cost": 0.6446409,
+          "tokens": 543526
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "petsworkshop-developer",
+          "start": 1787047044458,
+          "durationMs": 18914,
+          "costUSD": 0.4766649,
+          "tokens": {
+            "input": 113,
+            "output": 6716,
+            "cacheRead": 211913,
+            "cacheCreation": 52002,
+            "cacheCreation1h": 52002,
+            "total": 270744
+          },
+          "tools": [
+            {
+              "name": "Bash",
+              "calls": 18
+            },
+            {
+              "name": "Read",
+              "calls": 3
+            }
+          ]
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "petsworkshop-developer",
+          "totalCalls": 4,
+          "successCount": 4,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

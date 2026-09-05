@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T06:35:25.110Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 11695,
+      "turns": 2,
+      "files": 1,
+      "netLines": 2,
+      "toolCallsTotal": 1,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.0686502,
+      "cacheReadCostUSD": 0.0344772,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T06:34:56.155Z",
+    "periodEnd": "2026-08-28T06:35:07.850Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "86ea9028-8b68-438d-870b-c3b6d9941102",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Create a file named CLAUDE_INTEGRATION_TEST.md containing the text 'CodeMie Claude integration test'. Do not modify any other files.",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787898896155,
+      "durationMs": 11695,
+      "turns": 2,
+      "fileOps": 1,
+      "linesAdded": 2,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 2,
+      "filesChanged": 1,
+      "filesWritten": 1,
+      "filesEdited": 0,
+      "toolCallsTotal": 1,
+      "toolCallsSuccess": 1,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "markdown"
+      ],
+      "tools": [
+        {
+          "toolName": "Write",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 3218,
+        "output": 173,
+        "cacheRead": 114924,
+        "cacheCreation": 3654,
+        "cacheCreation1h": 3654,
+        "total": 121969
+      },
+      "costUSD": 0.0686502,
+      "cacheReadCostUSD": 0.0344772,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 3218,
+            "output": 173,
+            "cacheRead": 114924,
+            "cacheCreation": 3654,
+            "cacheCreation1h": 3654,
+            "total": 121969
+          },
+          "costUSD": 0.0686502,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787898903232,
+          "cost": 0.0303237,
+          "tokens": 60932
+        },
+        {
+          "t": 1787898907850,
+          "cost": 0.0686502,
+          "tokens": 121969
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T05:43:35.465Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 47016,
+      "turns": 6,
+      "files": 9,
+      "netLines": 0,
+      "toolCallsTotal": 11,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.29478570000000004,
+      "cacheReadCostUSD": 0.1098717,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T05:39:40.282Z",
+    "periodEnd": "2026-08-28T05:40:27.298Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "d89db07f-d3a5-4c34-ac5e-ca85713b462a",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Analyze this repository and explain its architecture",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787895580282,
+      "durationMs": 47016,
+      "turns": 6,
+      "fileOps": 9,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 11,
+      "toolCallsSuccess": 11,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "python",
+        "markdown"
+      ],
+      "tools": [
+        {
+          "toolName": "Read",
+          "totalCalls": 9,
+          "successCount": 9,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 3371,
+        "output": 2565,
+        "cacheRead": 366239,
+        "cacheCreation": 22721,
+        "cacheCreation1h": 22721,
+        "total": 394896
+      },
+      "costUSD": 0.29478570000000004,
+      "cacheReadCostUSD": 0.1098717,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 3371,
+            "output": 2565,
+            "cacheRead": 366239,
+            "cacheCreation": 22721,
+            "cacheCreation1h": 22721,
+            "total": 394896
+          },
+          "costUSD": 0.29478570000000004,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787895586916,
+          "cost": 0.081342,
+          "tokens": 60888
+        },
+        {
+          "t": 1787895595466,
+          "cost": 0.1304631,
+          "tokens": 123388
+        },
+        {
+          "t": 1787895599963,
+          "cost": 0.1565466,
+          "tokens": 186589
+        },
+        {
+          "t": 1787895605908,
+          "cost": 0.1974897,
+          "tokens": 252758
+        },
+        {
+          "t": 1787895611265,
+          "cost": 0.2416911,
+          "tokens": 322380
+        },
+        {
+          "t": 1787895627298,
+          "cost": 0.2947857,
+          "tokens": 394896
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

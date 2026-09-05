@@ -1,0 +1,407 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-17T13:54:06.066Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 3090053,
+      "turns": 114,
+      "files": 38,
+      "netLines": 0,
+      "toolCallsTotal": 127,
+      "toolSuccessRate": 87.4,
+      "totalCostUSD": 3.9173799000000002,
+      "cacheReadCostUSD": 1.7761448999999998,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-17T12:52:19.295Z",
+    "periodEnd": "2026-08-17T13:43:49.348Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "6ad63951-4455-4d38-848c-9421de6030b6",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "@developer-assistant hello",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1786971139295,
+      "durationMs": 3090053,
+      "turns": 114,
+      "fileOps": 38,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 127,
+      "toolCallsSuccess": 111,
+      "toolCallsFailure": 16,
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "languages": [
+        "markdown",
+        "python",
+        "json",
+        "typescript",
+        "yaml",
+        "javascript"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 60,
+          "successCount": 46,
+          "failureCount": 14,
+          "successRate": 76.66666666666667
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 51,
+          "successCount": 50,
+          "failureCount": 1,
+          "successRate": 98.0392156862745
+        },
+        {
+          "toolName": "Glob",
+          "totalCalls": 13,
+          "successCount": 13,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 2,
+          "successCount": 1,
+          "failureCount": 1,
+          "successRate": 50
+        },
+        {
+          "toolName": "PowerShell",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 2390,
+        "output": 62759,
+        "cacheRead": 5920483,
+        "cacheCreation": 198780,
+        "cacheCreation1h": 198780,
+        "total": 6184412
+      },
+      "costUSD": 3.9173799000000002,
+      "cacheReadCostUSD": 1.7761448999999998,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-4-6",
+          "tokens": {
+            "input": 2390,
+            "output": 62759,
+            "cacheRead": 5920483,
+            "cacheCreation": 198780,
+            "cacheCreation1h": 198780,
+            "total": 6184412
+          },
+          "costUSD": 3.9173799000000002,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1786971152337,
+          "cost": 0.0705249,
+          "tokens": 43917
+        },
+        {
+          "t": 1786971179974,
+          "cost": 0.1358556,
+          "tokens": 139111
+        },
+        {
+          "t": 1786971191509,
+          "cost": 0.2304264,
+          "tokens": 235670
+        },
+        {
+          "t": 1786971204302,
+          "cost": 0.3142896,
+          "tokens": 355339
+        },
+        {
+          "t": 1786971294645,
+          "cost": 0.4409841,
+          "tokens": 494100
+        },
+        {
+          "t": 1786971385032,
+          "cost": 0.4825869,
+          "tokens": 590308
+        },
+        {
+          "t": 1786971480710,
+          "cost": 0.5980047,
+          "tokens": 653226
+        },
+        {
+          "t": 1786971491694,
+          "cost": 0.6425172,
+          "tokens": 682085
+        },
+        {
+          "t": 1786971531873,
+          "cost": 0.7697826,
+          "tokens": 726612
+        },
+        {
+          "t": 1786971537799,
+          "cost": 0.829236,
+          "tokens": 781591
+        },
+        {
+          "t": 1786971610933,
+          "cost": 0.9728589,
+          "tokens": 858852
+        },
+        {
+          "t": 1786971657022,
+          "cost": 1.0790778,
+          "tokens": 947512
+        },
+        {
+          "t": 1786971704196,
+          "cost": 1.29564,
+          "tokens": 1046539
+        },
+        {
+          "t": 1786971846554,
+          "cost": 1.4810772,
+          "tokens": 1164690
+        },
+        {
+          "t": 1786971923488,
+          "cost": 1.6225728,
+          "tokens": 1293583
+        },
+        {
+          "t": 1786971998911,
+          "cost": 1.7462568,
+          "tokens": 1387995
+        },
+        {
+          "t": 1786972084891,
+          "cost": 1.9467165,
+          "tokens": 1544143
+        },
+        {
+          "t": 1786972220751,
+          "cost": 2.0741856,
+          "tokens": 1714788
+        },
+        {
+          "t": 1786972282449,
+          "cost": 2.2028331,
+          "tokens": 1895494
+        },
+        {
+          "t": 1786972318490,
+          "cost": 2.335326,
+          "tokens": 2058493
+        },
+        {
+          "t": 1786972350548,
+          "cost": 2.4418389,
+          "tokens": 2223043
+        },
+        {
+          "t": 1786972452471,
+          "cost": 2.5323135,
+          "tokens": 2403266
+        },
+        {
+          "t": 1786972558668,
+          "cost": 2.5988973,
+          "tokens": 2592419
+        },
+        {
+          "t": 1786972597230,
+          "cost": 2.6717163,
+          "tokens": 2785485
+        },
+        {
+          "t": 1786972667090,
+          "cost": 2.7701424,
+          "tokens": 2985973
+        },
+        {
+          "t": 1786972698295,
+          "cost": 2.817516,
+          "tokens": 3122828
+        },
+        {
+          "t": 1786972757313,
+          "cost": 2.8972914,
+          "tokens": 3331223
+        },
+        {
+          "t": 1786972808584,
+          "cost": 2.9728869,
+          "tokens": 3542686
+        },
+        {
+          "t": 1786972863261,
+          "cost": 3.0446328,
+          "tokens": 3756224
+        },
+        {
+          "t": 1786972966689,
+          "cost": 3.1229376,
+          "tokens": 3972686
+        },
+        {
+          "t": 1786973135412,
+          "cost": 3.1931922,
+          "tokens": 4190876
+        },
+        {
+          "t": 1786973173448,
+          "cost": 3.2692791,
+          "tokens": 4410861
+        },
+        {
+          "t": 1786973248764,
+          "cost": 3.344121,
+          "tokens": 4633118
+        },
+        {
+          "t": 1786973276234,
+          "cost": 3.4232649,
+          "tokens": 4857690
+        },
+        {
+          "t": 1786973462262,
+          "cost": 3.4996776,
+          "tokens": 5084146
+        },
+        {
+          "t": 1786973492574,
+          "cost": 3.5495001,
+          "tokens": 5236103
+        },
+        {
+          "t": 1786973699564,
+          "cost": 3.6441084,
+          "tokens": 5467276
+        },
+        {
+          "t": 1786973773574,
+          "cost": 3.7349949,
+          "tokens": 5703052
+        },
+        {
+          "t": 1786973816629,
+          "cost": 3.821832,
+          "tokens": 5941458
+        },
+        {
+          "t": 1786974229348,
+          "cost": 3.9173799,
+          "tokens": 6184412
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "Explore",
+          "start": 1786971169984,
+          "durationMs": 115754,
+          "costUSD": 0.3153948,
+          "tokens": {
+            "input": 2063,
+            "output": 4809,
+            "cacheRead": 328556,
+            "cacheCreation": 23084,
+            "cacheCreation1h": 23084,
+            "total": 358512
+          },
+          "tools": [
+            {
+              "name": "Read",
+              "calls": 23
+            },
+            {
+              "name": "Glob",
+              "calls": 6
+            },
+            {
+              "name": "Bash",
+              "calls": 1
+            }
+          ]
+        },
+        {
+          "kind": "agent",
+          "name": "petsworkshop-developer",
+          "start": 1786971474282,
+          "durationMs": 824346,
+          "costUSD": 1.7697624,
+          "tokens": {
+            "input": 201,
+            "output": 40872,
+            "cacheRead": 1140438,
+            "cacheCreation": 135658,
+            "cacheCreation1h": 135658,
+            "total": 1317169
+          },
+          "tools": [
+            {
+              "name": "Bash",
+              "calls": 32
+            },
+            {
+              "name": "Read",
+              "calls": 13
+            }
+          ]
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "Explore",
+          "totalCalls": 27,
+          "successCount": 27,
+          "failureCount": 0
+        },
+        {
+          "name": "petsworkshop-developer",
+          "totalCalls": 25,
+          "successCount": 25,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}
