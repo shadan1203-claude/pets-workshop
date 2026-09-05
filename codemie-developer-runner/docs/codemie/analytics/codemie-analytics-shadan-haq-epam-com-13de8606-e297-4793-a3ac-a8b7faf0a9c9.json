@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T10:24:13.481Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 30172,
+      "turns": 5,
+      "files": 2,
+      "netLines": 0,
+      "toolCallsTotal": 6,
+      "toolSuccessRate": 83.3,
+      "totalCostUSD": 0.45377310000000004,
+      "cacheReadCostUSD": 0.06701309999999999,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T10:23:37.748Z",
+    "periodEnd": "2026-08-28T10:24:07.920Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "13de8606-e297-4793-a3ac-a8b7faf0a9c9",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Inspect this repository and tell me the application name. Do not modify any files.",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop\\codemie-developer-runner",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787912617748,
+      "durationMs": 30172,
+      "turns": 5,
+      "fileOps": 2,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 6,
+      "toolCallsSuccess": 5,
+      "toolCallsFailure": 1,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "python"
+      ],
+      "tools": [
+        {
+          "toolName": "Read",
+          "totalCalls": 3,
+          "successCount": 2,
+          "failureCount": 1,
+          "successRate": 66.66666666666666
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Glob",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 2854,
+        "output": 800,
+        "cacheRead": 223377,
+        "cacheCreation": 61033,
+        "cacheCreation1h": 61033,
+        "total": 288064
+      },
+      "costUSD": 0.45377310000000004,
+      "cacheReadCostUSD": 0.06701309999999999,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 2854,
+            "output": 800,
+            "cacheRead": 223377,
+            "cacheCreation": 61033,
+            "cacheCreation1h": 61033,
+            "total": 288064
+          },
+          "costUSD": 0.45377310000000004,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787912624821,
+          "cost": 0.321777,
+          "tokens": 54889
+        },
+        {
+          "t": 1787912628963,
+          "cost": 0.3563562,
+          "tokens": 109899
+        },
+        {
+          "t": 1787912633849,
+          "cost": 0.3936393,
+          "tokens": 168081
+        },
+        {
+          "t": 1787912640900,
+          "cost": 0.4183788,
+          "tokens": 226864
+        },
+        {
+          "t": 1787912647920,
+          "cost": 0.4537731,
+          "tokens": 288064
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

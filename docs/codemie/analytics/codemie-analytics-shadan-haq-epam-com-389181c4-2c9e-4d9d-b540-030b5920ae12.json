@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T06:12:21.705Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 128553,
+      "turns": 9,
+      "files": 5,
+      "netLines": 2,
+      "toolCallsTotal": 10,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.2805294,
+      "cacheReadCostUSD": 0.17304239999999999,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T06:10:10.541Z",
+    "periodEnd": "2026-08-28T06:12:19.094Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "389181c4-2c9e-4d9d-b540-030b5920ae12",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Analyze this repository. Tell me: 1. What frontend framework is being used? 2. What backend framework is being used? 3. What database is being used? 4. How do I start the application? 5. How do I run the tests? 6. What are the main folders?",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787897410541,
+      "durationMs": 128553,
+      "turns": 9,
+      "fileOps": 5,
+      "linesAdded": 2,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 2,
+      "filesChanged": 1,
+      "filesWritten": 1,
+      "filesEdited": 0,
+      "toolCallsTotal": 10,
+      "toolCallsSuccess": 10,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "markdown",
+        "json"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 5,
+          "successCount": 5,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 4,
+          "successCount": 4,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Write",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 3377,
+        "output": 2024,
+        "cacheRead": 576808,
+        "cacheCreation": 11166,
+        "cacheCreation1h": 11166,
+        "total": 593375
+      },
+      "costUSD": 0.2805294,
+      "cacheReadCostUSD": 0.17304239999999999,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 3377,
+            "output": 2024,
+            "cacheRead": 576808,
+            "cacheCreation": 11166,
+            "cacheCreation1h": 11166,
+            "total": 593375
+          },
+          "costUSD": 0.2805294,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787897427887,
+          "cost": 0.0301902,
+          "tokens": 60924
+        },
+        {
+          "t": 1787897432971,
+          "cost": 0.074274,
+          "tokens": 122841
+        },
+        {
+          "t": 1787897438038,
+          "cost": 0.1001739,
+          "tokens": 185613
+        },
+        {
+          "t": 1787897445387,
+          "cost": 0.1355874,
+          "tokens": 250489
+        },
+        {
+          "t": 1787897450011,
+          "cost": 0.171879,
+          "tokens": 317641
+        },
+        {
+          "t": 1787897455107,
+          "cost": 0.1951656,
+          "tokens": 385010
+        },
+        {
+          "t": 1787897466002,
+          "cost": 0.2352747,
+          "tokens": 454323
+        },
+        {
+          "t": 1787897514587,
+          "cost": 0.258081,
+          "tokens": 523798
+        },
+        {
+          "t": 1787897521128,
+          "cost": 0.2805294,
+          "tokens": 593375
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

@@ -101,6 +101,13 @@ class TestApp(unittest.TestCase):
         self.assertEqual(len(data['dogs']), 1)
         self.assertEqual(set(data['dogs'][0].keys()), {'id', 'name', 'breed'})
 
+    def test_health_success(self):
+        """Test the health check endpoint returns UP status"""
+        response = self.app.get('/health')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEqual(data, {"status": "UP"})
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -77,7 +77,9 @@ def get_dog(id: int) -> tuple[Response, int] | Response:
     
     return jsonify(dog)
 
-## HERE
+@app.route('/health', methods=['GET'])
+def health() -> Response:
+    return jsonify({"status": "UP"})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5100) # Port 5100 to avoid macOS conflicts
