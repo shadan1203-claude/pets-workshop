@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-27T09:30:39.573Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 15027,
+      "turns": 2,
+      "files": 0,
+      "netLines": 0,
+      "toolCallsTotal": 1,
+      "toolSuccessRate": 0,
+      "totalCostUSD": 0.0690438,
+      "cacheReadCostUSD": 0.031072799999999998,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-27T09:30:18.987Z",
+    "periodEnd": "2026-08-27T09:30:34.014Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "68b20c22-c062-4895-aeca-5a05b8864bd9",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "https://jiraeu.epam.com/browse/EPMCDMETST-62347",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787823018987,
+      "durationMs": 15027,
+      "turns": 2,
+      "fileOps": 0,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 1,
+      "toolCallsSuccess": 0,
+      "toolCallsFailure": 1,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [],
+      "tools": [
+        {
+          "toolName": "WebFetch",
+          "totalCalls": 1,
+          "successCount": 0,
+          "failureCount": 1,
+          "successRate": 0
+        }
+      ],
+      "tokens": {
+        "input": 2848,
+        "output": 547,
+        "cacheRead": 103576,
+        "cacheCreation": 3537,
+        "cacheCreation1h": 3537,
+        "total": 110508
+      },
+      "costUSD": 0.0690438,
+      "cacheReadCostUSD": 0.031072799999999998,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 2848,
+            "output": 547,
+            "cacheRead": 103576,
+            "cacheCreation": 3537,
+            "cacheCreation1h": 3537,
+            "total": 110508
+          },
+          "costUSD": 0.0690438,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787823030739,
+          "cost": 0.0320844,
+          "tokens": 55190
+        },
+        {
+          "t": 1787823034014,
+          "cost": 0.0690438,
+          "tokens": 110508
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

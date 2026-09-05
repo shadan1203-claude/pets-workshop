@@ -1,0 +1,378 @@
+{
+  "meta": {
+    "generatedAt": "2026-09-01T11:00:33.809Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 1659787,
+      "turns": 61,
+      "files": 37,
+      "netLines": 0,
+      "toolCallsTotal": 105,
+      "toolSuccessRate": 99,
+      "totalCostUSD": 4.0620609,
+      "cacheReadCostUSD": 1.5696249,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-09-01T10:31:29.294Z",
+    "periodEnd": "2026-09-01T10:59:09.081Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "caf9dff8-5378-4fb5-9281-e2f317ad65e0",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "We are getting this error in the CodeMie Developer Assistant: GraphRecursionError: Recursion limit of 150 reached without hitting a stop condition. You can increase the limit by setting the recursion_limit config key. Investigate the local CodeMie/Claude Code installation and determine exactly where the Developer Assistant's LangGraph graph is created and invoked. Do NOT modify anything yet. Find: 1. Where the Developer Assistant graph is created. 2. Where graph.invoke(), graph.ainvoke(), stream(), or a similar LangGraph execution method is called. 3. Where the recursion limit of 150 is coming from. 4. Whether CodeMie provides a configuration file or environment variable for this. 5. The exact file and line where recursion_limit can safely be changed. Search both the current project and the installed CodeMie/Claude Code packages. Do not modify files until you have identified the correct location.",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1788258689294,
+      "durationMs": 1659787,
+      "turns": 61,
+      "fileOps": 37,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 105,
+      "toolCallsSuccess": 104,
+      "toolCallsFailure": 1,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "python",
+        "json",
+        "markdown",
+        "javascript"
+      ],
+      "tools": [
+        {
+          "toolName": "Grep",
+          "totalCalls": 46,
+          "successCount": 46,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 33,
+          "successCount": 32,
+          "failureCount": 1,
+          "successRate": 96.96969696969697
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 17,
+          "successCount": 17,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Glob",
+          "totalCalls": 8,
+          "successCount": 8,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 23074,
+        "output": 59856,
+        "cacheRead": 5232083,
+        "cacheCreation": 254229,
+        "cacheCreation1h": 254229,
+        "total": 5569242
+      },
+      "costUSD": 4.0620609,
+      "cacheReadCostUSD": 1.5696249,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 23074,
+            "output": 59856,
+            "cacheRead": 5232083,
+            "cacheCreation": 254229,
+            "cacheCreation1h": 254229,
+            "total": 5569242
+          },
+          "costUSD": 4.0620609,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1788258932522,
+          "cost": 0.106242,
+          "tokens": 62752
+        },
+        {
+          "t": 1788258942861,
+          "cost": 0.3012021,
+          "tokens": 150212
+        },
+        {
+          "t": 1788258954274,
+          "cost": 0.366144,
+          "tokens": 181063
+        },
+        {
+          "t": 1788258980717,
+          "cost": 0.4759566,
+          "tokens": 260584
+        },
+        {
+          "t": 1788258994221,
+          "cost": 0.5092962,
+          "tokens": 303795
+        },
+        {
+          "t": 1788259028202,
+          "cost": 0.5586132,
+          "tokens": 392166
+        },
+        {
+          "t": 1788259040529,
+          "cost": 0.5820363,
+          "tokens": 437192
+        },
+        {
+          "t": 1788259077927,
+          "cost": 0.6888315,
+          "tokens": 538044
+        },
+        {
+          "t": 1788259089825,
+          "cost": 0.7219218,
+          "tokens": 594204
+        },
+        {
+          "t": 1788259127150,
+          "cost": 0.8471907,
+          "tokens": 720923
+        },
+        {
+          "t": 1788259138702,
+          "cost": 0.8910195,
+          "tokens": 790048
+        },
+        {
+          "t": 1788259171174,
+          "cost": 0.9870015,
+          "tokens": 934445
+        },
+        {
+          "t": 1788259184735,
+          "cost": 1.0610652,
+          "tokens": 1015633
+        },
+        {
+          "t": 1788259207135,
+          "cost": 1.1320131,
+          "tokens": 1179889
+        },
+        {
+          "t": 1788259244973,
+          "cost": 1.2715968,
+          "tokens": 1368158
+        },
+        {
+          "t": 1788259295802,
+          "cost": 1.4140956,
+          "tokens": 1474787
+        },
+        {
+          "t": 1788259409185,
+          "cost": 1.5007008,
+          "tokens": 1611800
+        },
+        {
+          "t": 1788259433850,
+          "cost": 1.5269034,
+          "tokens": 1680864
+        },
+        {
+          "t": 1788259454153,
+          "cost": 1.6056903,
+          "tokens": 1824829
+        },
+        {
+          "t": 1788259461436,
+          "cost": 1.6351011,
+          "tokens": 1899308
+        },
+        {
+          "t": 1788259482783,
+          "cost": 1.7255925,
+          "tokens": 2055905
+        },
+        {
+          "t": 1788259498758,
+          "cost": 1.8535578,
+          "tokens": 2150112
+        },
+        {
+          "t": 1788259519029,
+          "cost": 1.9503633,
+          "tokens": 2342498
+        },
+        {
+          "t": 1788259550705,
+          "cost": 2.0212404,
+          "tokens": 2442633
+        },
+        {
+          "t": 1788259587047,
+          "cost": 2.1194703,
+          "tokens": 2646484
+        },
+        {
+          "t": 1788259600760,
+          "cost": 2.1716502,
+          "tokens": 2750055
+        },
+        {
+          "t": 1788259629171,
+          "cost": 2.2725657,
+          "tokens": 2960842
+        },
+        {
+          "t": 1788259662278,
+          "cost": 2.4219738,
+          "tokens": 3184773
+        },
+        {
+          "t": 1788259673599,
+          "cost": 2.4944805,
+          "tokens": 3302163
+        },
+        {
+          "t": 1788259752434,
+          "cost": 2.6253381,
+          "tokens": 3543532
+        },
+        {
+          "t": 1788259772588,
+          "cost": 2.6948445,
+          "tokens": 3667153
+        },
+        {
+          "t": 1788259803619,
+          "cost": 2.8532352,
+          "tokens": 3929138
+        },
+        {
+          "t": 1788259831224,
+          "cost": 2.9225139,
+          "tokens": 4062761
+        },
+        {
+          "t": 1788259937300,
+          "cost": 3.0752844,
+          "tokens": 4336850
+        },
+        {
+          "t": 1788259970525,
+          "cost": 3.157023,
+          "tokens": 4477020
+        },
+        {
+          "t": 1788260049679,
+          "cost": 3.2960361,
+          "tokens": 4763290
+        },
+        {
+          "t": 1788260083934,
+          "cost": 3.3505311,
+          "tokens": 4909158
+        },
+        {
+          "t": 1788260105611,
+          "cost": 3.4614063,
+          "tokens": 5202890
+        },
+        {
+          "t": 1788260312250,
+          "cost": 3.8402469,
+          "tokens": 5323393
+        },
+        {
+          "t": 1788260366060,
+          "cost": 4.0620609,
+          "tokens": 5569242
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "Explore",
+          "start": 1788258932522,
+          "durationMs": 51,
+          "costUSD": 1.2568575,
+          "tokens": {
+            "input": 3828,
+            "output": 17647,
+            "cacheRead": 1225095,
+            "cacheCreation": 102190,
+            "cacheCreation1h": 102190,
+            "total": 1348760
+          },
+          "tools": [
+            {
+              "name": "Grep",
+              "calls": 15
+            },
+            {
+              "name": "Bash",
+              "calls": 12
+            },
+            {
+              "name": "Glob",
+              "calls": 12
+            },
+            {
+              "name": "Read",
+              "calls": 7
+            }
+          ]
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "Explore",
+          "totalCalls": 9,
+          "successCount": 9,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T06:09:37.420Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 31858,
+      "turns": 3,
+      "files": 1,
+      "netLines": 0,
+      "toolCallsTotal": 3,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.155868,
+      "cacheReadCostUSD": 0.050295,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T06:08:40.385Z",
+    "periodEnd": "2026-08-28T06:09:12.243Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "954833bc-ca74-4728-8e52-998e5be3c1ec",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Explain the current directory and list the files in this project.",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787897320385,
+      "durationMs": 31858,
+      "turns": 3,
+      "fileOps": 1,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 3,
+      "toolCallsSuccess": 3,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "markdown"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 3220,
+        "output": 731,
+        "cacheRead": 167650,
+        "cacheCreation": 14158,
+        "cacheCreation1h": 14158,
+        "total": 185759
+      },
+      "costUSD": 0.155868,
+      "cacheReadCostUSD": 0.050295,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 3220,
+            "output": 731,
+            "cacheRead": 167650,
+            "cacheCreation": 14158,
+            "cacheCreation1h": 14158,
+            "total": 185759
+          },
+          "costUSD": 0.155868,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787897336127,
+          "cost": 0.080472,
+          "tokens": 60839
+        },
+        {
+          "t": 1787897344415,
+          "cost": 0.1256856,
+          "tokens": 122756
+        },
+        {
+          "t": 1787897352243,
+          "cost": 0.155868,
+          "tokens": 185759
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

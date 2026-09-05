@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-17T12:37:55.594Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 51682,
+      "turns": 1,
+      "files": 0,
+      "netLines": 0,
+      "toolCallsTotal": 0,
+      "toolSuccessRate": 0,
+      "totalCostUSD": 0,
+      "cacheReadCostUSD": 0,
+      "pricedSessions": 0
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 0,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-17T12:36:28.528Z",
+    "periodEnd": "2026-08-17T12:37:20.210Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "19ca1868-d65d-47f7-a162-d67b324e63e8",
+      "agentName": "claude",
+      "provider": "anthropic-subscription",
+      "title": "@developer-assistant",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "main",
+      "startTime": 1786970188528,
+      "durationMs": 51682,
+      "turns": 1,
+      "fileOps": 0,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 0,
+      "toolCallsSuccess": 0,
+      "toolCallsFailure": 0,
+      "models": [
+        "<synthetic>"
+      ],
+      "languages": [],
+      "tools": [],
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "costUSD": 0,
+      "cacheReadCostUSD": 0,
+      "perModelCost": [],
+      "hadLog": true,
+      "dispatches": [
+        {
+          "kind": "command",
+          "name": "login",
+          "start": 1786970267357,
+          "durationMs": 0
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [
+        {
+          "name": "login",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0
+        }
+      ],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

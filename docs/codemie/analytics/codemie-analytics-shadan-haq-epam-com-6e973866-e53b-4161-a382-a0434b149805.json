@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-27T09:28:41.836Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 40069,
+      "turns": 6,
+      "files": 1,
+      "netLines": 0,
+      "toolCallsTotal": 7,
+      "toolSuccessRate": 85.7,
+      "totalCostUSD": 0.4670733,
+      "cacheReadCostUSD": 0.0834843,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-27T09:27:53.319Z",
+    "periodEnd": "2026-08-27T09:28:33.388Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "6e973866-e53b-4161-a382-a0434b149805",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Implement the pending Jira tasks",
+      "project": "C:\\Windows\\System32\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787822873319,
+      "durationMs": 40069,
+      "turns": 6,
+      "fileOps": 1,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 7,
+      "toolCallsSuccess": 6,
+      "toolCallsFailure": 1,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "json"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 6,
+          "successCount": 5,
+          "failureCount": 1,
+          "successRate": 83.33333333333334
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 2856,
+        "output": 1921,
+        "cacheRead": 278281,
+        "cacheCreation": 57701,
+        "cacheCreation1h": 57701,
+        "total": 340759
+      },
+      "costUSD": 0.4670733,
+      "cacheReadCostUSD": 0.0834843,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 2856,
+            "output": 1921,
+            "cacheRead": 278281,
+            "cacheCreation": 57701,
+            "cacheCreation1h": 57701,
+            "total": 340759
+          },
+          "costUSD": 0.4670733,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787822881776,
+          "cost": 0.325341,
+          "tokens": 55090
+        },
+        {
+          "t": 1787822889057,
+          "cost": 0.3679779,
+          "tokens": 111148
+        },
+        {
+          "t": 1787822898953,
+          "cost": 0.396339,
+          "tokens": 168072
+        },
+        {
+          "t": 1787822903544,
+          "cost": 0.4195728,
+          "tokens": 225200
+        },
+        {
+          "t": 1787822909719,
+          "cost": 0.4431459,
+          "tokens": 282776
+        },
+        {
+          "t": 1787822915784,
+          "cost": 0.4670733,
+          "tokens": 340759
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

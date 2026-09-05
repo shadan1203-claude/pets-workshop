@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-28T06:32:10.836Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 73564,
+      "turns": 10,
+      "files": 8,
+      "netLines": 0,
+      "toolCallsTotal": 22,
+      "toolSuccessRate": 86.4,
+      "totalCostUSD": 0.7140195,
+      "cacheReadCostUSD": 0.0820665,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-08-28T06:30:50.569Z",
+    "periodEnd": "2026-08-28T06:32:04.133Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "bd53e205-2197-4e58-92e5-109b43143c94",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Analyze this repository and identify the frontend, backend, database and test framework. Do not modify any files.",
+      "project": "C:\\Users\\ShadanHaq\\projects\\pets-workshop",
+      "branch": "feature/EPMCDMETST-60367-available-only-filter",
+      "startTime": 1787898650569,
+      "durationMs": 73564,
+      "turns": 10,
+      "fileOps": 8,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 22,
+      "toolCallsSuccess": 19,
+      "toolCallsFailure": 3,
+      "models": [
+        "claude-sonnet-5"
+      ],
+      "languages": [
+        "json",
+        "markdown",
+        "python",
+        "typescript"
+      ],
+      "tools": [
+        {
+          "toolName": "Glob",
+          "totalCalls": 7,
+          "successCount": 7,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 7,
+          "successCount": 7,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 4,
+          "successCount": 2,
+          "failureCount": 2,
+          "successRate": 50
+        },
+        {
+          "toolName": "Grep",
+          "totalCalls": 3,
+          "successCount": 2,
+          "failureCount": 1,
+          "successRate": 66.66666666666666
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 7219,
+        "output": 4694,
+        "cacheRead": 273555,
+        "cacheCreation": 89981,
+        "cacheCreation1h": 89981,
+        "total": 375449
+      },
+      "costUSD": 0.7140195,
+      "cacheReadCostUSD": 0.0820665,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5",
+          "tokens": {
+            "input": 7219,
+            "output": 4694,
+            "cacheRead": 273555,
+            "cacheCreation": 89981,
+            "cacheCreation1h": 89981,
+            "total": 375449
+          },
+          "costUSD": 0.7140195,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "costSeries": [
+        {
+          "t": 1787898662768,
+          "cost": 0.329265,
+          "tokens": 55381
+        },
+        {
+          "t": 1787898667910,
+          "cost": 0.3685116,
+          "tokens": 111198
+        },
+        {
+          "t": 1787898668037,
+          "cost": 0.5030196,
+          "tokens": 134269
+        },
+        {
+          "t": 1787898675264,
+          "cost": 0.5421537,
+          "tokens": 160882
+        },
+        {
+          "t": 1787898683399,
+          "cost": 0.5850339,
+          "tokens": 189900
+        },
+        {
+          "t": 1787898691259,
+          "cost": 0.6103149,
+          "tokens": 220430
+        },
+        {
+          "t": 1787898698887,
+          "cost": 0.6306444,
+          "tokens": 251626
+        },
+        {
+          "t": 1787898702244,
+          "cost": 0.6498288,
+          "tokens": 283799
+        },
+        {
+          "t": 1787898714389,
+          "cost": 0.6792702,
+          "tokens": 317464
+        },
+        {
+          "t": 1787898724133,
+          "cost": 0.7140195,
+          "tokens": 375449
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "Explore",
+          "start": 1787898662768,
+          "durationMs": 6,
+          "costUSD": 0.3107586,
+          "tokens": {
+            "input": 4369,
+            "output": 3514,
+            "cacheRead": 165852,
+            "cacheCreation": 32531,
+            "cacheCreation1h": 32531,
+            "total": 206266
+          },
+          "tools": [
+            {
+              "name": "Glob",
+              "calls": 7
+            },
+            {
+              "name": "Read",
+              "calls": 7
+            },
+            {
+              "name": "Bash",
+              "calls": 4
+            },
+            {
+              "name": "Grep",
+              "calls": 3
+            }
+          ]
+        }
+      ],
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "Explore",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

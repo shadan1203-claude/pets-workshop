@@ -7,13 +7,14 @@ interface Dog {
 
 interface Props {
   dogs: Dog[];
+  total?: number;
 }
 
-const { dogs } = Astro.props;
+const { dogs, total } = Astro.props;
 ---
 
 <div>
-  <h2 class="text-2xl font-medium mb-6 text-slate-100">Available Dogs</h2>
+  <h2 class="text-2xl font-medium mb-6 text-slate-100">Available Dogs{typeof total === 'number' ? ` (${total})` : ''}</h2>
 
   {dogs.length === 0 ? (
     <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="empty-state">
