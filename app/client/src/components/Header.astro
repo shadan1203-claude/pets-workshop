@@ -1,10 +1,39 @@
+---
+const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
+
+let notificationCount = 0;
+
+try {
+  const response = await fetch(`${API_SERVER_URL}/api/reminders/summary`);
+  if (response.ok) {
+    const summary = await response.json();
+    notificationCount = (summary.overdue || 0) + (summary.due_soon || 0);
+  }
+} catch {
+  // Header must render even if the reminders API is unreachable.
+}
+---
+
 <header class="bg-blue-700 text-white p-4 shadow-md">
   <div class="container mx-auto flex justify-between items-center px-4">
     <h1 class="text-xl font-bold"><a href="/" class="hover:underline">Tailspin Shelter</a></h1>
     <nav>
-      <ul class="flex gap-4">
+      <ul class="flex gap-4 items-center">
         <li><a href="/" class="hover:underline">Home</a></li>
         <li><a href="/about" class="hover:underline">About</a></li>
+        <li>
+          <a href="/reminders" class="hover:underline inline-flex items-center gap-1.5">
+            Reminders
+            {notificationCount > 0 && (
+              <span
+                class="bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[1.25rem] text-center"
+                data-testid="reminder-notification-badge"
+              >
+                {notificationCount}
+              </span>
+            )}
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

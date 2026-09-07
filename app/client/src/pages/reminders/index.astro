@@ -1,0 +1,158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ReminderList from '../../components/ReminderList.astro';
+
+const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
+const PAGE_SIZE = 10;
+const TABS = ['upcoming', 'overdue', 'completed'] as const;
+
+let actionError: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const intent = String(formData.get('intent') || '');
+  const id = String(formData.get('id') || '');
+  const redirectStatus = String(formData.get('status') || 'upcoming');
+  const redirectPage = String(formData.get('page') || '1');
+  const redirectUrl = `/reminders?status=${redirectStatus}&page=${redirectPage}`;
+
+  try {
+    if (intent === 'complete') {
+      const response = await fetch(`${API_SERVER_URL}/api/reminders/${id}/complete`, { method: 'POST' });
+      if (response.ok || response.status === 409) {
+        return Astro.redirect(redirectUrl);
+      }
+      actionError = 'Unable to complete reminder.';
+    } else if (intent === 'delete') {
+      const response = await fetch(`${API_SERVER_URL}/api/reminders/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        return Astro.redirect(redirectUrl);
+      }
+      actionError = 'Unable to delete reminder.';
+    }
+  } catch (err) {
+    actionError = `Error: ${err instanceof Error ? err.message : String(err)}`;
+  }
+}
+
+const status = TABS.includes(Astro.url.searchParams.get('status') as any)
+  ? (Astro.url.searchParams.get('status') as string)
+  : 'upcoming';
+const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+
+let reminders = [];
+let page = 1;
+let totalPages = 1;
+let fetchError: string | null = null;
+let summary = { overdue: 0, due_soon: 0 };
+
+try {
+  const response = await fetch(
+    `${API_SERVER_URL}/api/reminders?status=${status}&page=${currentPage}&per_page=${PAGE_SIZE}`
+  );
+  if (response.ok) {
+    const data = await response.json();
+    reminders = data.reminders;
+    page = data.page;
+    totalPages = data.total_pages;
+  } else {
+    fetchError = `Failed to fetch reminders: ${response.status} ${response.statusText}`;
+  }
+
+  const summaryResponse = await fetch(`${API_SERVER_URL}/api/reminders/summary`);
+  if (summaryResponse.ok) {
+    summary = await summaryResponse.json();
+  }
+} catch (err) {
+  fetchError = `Error: ${err instanceof Error ? err.message : String(err)}`;
+}
+---
+
+<Layout title="Reminders - Tailspin Shelter">
+  <div class="py-8">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-4xl font-bold mb-2 text-slate-100">Reminders</h1>
+        <p class="text-slate-300" data-testid="notification-summary">
+          <span data-testid="overdue-count">{summary.overdue}</span> overdue ·{' '}
+          <span data-testid="due-soon-count">{summary.due_soon}</span> due soon
+        </p>
+      </div>
+      <a
+        href="/reminders/new"
+        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300"
+        data-testid="create-link"
+      >
+        + New Reminder
+      </a>
+    </div>
+
+    <nav class="flex gap-2 mb-6" data-testid="reminder-tabs">
+      {TABS.map((tab) => (
+        <a
+          href={`/reminders?status=${tab}`}
+          class={`px-4 py-2 rounded-lg border transition-colors capitalize ${
+            status === tab
+              ? 'bg-blue-600 border-blue-600 text-white'
+              : 'bg-slate-800 border-slate-700 text-slate-300 hover:border-blue-500/50'
+          }`}
+          data-testid={`tab-${tab}`}
+        >
+          {tab}
+        </a>
+      ))}
+    </nav>
+
+    {actionError && (
+      <div class="mb-6 bg-red-500/20 border border-red-500/50 text-red-400 rounded-xl p-4" data-testid="action-error">
+        {actionError}
+      </div>
+    )}
+
+    {fetchError ? (
+      <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="error-message">
+        <p class="text-red-400">{fetchError}</p>
+      </div>
+    ) : (
+      <>
+        <ReminderList reminders={reminders} status={status} page={page} />
+
+        {totalPages > 1 && (
+          <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
+            {page > 1 ? (
+              <a
+                href={`/reminders?status=${status}&page=${page - 1}`}
+                class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
+                data-testid="pagination-prev"
+              >
+                ← Previous
+              </a>
+            ) : (
+              <span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">
+                ← Previous
+              </span>
+            )}
+
+            <span class="px-4 py-2 text-slate-300" data-testid="pagination-info">
+              Page {page} of {totalPages}
+            </span>
+
+            {page < totalPages ? (
+              <a
+                href={`/reminders?status=${status}&page=${page + 1}`}
+                class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
+                data-testid="pagination-next"
+              >
+                Next →
+              </a>
+            ) : (
+              <span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">
+                Next →
+              </span>
+            )}
+          </nav>
+        )}
+      </>
+    )}
+  </div>
+</Layout>

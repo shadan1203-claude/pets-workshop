@@ -1,0 +1,210 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
+const REMINDER_TYPES = ['vaccination', 'medication', 'grooming', 'appointment', 'other'];
+const RECURRENCE_FREQUENCIES = ['daily', 'weekly', 'monthly'];
+
+const { id } = Astro.params;
+
+function toDatetimeLocalValue(iso: string): string {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+let notFound = false;
+let generalError: string | null = null;
+let fieldErrors: Record<string, string> = {};
+let reminder: any = null;
+let formValues = { type: '', due_at: '', description: '', recurrence_freq: '', recurrence_interval: '1' };
+
+function reminderToFormValues(data: any) {
+  return {
+    type: data.type ?? '',
+    due_at: data.due_at ? toDatetimeLocalValue(data.due_at) : '',
+    description: data.description ?? '',
+    recurrence_freq: data.recurrence_rule?.freq ?? '',
+    recurrence_interval: String(data.recurrence_rule?.interval ?? '1'),
+  };
+}
+
+async function loadReminder() {
+  const response = await fetch(`${API_SERVER_URL}/api/reminders/${id}`);
+  if (response.status === 404) {
+    notFound = true;
+    return null;
+  }
+  if (!response.ok) {
+    generalError = `Failed to fetch reminder: ${response.status} ${response.statusText}`;
+    return null;
+  }
+  return response.json();
+}
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const intent = String(formData.get('intent') || 'update');
+
+  if (intent === 'delete') {
+    await fetch(`${API_SERVER_URL}/api/reminders/${id}`, { method: 'DELETE' });
+    return Astro.redirect('/reminders');
+  }
+
+  if (intent === 'complete') {
+    const response = await fetch(`${API_SERVER_URL}/api/reminders/${id}/complete`, { method: 'POST' });
+    if (response.ok || response.status === 409) {
+      return Astro.redirect('/reminders');
+    }
+    generalError = 'Unable to complete reminder.';
+    reminder = await loadReminder();
+    if (reminder) formValues = reminderToFormValues(reminder);
+  } else {
+    const submitted = {
+      type: String(formData.get('type') || ''),
+      due_at: String(formData.get('due_at') || ''),
+      description: String(formData.get('description') || ''),
+      recurrence_freq: String(formData.get('recurrence_freq') || ''),
+      recurrence_interval: String(formData.get('recurrence_interval') || '1'),
+    };
+    formValues = submitted;
+
+    const payload: Record<string, unknown> = {
+      type: submitted.type,
+      due_at: submitted.due_at ? new Date(submitted.due_at).toISOString() : submitted.due_at,
+      description: submitted.description || null,
+      recurrence_rule: submitted.recurrence_freq
+        ? { freq: submitted.recurrence_freq, interval: parseInt(submitted.recurrence_interval, 10) || 1 }
+        : null,
+    };
+
+    const response = await fetch(`${API_SERVER_URL}/api/reminders/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      return Astro.redirect('/reminders');
+    }
+
+    if (response.status === 404) {
+      notFound = true;
+    } else {
+      const data = await response.json();
+      fieldErrors = data.errors || {};
+      generalError = 'Please fix the errors below.';
+    }
+  }
+} else {
+  reminder = await loadReminder();
+  if (reminder) formValues = reminderToFormValues(reminder);
+}
+---
+
+<Layout title="Edit Reminder - Tailspin Shelter">
+  <div class="py-8 max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-slate-100">Edit Reminder</h1>
+
+    {notFound ? (
+      <div class="bg-red-500/20 border border-red-500/50 text-red-400 rounded-xl p-6" data-testid="error-message">
+        Reminder not found
+      </div>
+    ) : (
+      <>
+        {generalError && (
+          <div class="mb-6 bg-red-500/20 border border-red-500/50 text-red-400 rounded-xl p-4" data-testid="form-error">
+            {generalError}
+          </div>
+        )}
+
+        <form method="POST" class="bg-slate-800/60 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 space-y-5" data-testid="reminder-form">
+          <input type="hidden" name="intent" value="update" />
+
+          <div>
+            <label class="block text-slate-300 mb-1" for="type">Type</label>
+            <select id="type" name="type" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2" data-testid="type-input">
+              {REMINDER_TYPES.map((option) => (
+                <option value={option} selected={formValues.type === option}>{option}</option>
+              ))}
+            </select>
+            {fieldErrors.type && <p class="text-red-400 text-sm mt-1" data-testid="field-error-type">{fieldErrors.type}</p>}
+          </div>
+
+          <div>
+            <label class="block text-slate-300 mb-1" for="due_at">Due date &amp; time</label>
+            <input
+              type="datetime-local"
+              id="due_at"
+              name="due_at"
+              value={formValues.due_at}
+              class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2"
+              data-testid="due-at-input"
+            />
+            {fieldErrors.due_at && <p class="text-red-400 text-sm mt-1" data-testid="field-error-due_at">{fieldErrors.due_at}</p>}
+          </div>
+
+          <div>
+            <label class="block text-slate-300 mb-1" for="description">Description (optional)</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2"
+              data-testid="description-input"
+            >{formValues.description}</textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-300 mb-1" for="recurrence_freq">Repeats</label>
+              <select id="recurrence_freq" name="recurrence_freq" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2" data-testid="recurrence-freq-input">
+                <option value="" selected={!formValues.recurrence_freq}>Does not repeat</option>
+                {RECURRENCE_FREQUENCIES.map((option) => (
+                  <option value={option} selected={formValues.recurrence_freq === option}>{option}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1" for="recurrence_interval">Interval</label>
+              <input
+                type="number"
+                id="recurrence_interval"
+                name="recurrence_interval"
+                min="1"
+                value={formValues.recurrence_interval}
+                class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2"
+                data-testid="recurrence-interval-input"
+              />
+            </div>
+          </div>
+          {fieldErrors.recurrence_rule && <p class="text-red-400 text-sm" data-testid="field-error-recurrence_rule">{fieldErrors.recurrence_rule}</p>}
+
+          <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300" data-testid="submit-button">
+              Save Changes
+            </button>
+            <a href="/reminders" class="px-4 py-2 text-slate-300 hover:text-blue-400 transition-colors" data-testid="cancel-link">Cancel</a>
+          </div>
+        </form>
+
+        <div class="flex items-center gap-3 mt-4">
+          {reminder?.status !== 'completed' && (
+            <form method="POST">
+              <input type="hidden" name="intent" value="complete" />
+              <button type="submit" class="px-4 py-2 bg-green-600/80 hover:bg-green-600 text-white rounded-lg transition-colors" data-testid="complete-button">
+                Mark Complete
+              </button>
+            </form>
+          )}
+          <form method="POST">
+            <input type="hidden" name="intent" value="delete" />
+            <button type="submit" class="px-4 py-2 bg-red-600/80 hover:bg-red-600 text-white rounded-lg transition-colors" data-testid="delete-button">
+              Delete
+            </button>
+          </form>
+        </div>
+      </>
+    )}
+  </div>
+</Layout>

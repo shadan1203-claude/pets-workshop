@@ -1,0 +1,141 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
+const REMINDER_TYPES = ['vaccination', 'medication', 'grooming', 'appointment', 'other'];
+const RECURRENCE_FREQUENCIES = ['', 'daily', 'weekly', 'monthly'];
+
+let generalError: string | null = null;
+let fieldErrors: Record<string, string> = {};
+let formValues = {
+  type: '',
+  due_at: '',
+  description: '',
+  recurrence_freq: '',
+  recurrence_interval: '1',
+};
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const type = String(formData.get('type') || '');
+  const due_at = String(formData.get('due_at') || '');
+  const description = String(formData.get('description') || '');
+  const recurrence_freq = String(formData.get('recurrence_freq') || '');
+  const recurrence_interval = String(formData.get('recurrence_interval') || '1');
+
+  formValues = { type, due_at, description, recurrence_freq, recurrence_interval };
+
+  const payload: Record<string, unknown> = {
+    type,
+    due_at: due_at ? new Date(due_at).toISOString() : due_at,
+    description: description || null,
+  };
+
+  if (recurrence_freq) {
+    payload.recurrence_rule = {
+      freq: recurrence_freq,
+      interval: parseInt(recurrence_interval, 10) || 1,
+    };
+  }
+
+  try {
+    const response = await fetch(`${API_SERVER_URL}/api/reminders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      return Astro.redirect('/reminders');
+    }
+
+    const data = await response.json();
+    fieldErrors = data.errors || {};
+    generalError = 'Please fix the errors below.';
+  } catch (err) {
+    generalError = `Error: ${err instanceof Error ? err.message : String(err)}`;
+  }
+}
+---
+
+<Layout title="New Reminder - Tailspin Shelter">
+  <div class="py-8 max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-slate-100">New Reminder</h1>
+
+    {generalError && (
+      <div class="mb-6 bg-red-500/20 border border-red-500/50 text-red-400 rounded-xl p-4" data-testid="form-error">
+        {generalError}
+      </div>
+    )}
+
+    <form method="POST" class="bg-slate-800/60 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 space-y-5" data-testid="reminder-form">
+      <div>
+        <label class="block text-slate-300 mb-1" for="type">Type</label>
+        <select id="type" name="type" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2" data-testid="type-input">
+          <option value="" disabled selected={!formValues.type}>Select a type</option>
+          {REMINDER_TYPES.map((option) => (
+            <option value={option} selected={formValues.type === option}>{option}</option>
+          ))}
+        </select>
+        {fieldErrors.type && <p class="text-red-400 text-sm mt-1" data-testid="field-error-type">{fieldErrors.type}</p>}
+      </div>
+
+      <div>
+        <label class="block text-slate-300 mb-1" for="due_at">Due date &amp; time</label>
+        <input
+          type="datetime-local"
+          id="due_at"
+          name="due_at"
+          value={formValues.due_at}
+          class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2"
+          data-testid="due-at-input"
+        />
+        {fieldErrors.due_at && <p class="text-red-400 text-sm mt-1" data-testid="field-error-due_at">{fieldErrors.due_at}</p>}
+      </div>
+
+      <div>
+        <label class="block text-slate-300 mb-1" for="description">Description (optional)</label>
+        <textarea
+          id="description"
+          name="description"
+          rows="3"
+          class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2"
+          data-testid="description-input"
+        >{formValues.description}</textarea>
+        {fieldErrors.description && <p class="text-red-400 text-sm mt-1" data-testid="field-error-description">{fieldErrors.description}</p>}
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-slate-300 mb-1" for="recurrence_freq">Repeats</label>
+          <select id="recurrence_freq" name="recurrence_freq" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2" data-testid="recurrence-freq-input">
+            <option value="" selected={!formValues.recurrence_freq}>Does not repeat</option>
+            {RECURRENCE_FREQUENCIES.filter(Boolean).map((option) => (
+              <option value={option} selected={formValues.recurrence_freq === option}>{option}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1" for="recurrence_interval">Interval</label>
+          <input
+            type="number"
+            id="recurrence_interval"
+            name="recurrence_interval"
+            min="1"
+            value={formValues.recurrence_interval}
+            class="w-full rounded-lg bg-slate-900 border border-slate-700 text-slate-100 px-3 py-2"
+            data-testid="recurrence-interval-input"
+          />
+        </div>
+      </div>
+      {fieldErrors.recurrence_rule && <p class="text-red-400 text-sm" data-testid="field-error-recurrence_rule">{fieldErrors.recurrence_rule}</p>}
+
+      <div class="flex items-center gap-3 pt-2">
+        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300" data-testid="submit-button">
+          Create Reminder
+        </button>
+        <a href="/reminders" class="px-4 py-2 text-slate-300 hover:text-blue-400 transition-colors" data-testid="cancel-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</Layout>

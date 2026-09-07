@@ -1,0 +1,126 @@
+---
+interface RecurrenceRule {
+  freq: 'daily' | 'weekly' | 'monthly';
+  interval: number;
+}
+
+interface Reminder {
+  id: number;
+  type: string;
+  due_at: string;
+  description: string | null;
+  recurrence_rule: RecurrenceRule | null;
+  is_recurring: boolean;
+  status: 'upcoming' | 'overdue' | 'completed';
+  completed_at: string | null;
+}
+
+interface Props {
+  reminders: Reminder[];
+  status: string;
+  page: number;
+}
+
+const { reminders, status, page } = Astro.props;
+
+const STATUS_LABELS: Record<string, string> = {
+  upcoming: 'Upcoming',
+  overdue: 'Overdue',
+  completed: 'Completed',
+};
+
+const STATUS_STYLES: Record<string, string> = {
+  upcoming: 'bg-blue-500/20 text-blue-400',
+  overdue: 'bg-red-500/20 text-red-400',
+  completed: 'bg-green-500/20 text-green-400',
+};
+
+function formatDueAt(value: string): string {
+  return new Date(value).toLocaleString(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
+}
+
+function recurrenceLabel(rule: RecurrenceRule | null): string {
+  if (!rule) return '';
+  const unit = rule.freq === 'daily' ? 'day' : rule.freq === 'weekly' ? 'week' : 'month';
+  return rule.interval === 1 ? `Every ${unit}` : `Every ${rule.interval} ${unit}s`;
+}
+---
+
+<div>
+  {reminders.length === 0 ? (
+    <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="empty-state">
+      <p class="text-slate-300">No {status} reminders.</p>
+    </div>
+  ) : (
+    <div class="flex flex-col gap-4" data-testid="reminder-list">
+      {reminders.map((reminder) => (
+        <div class="bg-slate-800/60 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6" data-testid="reminder-row" data-reminder-id={reminder.id}>
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="text-lg font-semibold text-slate-100 capitalize" data-testid="reminder-type">{reminder.type}</h3>
+                <span class={`text-xs px-3 py-1 rounded-full ${STATUS_STYLES[reminder.status]}`} data-testid="reminder-status">
+                  {STATUS_LABELS[reminder.status]}
+                </span>
+                {reminder.is_recurring && (
+                  <span class="text-xs px-3 py-1 rounded-full bg-purple-500/20 text-purple-300" data-testid="reminder-recurrence-indicator">
+                    ↻ {recurrenceLabel(reminder.recurrence_rule)}
+                  </span>
+                )}
+              </div>
+              <p class="text-slate-400 text-sm" data-testid="reminder-due-at" data-due-at={reminder.due_at}>
+                Due {formatDueAt(reminder.due_at)}
+              </p>
+              {reminder.description && (
+                <p class="text-slate-500 text-sm mt-1" data-testid="reminder-description">{reminder.description}</p>
+              )}
+            </div>
+
+            <div class="flex items-center gap-2">
+              <a
+                href={`/reminders/${reminder.id}/edit`}
+                class="px-3 py-1.5 text-sm rounded-lg bg-slate-700 text-slate-200 hover:bg-slate-600 transition-colors"
+                data-testid="edit-link"
+              >
+                Edit
+              </a>
+
+              {reminder.status !== 'completed' && (
+                <form method="POST" action="/reminders">
+                  <input type="hidden" name="intent" value="complete" />
+                  <input type="hidden" name="id" value={reminder.id} />
+                  <input type="hidden" name="status" value={status} />
+                  <input type="hidden" name="page" value={page} />
+                  <button
+                    type="submit"
+                    class="px-3 py-1.5 text-sm rounded-lg bg-green-600/80 text-white hover:bg-green-600 transition-colors"
+                    data-testid="complete-button"
+                  >
+                    Complete
+                  </button>
+                </form>
+              )}
+
+              <form method="POST" action="/reminders">
+                <input type="hidden" name="intent" value="delete" />
+                <input type="hidden" name="id" value={reminder.id} />
+                <input type="hidden" name="status" value={status} />
+                <input type="hidden" name="page" value={page} />
+                <button
+                  type="submit"
+                  class="px-3 py-1.5 text-sm rounded-lg bg-red-600/80 text-white hover:bg-red-600 transition-colors"
+                  data-testid="delete-button"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
