@@ -1,15 +1,15 @@
 ---
 import Header from "../components/Header.astro"
+import { APP_TITLE } from "../config/branding"
 
 interface Props {
+  pageTitle?: string;
   title?: string;
-  titlePrefix?: string;
 }
 
-const BASE_TITLE = "Pets Workshop Demo";
-
-const { title, titlePrefix } = Astro.props;
-const pageTitle = title ?? (titlePrefix ? `${titlePrefix} - ${BASE_TITLE}` : BASE_TITLE);
+const { pageTitle, title } = Astro.props;
+const provided = (pageTitle ?? title ?? "").trim();
+const composedTitle = provided ? `${provided} - ${APP_TITLE}` : APP_TITLE;
 ---
 
 <!doctype html>
@@ -19,7 +19,7 @@ const pageTitle = title ?? (titlePrefix ? `${titlePrefix} - ${BASE_TITLE}` : BAS
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
+        <title>{composedTitle}</title>
     </head>
     <body class="min-h-screen bg-slate-900 text-white m-0 w-full h-full font-sans">
         <Header />
