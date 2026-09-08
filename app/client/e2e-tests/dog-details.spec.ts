@@ -10,7 +10,7 @@ test.describe('Dog Details', () => {
     await firstDogCard.click();
 
     await expect(page).toHaveURL(/\/dog\/\d+/);
-    await expect(page).toHaveTitle(/Dog Details - Tailspin Shelter/);
+    await expect(page).toHaveTitle(/Dog Details - Pets Workshop Demo/);
     await expect(page.getByTestId('dog-details')).toBeVisible();
     await expect(page.getByTestId('dog-name')).toHaveText(dogName!);
   });
@@ -39,7 +39,7 @@ test.describe('Dog Details', () => {
   test('should handle invalid dog ID gracefully', async ({ page }) => {
     await page.goto('/dog/99999');
 
-    await expect(page).toHaveTitle(/Dog Details - Tailspin Shelter/);
+    await expect(page).toHaveTitle(/Dog Details - Pets Workshop Demo/);
     await expect(page.getByTestId('error-message')).toBeVisible();
     await expect(page.getByTestId('back-link')).toBeVisible();
   });

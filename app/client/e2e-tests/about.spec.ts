@@ -5,7 +5,7 @@ test.describe('About Page', () => {
     await page.goto('/about');
     
     // Check that the page title is correct
-    await expect(page).toHaveTitle(/About - Tailspin Shelter/);
+    await expect(page).toHaveTitle(/About - Pets Workshop Demo/);
     
     // Check that the main heading is visible
     await expect(page.getByRole('heading', { name: 'About Tailspin Shelter' })).toBeVisible();
