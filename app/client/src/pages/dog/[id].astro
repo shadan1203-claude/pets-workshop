@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import DogDetails from '../../components/DogDetails.astro';
+import { buildTitle } from '../../constants/site';
 
 const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 
@@ -24,7 +25,7 @@ try {
 }
 ---
 
-<Layout title="Dog Details - Tailspin Shelter">
+<Layout title={buildTitle('Dog Details')}>
   <div class="py-8">
     {error ? (
       <div class="bg-red-500/20 border border-red-500/50 text-red-400 rounded-xl p-6" data-testid="error-message">

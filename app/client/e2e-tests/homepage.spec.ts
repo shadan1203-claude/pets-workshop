@@ -4,7 +4,7 @@ test.describe('Tailspin Shelter Homepage', () => {
   test('should load homepage and display title', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page).toHaveTitle(/Tailspin Shelter - Find Your Forever Friend/);
+    await expect(page).toHaveTitle(/^Pets Workshop Demo$/);
 
     await expect(page.getByRole('heading', { name: 'Welcome to Tailspin Shelter' })).toBeVisible();
 

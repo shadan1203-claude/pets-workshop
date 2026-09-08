@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import DogList from '../components/DogList.astro';
+import { SITE_TITLE } from '../constants/site';
 
 const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 const PAGE_SIZE = 6;
@@ -27,7 +28,7 @@ try {
 }
 ---
 
-<Layout title="Tailspin Shelter - Find Your Forever Friend">
+<Layout title={SITE_TITLE}>
   <div class="py-8">
     <div class="max-w-3xl mb-10">
       <h1 class="text-4xl font-bold mb-4 text-slate-100">Welcome to Tailspin Shelter</h1>
