@@ -49,3 +49,5 @@ app/server/e2e_test_dogshelter.db
 
 # azure
 .azure
+".env" 
+.env
