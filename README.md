@@ -192,3 +192,9 @@ If scripts exist under `app/scripts` for running both services together, prefer 
 - (Optional) `bash app/scripts/start-backend.sh`
 - (Optional) `bash app/scripts/start-frontend.sh`
 - (Optional) `bash app/scripts/dev.sh` (if present)
+
+---
+
+## Documentation release notes
+
+- See [RELEASE_NOTES.md](./RELEASE_NOTES.md)
