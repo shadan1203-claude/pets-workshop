@@ -60,24 +60,32 @@ This project is provided as-is, and may be updated over time. If you have questi
      - `bash app/scripts/init-db.sh`
 
 3. Start the API:
-   - Preferred: `bash app/scripts/start-backend.sh`
-   - Or (fallback): `flask --app app run --reload`
+   - Preferred: `bash app/scripts/start-app.sh` (runs app components together when available)
+   - Or (fallback): `flask --app app/server run --reload --port 5100`
 
 ### Frontend (Astro)
 
 1. Install dependencies:
-   - `cd frontend`
+   - `cd app/client`
    - `npm install`
 
 2. Start the dev server:
-   - Preferred: `bash ../app/scripts/start-frontend.sh`
+   - Preferred: `bash ../scripts/start-app.sh` (runs app components together when available)
    - Or (fallback): `npm run dev`
+
+> Default ports (unless overridden by scripts/config):
+> - Backend API: `http://localhost:5100`
+> - Astro dev server: `http://localhost:4321`
 
 ---
 
 ## Appointment booking (MVP)
 
 The appointment endpoints use simple request headers to model identity and authorization in the MVP.
+
+### Security note
+
+Header-based authentication/authorization is for development/workshop purposes only. It is not a secure production approach and should be replaced with proper authentication (e.g., sessions/JWT/OAuth) before any real deployment.
 
 ### Required headers
 
@@ -90,14 +98,14 @@ Typical roles:
 
 ### Example request
 
-Create an appointment (example shape; see API documentation for the current schema):
+Create an appointment (example shape; see documentation for the current schema and what is implemented in your branch):
 
 - `X-User-Id: 123`
 - `X-Role: user`
 
-Using `curl` (update URL/path to match your local API base):
+Using `curl` (update URL/path to match your local API base and the endpoints available in your branch):
 
-curl -X POST "http://localhost:5000/api/appointments" \
+curl -X POST "http://localhost:5100/api/appointments" \
   -H "Content-Type: application/json" \
   -H "X-User-Id: 123" \
   -H "X-Role: user" \
@@ -109,15 +117,40 @@ curl -X POST "http://localhost:5000/api/appointments" \
 
 ---
 
+## Pet Appointment & Booking System (Documentation)
+
+This repository includes a documentation-driven design for a Pet Appointment & Booking System (MVP). Depending on the workshop branch and progress, some or all of the implementation may not yet be merged—use the Confluence pages below as the source of truth for requirements and intended behavior.
+
+### Feature overview (MVP)
+
+- Customers can request/book appointments for pet services.
+- Admins can review and manage appointments.
+- The MVP uses request headers to emulate identity and roles for workshop scenarios (see the security note above).
+
+### MVP assumptions
+
+- Simplified authorization via `X-User-Id` and `X-Role` headers (workshop-only).
+- The workflow and UI/API behavior should be validated against the Confluence requirements and designs; do not assume an endpoint exists unless it is present in your current branch.
+
+### Confluence documentation links
+
+- Requirement: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12910593/EPMCDMETST-63008+Add+appointment+booking+workflow+customer+admin+for+pet+services
+- Architecture: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12943361/Architecture+EPMCDMETST-63008
+- HLD: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12976129/HLD+EPMCDMETST-63008
+- LLD: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12484610/LLD+EPMCDMETST-63008
+- Wireframes: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12812305/Wireframe+EPMCDMETST-63008
+- Implementation Plan: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12615682/Implementation+Plan+EPMCDMETST-63008
+
+---
+
 ## API overview (documentation)
 
 API behavior, endpoint lists, and payloads are documented in Confluence:
 
-- Dogs API overview: https://confluence.example.com/display/PETS/Dogs+API
-- Appointments API overview: https://confluence.example.com/display/PETS/Appointments+API
-- Auth (MVP headers) and roles: https://confluence.example.com/display/PETS/MVP+Auth+Headers
-
-> Replace `confluence.example.com` with your organization Confluence base URL if different.
+- Requirement (workflow scope and acceptance criteria): https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12910593/EPMCDMETST-63008+Add+appointment+booking+workflow+customer+admin+for+pet+services
+- Architecture: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12943361/Architecture+EPMCDMETST-63008
+- HLD: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12976129/HLD+EPMCDMETST-63008
+- LLD: https://epam-team-qucnxcim.atlassian.net/wiki/spaces/~712020fd7c84af4994406f8a7d7fb120cebee3/pages/12484610/LLD+EPMCDMETST-63008
 
 ---
 
@@ -130,14 +163,14 @@ API behavior, endpoint lists, and payloads are documented in Confluence:
 
 ### Frontend build
 
-From `frontend/`:
-- Preferred: `bash ../app/scripts/build-frontend.sh`
+From `app/client/`:
+- Preferred: `bash ../scripts/build-frontend.sh`
 - Or (fallback): `npm run build`
 
 ### End-to-end tests (Playwright)
 
-From `frontend/` (or wherever Playwright is configured in this repo):
-- Preferred: `bash ../app/scripts/test-e2e.sh`
+From `app/client/` (or wherever Playwright is configured in this repo):
+- Preferred: `bash ../scripts/test-e2e.sh`
 - Or (fallback):
   - `npx playwright install`
   - `npx playwright test`
@@ -150,11 +183,12 @@ This repo is designed for local development and workshop-style CI/CD exercises.
 
 A typical local “deployment” looks like:
 
-1. Start backend API (Flask) on `http://localhost:5000`
+1. Start backend API (Flask) on `http://localhost:5100`
 2. Start frontend (Astro) on `http://localhost:4321` (default Astro port)
 3. Ensure the frontend is configured to call the backend API base URL (environment/config depends on your branch)
 
 If scripts exist under `app/scripts` for running both services together, prefer those for repeatable setup:
-- `bash app/scripts/start-backend.sh`
-- `bash app/scripts/start-frontend.sh`
+- `bash app/scripts/start-app.sh`
+- (Optional) `bash app/scripts/start-backend.sh`
+- (Optional) `bash app/scripts/start-frontend.sh`
 - (Optional) `bash app/scripts/dev.sh` (if present)
