@@ -44,4 +44,41 @@ test.describe('API Integration', () => {
     await expect(page).toHaveURL(/\/dog\/1$/);
     await expect(page.getByTestId('dog-details')).toBeVisible();
   });
+
+  test('should filter dogs by name via the API', async ({ request }) => {
+    const response = await request.get('http://localhost:5100/api/dogs?name=Luna');
+
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.total).toBe(1);
+    expect(data.dogs[0].name).toBe('Luna');
+  });
+
+  test('should filter dogs by category via the API, case-insensitively', async ({ request }) => {
+    const response = await request.get('http://localhost:5100/api/dogs?category=husky');
+
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.total).toBe(3);
+    for (const dog of data.dogs) {
+      expect(dog.breed).toBe('Husky');
+    }
+  });
+
+  test('should combine name and category filters via the API', async ({ request }) => {
+    const response = await request.get('http://localhost:5100/api/dogs?name=Bel&category=Golden%20Retriever');
+
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.total).toBe(1);
+    expect(data.dogs[0].name).toBe('Bella');
+  });
+
+  test('should return an ordered list of breeds via the API', async ({ request }) => {
+    const response = await request.get('http://localhost:5100/api/breeds');
+
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.breeds).toEqual(['German Shepherd', 'Golden Retriever', 'Husky']);
+  });
 });
