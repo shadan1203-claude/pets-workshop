@@ -18,12 +18,14 @@ The Flask backend (`app/server`) exposes the following endpoints:
 
 - `GET /api/dogs` — returns a paginated list of dogs. Supports optional query params:
   - `page` (default `1`), `per_page` (default `6`, max `100`)
-  - `name` — case-insensitive partial match on the dog's name
-  - `category` — case-insensitive exact match on the breed name
+  - `name` — case-insensitive partial match on the dog's name (max 100 characters)
+  - `breed` — case-insensitive exact match on the breed name (max 100 characters); `category` is accepted as an alias
+  - Filters are applied before pagination, so `total` and `total_pages` reflect the filtered results. The response shape is always `{dogs, page, per_page, total, total_pages}`.
+  - Values longer than 100 characters return `400` with `{"error": ...}`. An unknown breed returns `200` with an empty `dogs` list.
 - `GET /api/dogs/<id>` — returns details for a single dog.
-- `GET /api/breeds` — returns the list of breed names (used to populate the category filter), ordered alphabetically.
+- `GET /api/breeds` — returns `{"breeds": [{"id", "name"}, ...]}` ordered alphabetically (used to populate the category filter).
 
-The homepage (`app/client`) uses `name` and `category` to power an instant, debounced search/filter experience without a full page reload, while keeping server-side pagination and a no-JS fallback via standard form submission.
+The homepage (`app/client`) uses `name` and `breed` to power an instant search/filter experience without a full page reload (name input is debounced by 300ms, and in-flight requests are cancelled with `AbortController` so stale responses never overwrite newer ones; filters are kept in the URL and a "Clear filters" button resets them), while keeping server-side pagination and a no-JS fallback via standard form submission.
 
 ## Running locally
 

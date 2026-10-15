@@ -179,8 +179,10 @@ class TestApp(unittest.TestCase):
         mock_query_instance.order_by.return_value = mock_query_instance
 
         beagle = MagicMock()
+        beagle.id = 1
         beagle.name = 'Beagle'
         golden = MagicMock()
+        golden.id = 2
         golden.name = 'Golden Retriever'
         mock_query_instance.all.return_value = [beagle, golden]
 
@@ -188,7 +190,50 @@ class TestApp(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.data)
-        self.assertEqual(data['breeds'], ['Beagle', 'Golden Retriever'])
+        self.assertEqual(data['breeds'], [
+            {'id': 1, 'name': 'Beagle'},
+            {'id': 2, 'name': 'Golden Retriever'},
+        ])
+
+    @patch('app.db.session.query')
+    def test_get_dogs_filter_by_breed_param(self, mock_query):
+        """Test that the 'breed' param filters on the breed name"""
+        dog = self._create_mock_dog(1, "Buddy", "Golden Retriever")
+        mock_query_instance = self._setup_query_mock(mock_query, [dog])
+
+        response = self.app.get('/api/dogs?breed=Golden%20Retriever')
+
+        self.assertEqual(response.status_code, 200)
+        mock_query_instance.filter.assert_called_once()
+        self.assertIn('breeds.name', str(mock_query_instance.filter.call_args[0][0]).lower())
+
+    @patch('app.db.session.query')
+    def test_get_dogs_filter_total_pages_reflect_filter(self, mock_query):
+        """Test that total and total_pages are computed from the filtered count"""
+        dog = self._create_mock_dog(1, "Buddy", "Husky")
+        mock_query_instance = self._setup_query_mock(mock_query, [dog])
+        mock_query_instance.count.return_value = 13
+
+        response = self.app.get('/api/dogs?breed=Husky&per_page=6')
+
+        data = json.loads(response.data)
+        self.assertEqual(data['total'], 13)
+        self.assertEqual(data['total_pages'], 3)
+        self.assertEqual(set(data.keys()), {'dogs', 'page', 'per_page', 'total', 'total_pages'})
+
+    def test_get_dogs_name_too_long_returns_400(self):
+        """Test that an overlong name returns 400 with an error message"""
+        response = self.app.get('/api/dogs?name=' + 'a' * 101)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('error', json.loads(response.data))
+
+    def test_get_dogs_breed_too_long_returns_400(self):
+        """Test that an overlong breed/category returns 400 with an error message"""
+        for param in ('breed', 'category'):
+            response = self.app.get(f'/api/dogs?{param}=' + 'a' * 101)
+            self.assertEqual(response.status_code, 400)
+            self.assertIn('error', json.loads(response.data))
 
 
 if __name__ == '__main__':

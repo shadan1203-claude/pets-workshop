@@ -79,6 +79,21 @@ test.describe('API Integration', () => {
 
     expect(response.ok()).toBeTruthy();
     const data = await response.json();
-    expect(data.breeds).toEqual(['German Shepherd', 'Golden Retriever', 'Husky']);
+    expect(data.breeds.map((b: { name: string }) => b.name)).toEqual(['German Shepherd', 'Golden Retriever', 'Husky']);
+    expect(typeof data.breeds[0].id).toBe('number');
+  });
+
+  test('should accept breed as the filter param and return an empty list for unknown breeds', async ({ request }) => {
+    const husky = await (await request.get('http://localhost:5100/api/dogs?breed=Husky')).json();
+    expect(husky.total).toBe(3);
+
+    const unknown = await request.get('http://localhost:5100/api/dogs?breed=Nope');
+    expect(unknown.status()).toBe(200);
+    expect((await unknown.json()).total).toBe(0);
+  });
+
+  test('should reject an overlong name with 400', async ({ request }) => {
+    const response = await request.get(`http://localhost:5100/api/dogs?name=${'a'.repeat(101)}`);
+    expect(response.status()).toBe(400);
   });
 });

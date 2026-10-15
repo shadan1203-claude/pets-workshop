@@ -15,12 +15,22 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the database with the app
 init_db(app)
 
+# Maximum accepted length for the name and breed/category filters
+MAX_FILTER_LENGTH: int = 100
+
 @app.route('/api/dogs', methods=['GET'])
-def get_dogs() -> Response:
+def get_dogs() -> tuple[Response, int] | Response:
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 6, type=int)
     name = request.args.get('name', '', type=str).strip()
-    category = request.args.get('category', '', type=str).strip()
+    # 'category' is an alias for 'breed'; 'breed' takes precedence when both are given
+    breed = (request.args.get('breed') or request.args.get('category') or '').strip()
+
+    if len(name) > MAX_FILTER_LENGTH:
+        return jsonify({'error': f'name must be at most {MAX_FILTER_LENGTH} characters'}), 400
+    if len(breed) > MAX_FILTER_LENGTH:
+        return jsonify({'error': f'breed must be at most {MAX_FILTER_LENGTH} characters'}), 400
+
     page = max(1, page)
     per_page = max(1, min(per_page, 100))
 
@@ -33,8 +43,9 @@ def get_dogs() -> Response:
     if name:
         query = query.filter(Dog.name.ilike(f'%{name}%'))
 
-    if category:
-        query = query.filter(func.lower(Breed.name) == category.lower())
+    # An unknown breed is not an error: it simply yields an empty result set
+    if breed:
+        query = query.filter(func.lower(Breed.name) == breed.lower())
 
     total = query.count()
     dogs_query = query.offset((page - 1) * per_page).limit(per_page).all()
@@ -58,9 +69,9 @@ def get_dogs() -> Response:
 
 @app.route('/api/breeds', methods=['GET'])
 def get_breeds() -> Response:
-    breeds = db.session.query(Breed.name).order_by(Breed.name.asc()).all()
+    breeds = db.session.query(Breed.id, Breed.name).order_by(Breed.name.asc()).all()
     return jsonify({
-        'breeds': [breed.name for breed in breeds]
+        'breeds': [{'id': breed.id, 'name': breed.name} for breed in breeds]
     })
 
 @app.route('/api/dogs/<int:id>', methods=['GET'])

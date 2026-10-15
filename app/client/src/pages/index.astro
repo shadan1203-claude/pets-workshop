@@ -4,27 +4,29 @@ import DogList from '../components/DogList.astro';
 
 const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 const PAGE_SIZE = 6;
+const EMPTY_FILTERED = 'No results match your search. Clear filters to see all dogs.';
+const EMPTY_DEFAULT = 'No dogs available at the moment.';
 
 let dogs = [];
 let page = 1;
 let totalPages = 1;
 let error: string | null = null;
-let breeds: string[] = [];
+let breeds: { id: number; name: string }[] = [];
 
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
 const name = Astro.url.searchParams.get('name') || '';
-const category = Astro.url.searchParams.get('category') || '';
+const category = Astro.url.searchParams.get('breed') || Astro.url.searchParams.get('category') || '';
 const hasActiveFilters = name !== '' || category !== '';
 
 const dogsParams = new URLSearchParams({ page: String(currentPage), per_page: String(PAGE_SIZE) });
 if (name) dogsParams.set('name', name);
-if (category) dogsParams.set('category', category);
+if (category) dogsParams.set('breed', category);
 
 function buildPageUrl(targetPage: number): string {
   const params = new URLSearchParams();
   params.set('page', String(targetPage));
   if (name) params.set('name', name);
-  if (category) params.set('category', category);
+  if (category) params.set('breed', category);
   return `/?${params.toString()}`;
 }
 
@@ -84,10 +86,20 @@ try {
         >
           <option value="" selected={category === ''}>All</option>
           {breeds.map((breed) => (
-            <option value={breed} selected={category === breed}>{breed}</option>
+            <option value={breed.name} selected={category === breed.name}>{breed.name}</option>
           ))}
         </select>
       </div>
+
+      <button
+        type="button"
+        id="clear-filters"
+        class="px-4 py-2 sm:mt-6 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
+        data-testid="clear-filters"
+        hidden={!hasActiveFilters}
+      >
+        Clear filters
+      </button>
 
       <noscript>
         <button
@@ -100,13 +112,15 @@ try {
       </noscript>
     </form>
 
+    <p id="search-status" class="mb-4 text-sm text-slate-400" role="status" aria-live="polite" data-testid="search-status" hidden></p>
+
     {error ? (
       <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="error-message">
         <p class="text-red-400">{error}</p>
       </div>
     ) : (
       <>
-        <DogList dogs={dogs} emptyMessage={hasActiveFilters ? 'No dogs match your search.' : 'No dogs available at the moment.'} />
+        <DogList dogs={dogs} emptyMessage={hasActiveFilters ? EMPTY_FILTERED : EMPTY_DEFAULT} />
 
         <div id="pagination-root" data-testid="pagination-root">
           {totalPages > 1 && (
@@ -149,7 +163,7 @@ try {
     )}
   </div>
 
-  <script define:vars={{ pageSize: PAGE_SIZE }}>
+  <script define:vars={{ pageSize: PAGE_SIZE, emptyFiltered: EMPTY_FILTERED, emptyDefault: EMPTY_DEFAULT }}>
     const API_BASE = '/api/dogs';
 
     const form = document.getElementById('search-form');
@@ -157,6 +171,8 @@ try {
     const categorySelect = document.getElementById('category-select');
     const resultsContainer = document.getElementById('dog-results');
     const paginationRoot = document.getElementById('pagination-root');
+    const clearButton = document.getElementById('clear-filters');
+    const statusEl = document.getElementById('search-status');
 
     let abortController = null;
     let debounceTimer = null;
@@ -171,13 +187,13 @@ try {
       const search = new URLSearchParams();
       search.set('page', String(targetPage));
       if (params.name) search.set('name', params.name);
-      if (params.category) search.set('category', params.category);
+      if (params.category) search.set('breed', params.category);
       return `/?${search.toString()}`;
     }
 
     function renderDogs(dogs, hasActiveFilters) {
       if (!dogs.length) {
-        const message = hasActiveFilters ? 'No dogs match your search.' : 'No dogs available at the moment.';
+        const message = hasActiveFilters ? emptyFiltered : emptyDefault;
         resultsContainer.innerHTML = `
           <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="empty-state">
             <p class="text-slate-300">${escapeHtml(message)}</p>
@@ -233,6 +249,11 @@ try {
         </nav>`;
     }
 
+    function setStatus(message) {
+      statusEl.textContent = message;
+      statusEl.hidden = !message;
+    }
+
     async function fetchAndRender(targetPage) {
       const name = nameInput.value.trim();
       const category = categorySelect.value;
@@ -240,24 +261,37 @@ try {
       if (abortController) {
         abortController.abort();
       }
-      abortController = new AbortController();
+      const controller = new AbortController();
+      abortController = controller;
+      clearButton.hidden = !(name || category);
+      setStatus('Searching...');
 
       const search = new URLSearchParams({ page: String(targetPage), per_page: String(pageSize) });
       if (name) search.set('name', name);
-      if (category) search.set('category', category);
+      if (category) search.set('breed', category);
 
       try {
-        const response = await fetch(`${API_BASE}?${search.toString()}`, { signal: abortController.signal });
-        if (!response.ok) return;
+        const response = await fetch(`${API_BASE}?${search.toString()}`, { signal: controller.signal });
+        if (!response.ok) {
+          let message = 'Search failed. Please try again.';
+          try {
+            const body = await response.json();
+            if (response.status === 400 && body.error) message = body.error;
+          } catch (_) {}
+          setStatus(message);
+          return;
+        }
         const data = await response.json();
 
         const hasActiveFilters = Boolean(name) || Boolean(category);
+        setStatus('');
         renderDogs(data.dogs, hasActiveFilters);
         renderPagination(data.page, data.total_pages, { name, category });
 
         window.history.replaceState({}, '', buildFilteredUrl(data.page, { name, category }));
       } catch (err) {
         if (err && err.name === 'AbortError') return;
+        setStatus('Search failed. Please try again.');
       }
     }
 
@@ -272,10 +306,17 @@ try {
 
     nameInput.addEventListener('input', () => {
       window.clearTimeout(debounceTimer);
-      debounceTimer = window.setTimeout(() => fetchAndRender(1), 250);
+      debounceTimer = window.setTimeout(() => fetchAndRender(1), 300);
     });
 
     categorySelect.addEventListener('change', () => {
+      fetchAndRender(1);
+    });
+
+    clearButton.addEventListener('click', () => {
+      window.clearTimeout(debounceTimer);
+      nameInput.value = '';
+      categorySelect.value = '';
       fetchAndRender(1);
     });
 
