@@ -1,7 +1,9 @@
 // Cross-platform script to seed the test database and start the Flask server
-const { execSync, spawn } = require('child_process');
-const path = require('path');
+import { execSync, spawn } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const serverDir = path.resolve(__dirname, '..', 'server');
 const testDbPath = path.join(serverDir, 'e2e_test_dogshelter.db');
 const python = process.env.PYTHON || (process.platform === 'win32' ? 'py' : 'python3');

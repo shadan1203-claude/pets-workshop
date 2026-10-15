@@ -4,23 +4,50 @@ import DogList from '../components/DogList.astro';
 
 const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 const PAGE_SIZE = 6;
+const EMPTY_FILTERED = 'No results match your search. Clear filters to see all dogs.';
+const EMPTY_DEFAULT = 'No dogs available at the moment.';
 
 let dogs = [];
 let page = 1;
 let totalPages = 1;
 let error: string | null = null;
+let breeds: { id: number; name: string }[] = [];
 
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+const name = Astro.url.searchParams.get('name') || '';
+const category = Astro.url.searchParams.get('breed') || Astro.url.searchParams.get('category') || '';
+const hasActiveFilters = name !== '' || category !== '';
+
+const dogsParams = new URLSearchParams({ page: String(currentPage), per_page: String(PAGE_SIZE) });
+if (name) dogsParams.set('name', name);
+if (category) dogsParams.set('breed', category);
+
+function buildPageUrl(targetPage: number): string {
+  const params = new URLSearchParams();
+  params.set('page', String(targetPage));
+  if (name) params.set('name', name);
+  if (category) params.set('breed', category);
+  return `/?${params.toString()}`;
+}
 
 try {
-  const response = await fetch(`${API_SERVER_URL}/api/dogs?page=${currentPage}&per_page=${PAGE_SIZE}`);
-  if (response.ok) {
-    const data = await response.json();
+  const [dogsResponse, breedsResponse] = await Promise.all([
+    fetch(`${API_SERVER_URL}/api/dogs?${dogsParams.toString()}`),
+    fetch(`${API_SERVER_URL}/api/breeds`),
+  ]);
+
+  if (dogsResponse.ok) {
+    const data = await dogsResponse.json();
     dogs = data.dogs;
     page = data.page;
     totalPages = data.total_pages;
   } else {
-    error = `Failed to fetch data: ${response.status} ${response.statusText}`;
+    error = `Failed to fetch data: ${dogsResponse.status} ${dogsResponse.statusText}`;
+  }
+
+  if (breedsResponse.ok) {
+    const breedsData = await breedsResponse.json();
+    breeds = breedsData.breeds;
   }
 } catch (err) {
   error = `Error: ${err instanceof Error ? err.message : String(err)}`;
@@ -34,50 +61,271 @@ try {
       <p class="text-xl text-slate-300">Find your perfect companion from our wonderful selection of dogs looking for their forever homes.</p>
     </div>
 
+    <form id="search-form" data-testid="search-form" method="GET" action="/" class="mb-8 flex flex-col sm:flex-row gap-4 items-start">
+      <div class="flex-1 w-full">
+        <label for="name-search" class="block text-sm font-medium text-slate-300 mb-1">Search by name</label>
+        <input
+          type="text"
+          id="name-search"
+          name="name"
+          value={name}
+          placeholder="Search by pet name..."
+          autocomplete="off"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500/50 transition-colors"
+          data-testid="name-search-input"
+        />
+      </div>
+
+      <div class="sm:w-64 w-full">
+        <label for="category-select" class="block text-sm font-medium text-slate-300 mb-1">Category</label>
+        <select
+          id="category-select"
+          name="category"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500/50 transition-colors"
+          data-testid="category-select"
+        >
+          <option value="" selected={category === ''}>All</option>
+          {breeds.map((breed) => (
+            <option value={breed.name} selected={category === breed.name}>{breed.name}</option>
+          ))}
+        </select>
+      </div>
+
+      <button
+        type="button"
+        id="clear-filters"
+        class="px-4 py-2 sm:mt-6 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
+        data-testid="clear-filters"
+        hidden={!hasActiveFilters}
+      >
+        Clear filters
+      </button>
+
+      <noscript>
+        <button
+          type="submit"
+          class="px-4 py-2 mt-6 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+          data-testid="search-submit"
+        >
+          Search
+        </button>
+      </noscript>
+    </form>
+
+    <p id="search-status" class="mb-4 text-sm text-slate-400" role="status" aria-live="polite" data-testid="search-status" hidden></p>
+
     {error ? (
       <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="error-message">
         <p class="text-red-400">{error}</p>
       </div>
     ) : (
       <>
-        <DogList dogs={dogs} />
+        <DogList dogs={dogs} emptyMessage={hasActiveFilters ? EMPTY_FILTERED : EMPTY_DEFAULT} />
 
-        {totalPages > 1 && (
-          <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
-            {page > 1 ? (
-              <a
-                href={`/?page=${page - 1}`}
-                class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
-                data-testid="pagination-prev"
-              >
-                ← Previous
-              </a>
-            ) : (
-              <span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">
-                ← Previous
+        <div id="pagination-root" data-testid="pagination-root">
+          {totalPages > 1 && (
+            <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
+              {page > 1 ? (
+                <a
+                  href={buildPageUrl(page - 1)}
+                  class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
+                  data-testid="pagination-prev"
+                >
+                  ← Previous
+                </a>
+              ) : (
+                <span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">
+                  ← Previous
+                </span>
+              )}
+
+              <span class="px-4 py-2 text-slate-300" data-testid="pagination-info">
+                Page {page} of {totalPages}
               </span>
-            )}
 
-            <span class="px-4 py-2 text-slate-300" data-testid="pagination-info">
-              Page {page} of {totalPages}
-            </span>
-
-            {page < totalPages ? (
-              <a
-                href={`/?page=${page + 1}`}
-                class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
-                data-testid="pagination-next"
-              >
-                Next →
-              </a>
-            ) : (
-              <span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">
-                Next →
-              </span>
-            )}
-          </nav>
-        )}
+              {page < totalPages ? (
+                <a
+                  href={buildPageUrl(page + 1)}
+                  class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
+                  data-testid="pagination-next"
+                >
+                  Next →
+                </a>
+              ) : (
+                <span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">
+                  Next →
+                </span>
+              )}
+            </nav>
+          )}
+        </div>
       </>
     )}
   </div>
+
+  <script define:vars={{ pageSize: PAGE_SIZE, emptyFiltered: EMPTY_FILTERED, emptyDefault: EMPTY_DEFAULT }}>
+    const API_BASE = '/api/dogs';
+
+    const form = document.getElementById('search-form');
+    const nameInput = document.getElementById('name-search');
+    const categorySelect = document.getElementById('category-select');
+    const resultsContainer = document.getElementById('dog-results');
+    const paginationRoot = document.getElementById('pagination-root');
+    const clearButton = document.getElementById('clear-filters');
+    const statusEl = document.getElementById('search-status');
+
+    let abortController = null;
+    let debounceTimer = null;
+
+    function escapeHtml(value) {
+      const div = document.createElement('div');
+      div.textContent = value;
+      return div.innerHTML;
+    }
+
+    function buildFilteredUrl(targetPage, params) {
+      const search = new URLSearchParams();
+      search.set('page', String(targetPage));
+      if (params.name) search.set('name', params.name);
+      if (params.category) search.set('breed', params.category);
+      return `/?${search.toString()}`;
+    }
+
+    function renderDogs(dogs, hasActiveFilters) {
+      if (!dogs.length) {
+        const message = hasActiveFilters ? emptyFiltered : emptyDefault;
+        resultsContainer.innerHTML = `
+          <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="empty-state">
+            <p class="text-slate-300">${escapeHtml(message)}</p>
+          </div>`;
+        return;
+      }
+
+      const cards = dogs
+        .map(
+          (dog) => `
+        <a href="/dog/${dog.id}" class="group block bg-slate-800/60 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg border border-slate-700/50 hover:border-blue-500/50 hover:shadow-blue-500/10 hover:shadow-xl transition-all duration-300 hover:translate-y-[-6px]" data-testid="dog-card">
+          <div class="p-6 relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="relative z-10">
+              <h3 class="text-xl font-semibold text-slate-100 mb-2 group-hover:text-blue-400 transition-colors" data-testid="dog-name">${escapeHtml(dog.name)}</h3>
+              <p class="text-slate-400 mb-4" data-testid="dog-breed">${escapeHtml(dog.breed)}</p>
+              <div class="mt-4 text-sm text-blue-400 font-medium flex items-center">
+                <span>View details</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>`
+        )
+        .join('');
+
+      resultsContainer.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="dog-list">${cards}</div>`;
+    }
+
+    function renderPagination(targetPage, totalPages, params) {
+      if (totalPages <= 1) {
+        paginationRoot.innerHTML = '';
+        return;
+      }
+
+      const prev =
+        targetPage > 1
+          ? `<a href="${buildFilteredUrl(targetPage - 1, params)}" class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors" data-testid="pagination-prev">← Previous</a>`
+          : `<span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">← Previous</span>`;
+
+      const next =
+        targetPage < totalPages
+          ? `<a href="${buildFilteredUrl(targetPage + 1, params)}" class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors" data-testid="pagination-next">Next →</a>`
+          : `<span class="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-600 cursor-not-allowed">Next →</span>`;
+
+      paginationRoot.innerHTML = `
+        <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
+          ${prev}
+          <span class="px-4 py-2 text-slate-300" data-testid="pagination-info">Page ${targetPage} of ${totalPages}</span>
+          ${next}
+        </nav>`;
+    }
+
+    function setStatus(message) {
+      statusEl.textContent = message;
+      statusEl.hidden = !message;
+    }
+
+    async function fetchAndRender(targetPage) {
+      const name = nameInput.value.trim();
+      const category = categorySelect.value;
+
+      if (abortController) {
+        abortController.abort();
+      }
+      const controller = new AbortController();
+      abortController = controller;
+      clearButton.hidden = !(name || category);
+      setStatus('Searching...');
+
+      const search = new URLSearchParams({ page: String(targetPage), per_page: String(pageSize) });
+      if (name) search.set('name', name);
+      if (category) search.set('breed', category);
+
+      try {
+        const response = await fetch(`${API_BASE}?${search.toString()}`, { signal: controller.signal });
+        if (!response.ok) {
+          let message = 'Search failed. Please try again.';
+          try {
+            const body = await response.json();
+            if (response.status === 400 && body.error) message = body.error;
+          } catch (_) {}
+          setStatus(message);
+          return;
+        }
+        const data = await response.json();
+
+        const hasActiveFilters = Boolean(name) || Boolean(category);
+        setStatus('');
+        renderDogs(data.dogs, hasActiveFilters);
+        renderPagination(data.page, data.total_pages, { name, category });
+
+        window.history.replaceState({}, '', buildFilteredUrl(data.page, { name, category }));
+      } catch (err) {
+        if (err && err.name === 'AbortError') return;
+        setStatus('Search failed. Please try again.');
+      }
+    }
+
+    function handlePaginationClick(event) {
+      const anchor = event.target.closest('a[data-testid="pagination-prev"], a[data-testid="pagination-next"]');
+      if (!anchor) return;
+      event.preventDefault();
+      const targetUrl = new URL(anchor.href);
+      const targetPage = Number(targetUrl.searchParams.get('page')) || 1;
+      fetchAndRender(targetPage);
+    }
+
+    nameInput.addEventListener('input', () => {
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => fetchAndRender(1), 300);
+    });
+
+    categorySelect.addEventListener('change', () => {
+      fetchAndRender(1);
+    });
+
+    clearButton.addEventListener('click', () => {
+      window.clearTimeout(debounceTimer);
+      nameInput.value = '';
+      categorySelect.value = '';
+      fetchAndRender(1);
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      window.clearTimeout(debounceTimer);
+      fetchAndRender(1);
+    });
+
+    paginationRoot.addEventListener('click', handlePaginationClick);
+  </script>
 </Layout>
