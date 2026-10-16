@@ -18,6 +18,7 @@ init_db(app)
 def get_dogs() -> Response:
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 6, type=int)
+    breed = request.args.get('breed', type=str)
     page = max(1, page)
     per_page = max(1, min(per_page, 100))
 
@@ -26,6 +27,17 @@ def get_dogs() -> Response:
         Dog.name, 
         Breed.name.label('breed')
     ).join(Breed, Dog.breed_id == Breed.id)
+
+    if breed is not None:
+        breed_filter = breed.strip()
+        if breed_filter:
+            escaped_breed_filter = (
+                breed_filter
+                .replace('\\', '\\\\')
+                .replace('%', '\\%')
+                .replace('_', '\\_')
+            )
+            query = query.filter(Breed.name.ilike(escaped_breed_filter, escape='\\'))
     
     total = query.count()
     dogs_query = query.offset((page - 1) * per_page).limit(per_page).all()
@@ -46,6 +58,16 @@ def get_dogs() -> Response:
         'total': total,
         'total_pages': max(1, -(-total // per_page))
     })
+
+
+@app.route('/api/breeds', methods=['GET'])
+def get_breeds() -> Response:
+    breeds = db.session.query(Breed).order_by(Breed.name.asc()).all()
+    return jsonify([
+        {'id': breed.id, 'name': breed.name}
+        for breed in breeds
+    ])
+
 
 @app.route('/api/dogs/<int:id>', methods=['GET'])
 def get_dog(id: int) -> tuple[Response, int] | Response:

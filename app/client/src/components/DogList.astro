@@ -7,17 +7,19 @@ interface Dog {
 
 interface Props {
   dogs: Dog[];
+  total?: number;
+  breed?: string;
 }
 
-const { dogs } = Astro.props;
+const { dogs, total, breed = '' } = Astro.props;
 ---
 
 <div>
-  <h2 class="text-2xl font-medium mb-6 text-slate-100">Available Dogs</h2>
+  <h2 class="text-2xl font-medium mb-6 text-slate-100">Available Dogs{typeof total === 'number' ? ` (${total})` : ''}</h2>
 
   {dogs.length === 0 ? (
     <div class="text-center py-12 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700" data-testid="empty-state">
-      <p class="text-slate-300">No dogs available at the moment.</p>
+      <p class="text-slate-300">{breed ? `No dogs found for ${breed}.` : 'No dogs available at the moment.'}</p>
     </div>
   ) : (
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="dog-list">

@@ -6,21 +6,39 @@ const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 const PAGE_SIZE = 6;
 
 let dogs = [];
+let breeds = [];
 let page = 1;
 let totalPages = 1;
+let total = 0;
 let error: string | null = null;
 
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+const selectedBreed = Astro.url.searchParams.get('breed') || '';
+const query = new URLSearchParams({ page: String(currentPage), per_page: String(PAGE_SIZE) });
+if (selectedBreed) {
+  query.set('breed', selectedBreed);
+}
 
 try {
-  const response = await fetch(`${API_SERVER_URL}/api/dogs?page=${currentPage}&per_page=${PAGE_SIZE}`);
-  if (response.ok) {
-    const data = await response.json();
+  const [dogsResponse, breedsResponse] = await Promise.all([
+    fetch(`${API_SERVER_URL}/api/dogs?${query.toString()}`),
+    fetch(`${API_SERVER_URL}/api/breeds`),
+  ]);
+
+  if (dogsResponse.ok) {
+    const data = await dogsResponse.json();
     dogs = data.dogs;
     page = data.page;
     totalPages = data.total_pages;
+    total = data.total;
   } else {
-    error = `Failed to fetch data: ${response.status} ${response.statusText}`;
+    error = `Failed to fetch dog data: ${dogsResponse.status} ${dogsResponse.statusText}`;
+  }
+
+  if (breedsResponse.ok) {
+    breeds = await breedsResponse.json();
+  } else if (!error) {
+    error = `Failed to fetch breed data: ${breedsResponse.status} ${breedsResponse.statusText}`;
   }
 } catch (err) {
   error = `Error: ${err instanceof Error ? err.message : String(err)}`;
@@ -40,13 +58,30 @@ try {
       </div>
     ) : (
       <>
-        <DogList dogs={dogs} />
+        <form method="get" class="mb-8 flex flex-wrap items-center gap-3" data-testid="breed-filter-form">
+          <label for="breed" class="text-sm font-medium text-slate-300">Breed</label>
+          <input type="hidden" name="page" value="1" />
+          <select
+            id="breed"
+            name="breed"
+            class="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-slate-100 focus:border-blue-500 focus:outline-none"
+            data-testid="breed-select"
+            onchange="if (!this.value) this.removeAttribute('name'); else this.setAttribute('name', 'breed'); this.form.submit()"
+          >
+            <option value="">All breeds</option>
+            {breeds.map((breed) => (
+              <option value={breed.name} selected={selectedBreed.toLowerCase() === breed.name.toLowerCase()}>{breed.name}</option>
+            ))}
+          </select>
+        </form>
+
+        <DogList dogs={dogs} total={total} breed={selectedBreed} />
 
         {totalPages > 1 && (
           <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
             {page > 1 ? (
               <a
-                href={`/?page=${page - 1}`}
+                href={`/?page=${page - 1}${selectedBreed ? `&breed=${encodeURIComponent(selectedBreed)}` : ''}`}
                 class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                 data-testid="pagination-prev"
               >
@@ -64,7 +99,7 @@ try {
 
             {page < totalPages ? (
               <a
-                href={`/?page=${page + 1}`}
+                href={`/?page=${page + 1}${selectedBreed ? `&breed=${encodeURIComponent(selectedBreed)}` : ''}`}
                 class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                 data-testid="pagination-next"
               >
