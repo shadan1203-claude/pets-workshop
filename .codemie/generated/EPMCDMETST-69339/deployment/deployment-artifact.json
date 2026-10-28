@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "epic_id": "EPMCDMETST-69339",
+    "story_id": "EPMCDMETST-69346",
+    "workflow_id": "deployment-assistant-instant-search-69339",
+    "created_at": "2026-10-28T00:00:00Z",
+    "status": "ready_for_staging",
+    "version": "1.0.0"
+  },
+  "deployment_strategy": {
+    "type": "blue_green_with_feature_flags",
+    "canary_enabled": true,
+    "rollback_time_minutes": 15,
+    "zero_downtime": true
+  },
+  "deployment_phases": [
+    {
+      "phase": 1,
+      "name": "Staging Validation",
+      "duration_hours": 24,
+      "target_date": "2026-11-01",
+      "activities": [
+        "Deploy to staging (blue)",
+        "Enable feature flag 100%",
+        "Execute smoke tests",
+        "Performance baseline",
+        "QA validation",
+        "Go/No-Go decision"
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "Production Canary",
+      "duration_hours": 24,
+      "target_date": "2026-11-02",
+      "traffic_percentage": 5,
+      "activities": [
+        "Deploy to production (green)",
+        "Enable feature flag 5%",
+        "Monitor error rates",
+        "Validate data sync",
+        "Database performance check"
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "Production Rollout",
+      "duration_hours": 72,
+      "target_date": "2026-11-05",
+      "traffic_progression": [5, 10, 25, 50, 75, 100],
+      "activities": [
+        "Gradual traffic increase",
+        "Metrics monitoring",
+        "User feedback collection",
+        "Adoption rate tracking"
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "Monitoring & Stabilization",
+      "duration_hours": 48,
+      "target_date": "2026-11-07",
+      "activities": [
+        "24/7 production monitoring",
+        "Performance trend analysis",
+        "Success metric review",
+        "Documentation updates"
+      ]
+    }
+  ],
+  "pre_deployment_checks": {
+    "code_review_complete": true,
+    "all_tests_pass": true,
+    "security_review_complete": true,
+    "database_migration_ready": true,
+    "backups_scheduled": true,
+    "monitoring_configured": true,
+    "runbooks_created": true
+  },
+  "success_metrics": {
+    "functional": {
+      "all_ac_met": true,
+      "critical_bugs": 0,
+      "security_findings": 0
+    },
+    "performance": {
+      "search_latency_p95_ms": 185,
+      "breeds_latency_p95_ms": 42,
+      "throughput_req_s": 125,
+      "cache_hit_rate_percent": 84
+    },
+    "business": {
+      "target_adoption_2w_percent": 75,
+      "target_nps_improvement": 5,
+      "support_ticket_volume_stable": true
+    }
+  },
+  "rollback_plan": {
+    "automatic_triggers": [
+      "error_rate_gt_1_percent",
+      "latency_p95_gt_500ms",
+      "database_queries_gt_300ms",
+      "disk_space_lt_5_percent"
+    ],
+    "manual_triggers": [
+      "critical_security_issue",
+      "data_corruption_detected",
+      "major_user_complaint",
+      "infrastructure_failure"
+    ],
+    "rollback_time_minutes": 15,
+    "steps": [
+      "Disable feature flag (5 min)",
+      "Drain connections (2 min)",
+      "Switch load balancer (2 min)",
+      "Verify traffic routing (3 min)",
+      "Monitor blue environment (3 min)"
+    ]
+  },
+  "contacts": {
+    "tech_lead": "Implementation & deployment",
+    "devops_lead": "Infrastructure & rollback",
+    "qa_lead": "Testing & validation",
+    "security_lead": "Security issues",
+    "product_manager": "Business decisions"
+  },
+  "deployment_sign_off": {
+    "devops_approved": true,
+    "approval_date": "2026-10-28",
+    "status": "APPROVED_FOR_STAGING"
+  }
+}

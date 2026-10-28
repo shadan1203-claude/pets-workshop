@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "epic_id": "EPMCDMETST-69339",
+    "workflow_id": "development-assistant-instant-search-69339",
+    "created_at": "2026-10-27T00:00:00Z",
+    "status": "ready_for_development",
+    "version": "1.0.0"
+  },
+  "epic_info": {
+    "key": "EPMCDMETST-69339",
+    "summary": "Instant Search Implementation and Enhancement",
+    "description": "Implement comprehensive instant search functionality with server-side filtering, breed object handling, and search optimization",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH"
+  },
+  "linked_stories": [
+    {
+      "story_key": "EPMCDMETST-69346",
+      "title": "Server-side breed filter, /api/breeds objects, clear filters, validation",
+      "status": "IN_PROGRESS",
+      "story_points": 8,
+      "acceptance_criteria": [
+        "Server validates breed filter parameters",
+        "API returns standardized breed objects",
+        "Clear filters functionality works correctly",
+        "Input validation prevents invalid queries"
+      ]
+    }
+  ],
+  "requirements": {
+    "functional": [
+      {
+        "id": "FR-001",
+        "description": "Implement real-time instant search by pet name",
+        "priority": "HIGH",
+        "status": "COMPLETED"
+      },
+      {
+        "id": "FR-002",
+        "description": "Add category-based instant search filtering",
+        "priority": "HIGH",
+        "status": "COMPLETED"
+      },
+      {
+        "id": "FR-003",
+        "description": "Implement server-side breed filtering with validation",
+        "priority": "HIGH",
+        "status": "IN_PROGRESS"
+      }
+    ],
+    "non_functional": [
+      {
+        "id": "NFR-001",
+        "description": "Search response time under 200ms",
+        "target": "200ms"
+      }
+    ]
+  },
+  "api_impacts": [
+    {
+      "endpoint": "/api/search",
+      "method": "POST",
+      "change_type": "enhancement",
+      "status": "in_progress"
+    },
+    {
+      "endpoint": "/api/breeds",
+      "method": "GET",
+      "change_type": "new",
+      "status": "planned"
+    }
+  ],
+  "database_impacts": [
+    {
+      "table": "pets",
+      "type": "index_addition",
+      "status": "planned"
+    }
+  ],
+  "readiness_checklist": {
+    "requirements_approved": true,
+    "architecture_reviewed": true,
+    "dependencies_identified": true
+  }
+}
