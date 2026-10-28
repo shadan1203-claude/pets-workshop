@@ -1,0 +1,1113 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-28T06:34:24.257Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 66387983,
+      "turns": 104,
+      "files": 13,
+      "netLines": 0,
+      "toolCallsTotal": 97,
+      "toolSuccessRate": 83.5,
+      "totalCostUSD": 2.3674830800000004,
+      "cacheReadCostUSD": 0.31366268,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "estimatedModels": [],
+    "localModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-10-27T11:16:55.193Z",
+    "periodEnd": "2026-10-28T05:43:23.176Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "a7678bae-4088-4867-870b-9f3b416d4ccb",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "@\"sdlc-orchestrator (agent)\" Run full SDLC workflow for Epic EPMCDMETST-69339 using Jira and Confluence as source of truth.",
+      "project": "C:\\pets-workshop",
+      "branch": "feature/EPMCDMETST-69346-instant-search",
+      "startTime": 1793099815193,
+      "durationMs": 66387983,
+      "turns": 104,
+      "fileOps": 13,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 97,
+      "toolCallsSuccess": 81,
+      "toolCallsFailure": 16,
+      "models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "languages": [
+        "json",
+        "markdown",
+        "python"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 75,
+          "successCount": 60,
+          "failureCount": 15,
+          "successRate": 80
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 20,
+          "successCount": 19,
+          "failureCount": 1,
+          "successRate": 95
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 550,
+        "output": 104498,
+        "cacheRead": 2948678,
+        "cacheCreation": 707540,
+        "cacheCreation1h": 707540,
+        "total": 3761266
+      },
+      "costUSD": 2.3674830800000004,
+      "cacheReadCostUSD": 0.31366268,
+      "perModelCost": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 29,
+            "output": 10105,
+            "cacheRead": 41273,
+            "cacheCreation": 172451,
+            "cacheCreation1h": 172451,
+            "total": 223858
+          },
+          "costUSD": 0.3995833,
+          "unpriced": false
+        },
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 176,
+            "output": 29784,
+            "cacheRead": 775061,
+            "cacheCreation": 283814,
+            "cacheCreation1h": 283814,
+            "total": 1088835
+          },
+          "costUSD": 0.87365311,
+          "unpriced": false
+        },
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 174,
+            "output": 30884,
+            "cacheRead": 1027917,
+            "cacheCreation": 115533,
+            "cacheCreation1h": 115533,
+            "total": 1174508
+          },
+          "costUSD": 0.48845170000000004,
+          "unpriced": false
+        },
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 171,
+            "output": 33725,
+            "cacheRead": 1104427,
+            "cacheCreation": 135742,
+            "cacheCreation1h": 135742,
+            "total": 1274065
+          },
+          "costUSD": 0.60579497,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "agentSessionFile": "C:\\Users\\ShadanHaq\\.claude\\projects\\C--pets-workshop\\8d2cefb1-4d37-430d-b83d-b0466b4ab177.jsonl",
+      "costSeries": [
+        {
+          "t": 1793099951319,
+          "cost": 0.07369500000000001,
+          "tokens": 36432
+        },
+        {
+          "t": 1793099961692,
+          "cost": 0.18245920000000004,
+          "tokens": 86561
+        },
+        {
+          "t": 1793100007264,
+          "cost": 0.18909762000000005,
+          "tokens": 101500
+        },
+        {
+          "t": 1793100123157,
+          "cost": 0.20411919000000003,
+          "tokens": 128095
+        },
+        {
+          "t": 1793100265814,
+          "cost": 0.23445752000000006,
+          "tokens": 171363
+        },
+        {
+          "t": 1793100300670,
+          "cost": 0.25615344000000007,
+          "tokens": 202789
+        },
+        {
+          "t": 1793100583755,
+          "cost": 0.27732464,
+          "tokens": 257842
+        },
+        {
+          "t": 1793100591766,
+          "cost": 0.28939789000000005,
+          "tokens": 297084
+        },
+        {
+          "t": 1793100789996,
+          "cost": 0.30663787000000003,
+          "tokens": 359671
+        },
+        {
+          "t": 1793100797279,
+          "cost": 0.3343605700000001,
+          "tokens": 432643
+        },
+        {
+          "t": 1793100928927,
+          "cost": 0.34599824000000007,
+          "tokens": 490832
+        },
+        {
+          "t": 1793101091630,
+          "cost": 0.4119355400000001,
+          "tokens": 589652
+        },
+        {
+          "t": 1793105667964,
+          "cost": 0.6149377400000001,
+          "tokens": 714177
+        },
+        {
+          "t": 1793105815348,
+          "cost": 0.7019435700000002,
+          "tokens": 818502
+        },
+        {
+          "t": 1793105846785,
+          "cost": 0.7541947400000002,
+          "tokens": 980371
+        },
+        {
+          "t": 1793106007146,
+          "cost": 0.8395221800000001,
+          "tokens": 1166985
+        },
+        {
+          "t": 1793106020973,
+          "cost": 0.8773166800000002,
+          "tokens": 1297608
+        },
+        {
+          "t": 1793106070861,
+          "cost": 0.9528819500000001,
+          "tokens": 1506647
+        },
+        {
+          "t": 1793106173152,
+          "cost": 1.16348124,
+          "tokens": 1737954
+        },
+        {
+          "t": 1793165211712,
+          "cost": 1.33214664,
+          "tokens": 1817168
+        },
+        {
+          "t": 1793165220920,
+          "cost": 1.4498824399999999,
+          "tokens": 1871058
+        },
+        {
+          "t": 1793165232174,
+          "cost": 1.4699828399999997,
+          "tokens": 1886334
+        },
+        {
+          "t": 1793165238220,
+          "cost": 1.4793947999999997,
+          "tokens": 1910804
+        },
+        {
+          "t": 1793165242304,
+          "cost": 1.5057985399999996,
+          "tokens": 1947899
+        },
+        {
+          "t": 1793165251814,
+          "cost": 1.5238849399999996,
+          "tokens": 1976728
+        },
+        {
+          "t": 1793165385261,
+          "cost": 1.5350425699999997,
+          "tokens": 2022772
+        },
+        {
+          "t": 1793165529239,
+          "cost": 1.5614435799999997,
+          "tokens": 2076778
+        },
+        {
+          "t": 1793165563129,
+          "cost": 1.5780864199999998,
+          "tokens": 2117962
+        },
+        {
+          "t": 1793165629887,
+          "cost": 1.6379673399999999,
+          "tokens": 2194007
+        },
+        {
+          "t": 1793165675096,
+          "cost": 1.7215502799999998,
+          "tokens": 2290902
+        },
+        {
+          "t": 1793165702932,
+          "cost": 1.7503404699999998,
+          "tokens": 2360765
+        },
+        {
+          "t": 1793165769565,
+          "cost": 1.8225059799999996,
+          "tokens": 2483184
+        },
+        {
+          "t": 1793165858995,
+          "cost": 1.8676239399999999,
+          "tokens": 2617428
+        },
+        {
+          "t": 1793165889222,
+          "cost": 1.89436263,
+          "tokens": 2712472
+        },
+        {
+          "t": 1793165920771,
+          "cost": 1.9487355000000002,
+          "tokens": 2865671
+        },
+        {
+          "t": 1793165987204,
+          "cost": 2.0108233,
+          "tokens": 2980715
+        },
+        {
+          "t": 1793166070913,
+          "cost": 2.0937388500000003,
+          "tokens": 3178653
+        },
+        {
+          "t": 1793166136450,
+          "cost": 2.1689645100000003,
+          "tokens": 3396761
+        },
+        {
+          "t": 1793166181046,
+          "cost": 2.2187359100000004,
+          "tokens": 3553118
+        },
+        {
+          "t": 1793166203176,
+          "cost": 2.367483080000001,
+          "tokens": 3761266
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "sdlc-orchestrator",
+          "start": 1793099951319,
+          "durationMs": 12,
+          "id": "toolu_bdrk_01G9vpd5VFoeNr8Qy1TYtL2o",
+          "ownerAgentId": "a7678bae-4088-4867-870b-9f3b416d4ccb",
+          "agentId": "afbe12f0fcac11735",
+          "depth": 1,
+          "relationshipStatus": "resolved",
+          "acknowledgedAt": 1793099951331,
+          "observedEnd": 1793106173152,
+          "completedAt": 1793106174364,
+          "elapsedMs": 6223045,
+          "status": "completed",
+          "costUSD": 0.9498692,
+          "inclusiveCostUSD": 0.9498692,
+          "attributionStatus": "exact",
+          "attributionScope": "own",
+          "tokens": {
+            "input": 255,
+            "output": 46119,
+            "cacheRead": 1325012,
+            "cacheCreation": 293259,
+            "cacheCreation1h": 293259,
+            "total": 1664645
+          },
+          "inclusiveTokens": {
+            "input": 255,
+            "output": 46119,
+            "cacheRead": 1325012,
+            "cacheCreation": 293259,
+            "cacheCreation1h": 293259,
+            "total": 1664645
+          },
+          "tools": [
+            {
+              "name": "Bash",
+              "calls": 37
+            },
+            {
+              "name": "Read",
+              "calls": 12
+            }
+          ]
+        },
+        {
+          "kind": "agent",
+          "name": "sdlc-orchestrator",
+          "start": 1793165211712,
+          "durationMs": 31,
+          "id": "toolu_bdrk_0169uCtUjLYMAFNGfxkkeADE",
+          "ownerAgentId": "a7678bae-4088-4867-870b-9f3b416d4ccb",
+          "agentId": "a3e0913808b8837e8",
+          "depth": 1,
+          "relationshipStatus": "resolved",
+          "acknowledgedAt": 1793165211743,
+          "observedEnd": 1793166196652,
+          "completedAt": 1793166197849,
+          "elapsedMs": 986137,
+          "status": "completed",
+          "costUSD": 0.8073366,
+          "inclusiveCostUSD": 0.8073366,
+          "attributionStatus": "exact",
+          "attributionScope": "own",
+          "tokens": {
+            "input": 273,
+            "output": 56625,
+            "cacheRead": 1623666,
+            "cacheCreation": 180786,
+            "cacheCreation1h": 180786,
+            "total": 1861350
+          },
+          "inclusiveTokens": {
+            "input": 273,
+            "output": 56625,
+            "cacheRead": 1623666,
+            "cacheCreation": 180786,
+            "cacheCreation1h": 180786,
+            "total": 1861350
+          },
+          "tools": [
+            {
+              "name": "Bash",
+              "calls": 42
+            },
+            {
+              "name": "Read",
+              "calls": 8
+            }
+          ]
+        }
+      ],
+      "costSource": "native-estimate",
+      "costBasis": "standard-api-tokens",
+      "dispatchesComplete": true,
+      "rootOwnCostUSD": 0.47578200000000004,
+      "unlinkedCostUSD": 0,
+      "unlinkedAgentIds": [],
+      "rootOwnTokens": {
+        "input": 22,
+        "output": 1754,
+        "cacheRead": 0,
+        "cacheCreation": 233495,
+        "cacheCreation1h": 233495,
+        "total": 235271
+      },
+      "unlinkedTokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "modelTimeline": [
+        {
+          "t": 1793099951319,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.073695,
+          "tokens": 36432
+        },
+        {
+          "t": 1793099953224,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.013477,
+          "tokens": 6509
+        },
+        {
+          "t": 1793099953857,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0814902,
+          "tokens": 36877
+        },
+        {
+          "t": 1793099961692,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.013797,
+          "tokens": 6743
+        },
+        {
+          "t": 1793099964682,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00302742,
+          "tokens": 7047
+        },
+        {
+          "t": 1793100007264,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.003611,
+          "tokens": 7892
+        },
+        {
+          "t": 1793100010580,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00432938,
+          "tokens": 8193
+        },
+        {
+          "t": 1793100120872,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0026194,
+          "tokens": 8462
+        },
+        {
+          "t": 1793100123157,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00807279,
+          "tokens": 9940
+        },
+        {
+          "t": 1793100125430,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00868076,
+          "tokens": 13045
+        },
+        {
+          "t": 1793100132063,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01782836,
+          "tokens": 14967
+        },
+        {
+          "t": 1793100265814,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00382921,
+          "tokens": 15256
+        },
+        {
+          "t": 1793100283251,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00428802,
+          "tokens": 15469
+        },
+        {
+          "t": 1793100300670,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0174079,
+          "tokens": 15957
+        },
+        {
+          "t": 1793100482769,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00523787,
+          "tokens": 16969
+        },
+        {
+          "t": 1793100581727,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0088347,
+          "tokens": 18975
+        },
+        {
+          "t": 1793100583755,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00709863,
+          "tokens": 19109
+        },
+        {
+          "t": 1793100588495,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00783365,
+          "tokens": 19408
+        },
+        {
+          "t": 1793100591766,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0042396,
+          "tokens": 19834
+        },
+        {
+          "t": 1793100663379,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0048201,
+          "tokens": 20380
+        },
+        {
+          "t": 1793100787169,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00444191,
+          "tokens": 20638
+        },
+        {
+          "t": 1793100789996,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00797797,
+          "tokens": 21569
+        },
+        {
+          "t": 1793100792638,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0065739,
+          "tokens": 22069
+        },
+        {
+          "t": 1793100794859,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0056531,
+          "tokens": 23594
+        },
+        {
+          "t": 1793100797279,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0154957,
+          "tokens": 27309
+        },
+        {
+          "t": 1793100927066,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00730158,
+          "tokens": 28973
+        },
+        {
+          "t": 1793100928927,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00433609,
+          "tokens": 29216
+        },
+        {
+          "t": 1793100935087,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00662959,
+          "tokens": 29818
+        },
+        {
+          "t": 1793101048226,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00638319,
+          "tokens": 30608
+        },
+        {
+          "t": 1793101091630,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.05292452,
+          "tokens": 38394
+        },
+        {
+          "t": 1793101579552,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0357082,
+          "tokens": 41169
+        },
+        {
+          "t": 1793105664049,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.082998,
+          "tokens": 41369
+        },
+        {
+          "t": 1793105667964,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.084296,
+          "tokens": 41987
+        },
+        {
+          "t": 1793105727165,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0509673,
+          "tokens": 51134
+        },
+        {
+          "t": 1793105815348,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.03603853,
+          "tokens": 53191
+        },
+        {
+          "t": 1793105837495,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01055582,
+          "tokens": 53334
+        },
+        {
+          "t": 1793105845170,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0285113,
+          "tokens": 54109
+        },
+        {
+          "t": 1793105846785,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01318405,
+          "tokens": 54426
+        },
+        {
+          "t": 1793105884288,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.04492884,
+          "tokens": 61353
+        },
+        {
+          "t": 1793105988068,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02159179,
+          "tokens": 61429
+        },
+        {
+          "t": 1793106007146,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01880681,
+          "tokens": 63832
+        },
+        {
+          "t": 1793106017567,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0256817,
+          "tokens": 64010
+        },
+        {
+          "t": 1793106020973,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0121128,
+          "tokens": 66613
+        },
+        {
+          "t": 1793106024175,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.018458,
+          "tokens": 66909
+        },
+        {
+          "t": 1793106027277,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00882365,
+          "tokens": 67316
+        },
+        {
+          "t": 1793106070861,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.04828362,
+          "tokens": 74814
+        },
+        {
+          "t": 1793106146778,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.15508801,
+          "tokens": 74995
+        },
+        {
+          "t": 1793106158361,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.03229248,
+          "tokens": 76679
+        },
+        {
+          "t": 1793106173152,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0232188,
+          "tokens": 79633
+        },
+        {
+          "t": 1793106180642,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0880594,
+          "tokens": 39355
+        },
+        {
+          "t": 1793165211712,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.080606,
+          "tokens": 39859
+        },
+        {
+          "t": 1793165213239,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.013544,
+          "tokens": 6568
+        },
+        {
+          "t": 1793165214925,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0891308,
+          "tokens": 40326
+        },
+        {
+          "t": 1793165220920,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.015061,
+          "tokens": 6996
+        },
+        {
+          "t": 1793165230430,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0169631,
+          "tokens": 7551
+        },
+        {
+          "t": 1793165232174,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0031373,
+          "tokens": 7725
+        },
+        {
+          "t": 1793165235304,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00443498,
+          "tokens": 8014
+        },
+        {
+          "t": 1793165236677,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00258808,
+          "tokens": 8147
+        },
+        {
+          "t": 1793165238220,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0023889,
+          "tokens": 8309
+        },
+        {
+          "t": 1793165239448,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00764885,
+          "tokens": 10887
+        },
+        {
+          "t": 1793165240632,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00545435,
+          "tokens": 12608
+        },
+        {
+          "t": 1793165242304,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01330054,
+          "tokens": 13600
+        },
+        {
+          "t": 1793165244365,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.012515,
+          "tokens": 13961
+        },
+        {
+          "t": 1793165251814,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0055714,
+          "tokens": 14868
+        },
+        {
+          "t": 1793165373693,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00549626,
+          "tokens": 15152
+        },
+        {
+          "t": 1793165379937,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00288431,
+          "tokens": 15360
+        },
+        {
+          "t": 1793165385261,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00277706,
+          "tokens": 15532
+        },
+        {
+          "t": 1793165396303,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00625658,
+          "tokens": 16341
+        },
+        {
+          "t": 1793165519005,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00647713,
+          "tokens": 17568
+        },
+        {
+          "t": 1793165529239,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0136673,
+          "tokens": 20097
+        },
+        {
+          "t": 1793165537017,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0034578,
+          "tokens": 20525
+        },
+        {
+          "t": 1793165563129,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01318504,
+          "tokens": 20659
+        },
+        {
+          "t": 1793165571117,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01256596,
+          "tokens": 23092
+        },
+        {
+          "t": 1793165611965,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02958285,
+          "tokens": 25886
+        },
+        {
+          "t": 1793165629887,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01773211,
+          "tokens": 27067
+        },
+        {
+          "t": 1793165648278,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.034364,
+          "tokens": 31305
+        },
+        {
+          "t": 1793165662019,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0302314,
+          "tokens": 32633
+        },
+        {
+          "t": 1793165675096,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01898754,
+          "tokens": 32957
+        },
+        {
+          "t": 1793165688610,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01289783,
+          "tokens": 34076
+        },
+        {
+          "t": 1793165702932,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01589236,
+          "tokens": 35787
+        },
+        {
+          "t": 1793165727516,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02802756,
+          "tokens": 39134
+        },
+        {
+          "t": 1793165758440,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0204786,
+          "tokens": 41244
+        },
+        {
+          "t": 1793165769565,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02365935,
+          "tokens": 42041
+        },
+        {
+          "t": 1793165838981,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0100994,
+          "tokens": 44026
+        },
+        {
+          "t": 1793165849319,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0060648,
+          "tokens": 44385
+        },
+        {
+          "t": 1793165858995,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02895376,
+          "tokens": 45833
+        },
+        {
+          "t": 1793165870319,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01230108,
+          "tokens": 46832
+        },
+        {
+          "t": 1793165889222,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01443761,
+          "tokens": 48212
+        },
+        {
+          "t": 1793165906368,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0187033,
+          "tokens": 50488
+        },
+        {
+          "t": 1793165913301,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0108341,
+          "tokens": 50853
+        },
+        {
+          "t": 1793165920771,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02483547,
+          "tokens": 51858
+        },
+        {
+          "t": 1793165944149,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01837,
+          "tokens": 54408
+        },
+        {
+          "t": 1793165987204,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0437178,
+          "tokens": 60636
+        },
+        {
+          "t": 1793166017309,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0271256,
+          "tokens": 62554
+        },
+        {
+          "t": 1793166052874,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0316554,
+          "tokens": 66989
+        },
+        {
+          "t": 1793166070913,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02413455,
+          "tokens": 68395
+        },
+        {
+          "t": 1793166079552,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0227424,
+          "tokens": 69417
+        },
+        {
+          "t": 1793166099621,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0273663,
+          "tokens": 73807
+        },
+        {
+          "t": 1793166136450,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02511696,
+          "tokens": 74884
+        },
+        {
+          "t": 1793166160518,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0257092,
+          "tokens": 76905
+        },
+        {
+          "t": 1793166181046,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0240622,
+          "tokens": 79452
+        },
+        {
+          "t": 1793166187769,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02660075,
+          "tokens": 82038
+        },
+        {
+          "t": 1793166196652,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02719772,
+          "tokens": 83688
+        },
+        {
+          "t": 1793166203176,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0949487,
+          "tokens": 42422
+        }
+      ],
+      "routedTurnsPct": 0,
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "sdlc-orchestrator",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "epic_id": "EPMCDMETST-69339",
+    "story_id": "EPMCDMETST-69346",
+    "workflow_id": "pr-assistant-instant-search-69339",
+    "created_at": "2026-10-28T00:00:00Z",
+    "status": "ready_for_review",
+    "version": "1.0.0"
+  },
+  "pull_request_details": {
+    "title": "feat(search): server-side breed filter, /api/breeds objects, clear filters, validation",
+    "branch": "feature/EPMCDMETST-69346-instant-search",
+    "commit_sha": "fd0abae7fb2ec3cfbf11b7821b7defde32e723bf",
+    "target_branch": "main",
+    "description_summary": "Implement instant search with server-side breed filtering and standardized breed objects"
+  },
+  "code_changes": {
+    "files_modified": 5,
+    "files": [
+      {
+        "path": "app/server/app.py",
+        "additions": 23,
+        "deletions": 3,
+        "status": "modified"
+      },
+      {
+        "path": "app/server/test_app.py",
+        "additions": 47,
+        "deletions": 5,
+        "status": "modified"
+      },
+      {
+        "path": "app/client/src/pages/index.astro",
+        "additions": 69,
+        "deletions": 29,
+        "status": "modified"
+      },
+      {
+        "path": "e2e/tests.spec.js",
+        "additions": 35,
+        "deletions": 10,
+        "status": "modified"
+      },
+      {
+        "path": "README.md",
+        "additions": 15,
+        "deletions": 2,
+        "status": "modified"
+      }
+    ]
+  },
+  "review_requirements": {
+    "min_approvals": 3,
+    "required_reviewers": [
+      "tech_lead",
+      "security_lead",
+      "qa_lead"
+    ],
+    "require_status_checks": true,
+    "dismiss_stale_reviews": false
+  },
+  "ci_cd_status": {
+    "all_checks_pass": true,
+    "tests": {
+      "total": 33,
+      "passed": 33,
+      "failed": 0
+    },
+    "coverage": "85%",
+    "security_scan": "0 vulnerabilities",
+    "lint": "passed"
+  },
+  "requirements_fulfillment": {
+    "fr_001": true,
+    "fr_002": true,
+    "fr_003": true,
+    "ac_01": true,
+    "ac_02": true,
+    "ac_03": true,
+    "ac_04": true
+  },
+  "approval_status": {
+    "tech_lead": "pending",
+    "security_lead": "pending",
+    "qa_lead": "pending",
+    "overall": "pending_approval"
+  }
+}

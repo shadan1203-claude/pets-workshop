@@ -1,0 +1,551 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-27T11:15:29.941Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 5433964,
+      "turns": 28,
+      "files": 2,
+      "netLines": 0,
+      "toolCallsTotal": 22,
+      "toolSuccessRate": 68.2,
+      "totalCostUSD": 0.6290342900000001,
+      "cacheReadCostUSD": 0.049204290000000005,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "estimatedModels": [],
+    "localModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "shadan_haq@epam.com",
+    "periodStart": "2026-10-27T09:44:52.905Z",
+    "periodEnd": "2026-10-27T11:15:26.869Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "95000f55-cccd-4b09-9691-08bf63c0f061",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Hi",
+      "project": "C:\\pets-workshop",
+      "branch": "feature/EPMCDMETST-69346-instant-search",
+      "startTime": 1793094292905,
+      "durationMs": 5433964,
+      "turns": 28,
+      "fileOps": 2,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 22,
+      "toolCallsSuccess": 15,
+      "toolCallsFailure": 7,
+      "models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "languages": [
+        "json",
+        "markdown"
+      ],
+      "tools": [
+        {
+          "toolName": "Bash",
+          "totalCalls": 17,
+          "successCount": 12,
+          "failureCount": 5,
+          "successRate": 70.58823529411765
+        },
+        {
+          "toolName": "Read",
+          "totalCalls": 4,
+          "successCount": 2,
+          "failureCount": 2,
+          "successRate": 50
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 149,
+        "output": 27126,
+        "cacheRead": 458783,
+        "cacheCreation": 207283,
+        "cacheCreation1h": 207283,
+        "total": 693341
+      },
+      "costUSD": 0.6290342900000001,
+      "cacheReadCostUSD": 0.049204290000000005,
+      "perModelCost": [
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 13,
+            "output": 615,
+            "cacheRead": 42267,
+            "cacheCreation": 42851,
+            "cacheCreation1h": 42851,
+            "total": 85746
+          },
+          "costUSD": 0.09301670000000001,
+          "unpriced": false
+        },
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 32,
+            "output": 8439,
+            "cacheRead": 83917,
+            "cacheCreation": 62239,
+            "cacheCreation1h": 62239,
+            "total": 154627
+          },
+          "costUSD": 0.1750967,
+          "unpriced": false
+        },
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 46,
+            "output": 4994,
+            "cacheRead": 148009,
+            "cacheCreation": 28459,
+            "cacheCreation1h": 28459,
+            "total": 181508
+          },
+          "costUSD": 0.10640839,
+          "unpriced": false
+        },
+        {
+          "model": "claude-haiku-4-5-20251001",
+          "tokens": {
+            "input": 58,
+            "output": 13078,
+            "cacheRead": 184590,
+            "cacheCreation": 73734,
+            "cacheCreation1h": 73734,
+            "total": 271460
+          },
+          "costUSD": 0.25451250000000003,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "agentSessionFile": "C:\\Users\\ShadanHaq\\.claude\\projects\\C--pets-workshop\\fb900bde-c676-4546-82e9-8bc57fa3c2da.jsonl",
+      "costSeries": [
+        {
+          "t": 1793094301007,
+          "cost": 0.07224799999999999,
+          "tokens": 36031
+        },
+        {
+          "t": 1793094381727,
+          "cost": 0.0777575,
+          "tokens": 72556
+        },
+        {
+          "t": 1793094383683,
+          "cost": 0.0911945,
+          "tokens": 79027
+        },
+        {
+          "t": 1793094396128,
+          "cost": 0.0930167,
+          "tokens": 85746
+        },
+        {
+          "t": 1793094403628,
+          "cost": 0.1673587,
+          "tokens": 122729
+        },
+        {
+          "t": 1793094404121,
+          "cost": 0.17000563,
+          "tokens": 129940
+        },
+        {
+          "t": 1793094407946,
+          "cost": 0.18521663,
+          "tokens": 137338
+        },
+        {
+          "t": 1793094437871,
+          "cost": 0.22432823,
+          "tokens": 148919
+        },
+        {
+          "t": 1793094445046,
+          "cost": 0.23512935,
+          "tokens": 160645
+        },
+        {
+          "t": 1793094456510,
+          "cost": 0.25221764999999996,
+          "tokens": 173896
+        },
+        {
+          "t": 1793094484706,
+          "cost": 0.27112477999999995,
+          "tokens": 188156
+        },
+        {
+          "t": 1793094505929,
+          "cost": 0.29712316999999994,
+          "tokens": 205896
+        },
+        {
+          "t": 1793094519712,
+          "cost": 0.31783176999999996,
+          "tokens": 225417
+        },
+        {
+          "t": 1793094547123,
+          "cost": 0.34791336999999994,
+          "tokens": 247655
+        },
+        {
+          "t": 1793094555564,
+          "cost": 0.37179040999999996,
+          "tokens": 270821
+        },
+        {
+          "t": 1793094571077,
+          "cost": 0.38789903,
+          "tokens": 295264
+        },
+        {
+          "t": 1793094586239,
+          "cost": 0.3959199,
+          "tokens": 320700
+        },
+        {
+          "t": 1793094589725,
+          "cost": 0.4039752,
+          "tokens": 346546
+        },
+        {
+          "t": 1793094592088,
+          "cost": 0.4105279,
+          "tokens": 373404
+        },
+        {
+          "t": 1793094616742,
+          "cost": 0.43762772,
+          "tokens": 404606
+        },
+        {
+          "t": 1793094631618,
+          "cost": 0.45400705,
+          "tokens": 436799
+        },
+        {
+          "t": 1793094660011,
+          "cost": 0.47149969,
+          "tokens": 469938
+        },
+        {
+          "t": 1793094690530,
+          "cost": 0.49167639,
+          "tokens": 506021
+        },
+        {
+          "t": 1793094703506,
+          "cost": 0.50269509,
+          "tokens": 542253
+        },
+        {
+          "t": 1793094706408,
+          "cost": 0.51785749,
+          "tokens": 578678
+        },
+        {
+          "t": 1793094720014,
+          "cost": 0.5229130900000001,
+          "tokens": 615309
+        },
+        {
+          "t": 1793094737087,
+          "cost": 0.54111019,
+          "tokens": 653983
+        },
+        {
+          "t": 1793094744371,
+          "cost": 0.6290342900000001,
+          "tokens": 693341
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "development-assistant",
+          "start": 1793094381727,
+          "durationMs": 15,
+          "id": "toolu_bdrk_01NPU54ioj8AtAfTj6DJfnvW",
+          "ownerAgentId": "95000f55-cccd-4b09-9691-08bf63c0f061",
+          "agentId": "a5598258ddff061e1",
+          "depth": 1,
+          "relationshipStatus": "resolved",
+          "acknowledgedAt": 1793094381742,
+          "observedEnd": 1793094737087,
+          "completedAt": 1793094738296,
+          "elapsedMs": 356569,
+          "status": "completed",
+          "costUSD": 0.36419280000000004,
+          "inclusiveCostUSD": 0.36419280000000004,
+          "attributionStatus": "exact",
+          "attributionScope": "own",
+          "tokens": {
+            "input": 136,
+            "output": 26265,
+            "cacheRead": 422818,
+            "cacheCreation": 95225,
+            "cacheCreation1h": 95225,
+            "total": 544444
+          },
+          "inclusiveTokens": {
+            "input": 136,
+            "output": 26265,
+            "cacheRead": 422818,
+            "cacheCreation": 95225,
+            "cacheCreation1h": 95225,
+            "total": 544444
+          },
+          "tools": [
+            {
+              "name": "Bash",
+              "calls": 19
+            },
+            {
+              "name": "Read",
+              "calls": 4
+            }
+          ]
+        }
+      ],
+      "costSource": "native-estimate",
+      "costBasis": "standard-api-tokens",
+      "dispatchesComplete": true,
+      "rootOwnCostUSD": 0.2320305,
+      "unlinkedCostUSD": 0,
+      "unlinkedAgentIds": [],
+      "observedEnd": 1793099726869,
+      "rootOwnTokens": {
+        "input": 13,
+        "output": 861,
+        "cacheRead": 35965,
+        "cacheCreation": 112058,
+        "cacheCreation1h": 112058,
+        "total": 148897
+      },
+      "unlinkedTokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "modelTimeline": [
+        {
+          "t": 1793094301007,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.072248,
+          "tokens": 36031
+        },
+        {
+          "t": 1793094381727,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0055095,
+          "tokens": 36525
+        },
+        {
+          "t": 1793094383683,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.013437,
+          "tokens": 6471
+        },
+        {
+          "t": 1793094396128,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0018222,
+          "tokens": 6719
+        },
+        {
+          "t": 1793094403628,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.074342,
+          "tokens": 36983
+        },
+        {
+          "t": 1793094404121,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00264693,
+          "tokens": 7211
+        },
+        {
+          "t": 1793094407946,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.015211,
+          "tokens": 7398
+        },
+        {
+          "t": 1793094437871,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0391116,
+          "tokens": 11581
+        },
+        {
+          "t": 1793094445046,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01080112,
+          "tokens": 11726
+        },
+        {
+          "t": 1793094456510,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0170883,
+          "tokens": 13251
+        },
+        {
+          "t": 1793094484706,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01890713,
+          "tokens": 14260
+        },
+        {
+          "t": 1793094505929,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02599839,
+          "tokens": 17740
+        },
+        {
+          "t": 1793094519712,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0207086,
+          "tokens": 19521
+        },
+        {
+          "t": 1793094547123,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0300816,
+          "tokens": 22238
+        },
+        {
+          "t": 1793094555564,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02387704,
+          "tokens": 23166
+        },
+        {
+          "t": 1793094571077,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01610862,
+          "tokens": 24443
+        },
+        {
+          "t": 1793094586239,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.00802087,
+          "tokens": 25436
+        },
+        {
+          "t": 1793094589725,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0080553,
+          "tokens": 25846
+        },
+        {
+          "t": 1793094592088,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0065527,
+          "tokens": 26858
+        },
+        {
+          "t": 1793094616742,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.02709982,
+          "tokens": 31202
+        },
+        {
+          "t": 1793094631618,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01637933,
+          "tokens": 32193
+        },
+        {
+          "t": 1793094660011,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.01749264,
+          "tokens": 33139
+        },
+        {
+          "t": 1793094690530,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0201767,
+          "tokens": 36083
+        },
+        {
+          "t": 1793094703506,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0110187,
+          "tokens": 36232
+        },
+        {
+          "t": 1793094706408,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0151624,
+          "tokens": 36425
+        },
+        {
+          "t": 1793094720014,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0050556,
+          "tokens": 36631
+        },
+        {
+          "t": 1793094737087,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0181971,
+          "tokens": 38674
+        },
+        {
+          "t": 1793094744371,
+          "model": "claude-haiku-4-5-20251001",
+          "costUSD": 0.0879241,
+          "tokens": 39358
+        }
+      ],
+      "routedTurnsPct": 0,
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "development-assistant",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}
