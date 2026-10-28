@@ -1,31 +1,3 @@
 {
-  "gate": "Deployment Approval",
-  "epic_id": "EPMCDMETST-69339",
-  "story_id": "EPMCDMETST-69346",
-  "status": "READY_FOR_STAGING",
-  "approval_date": "2026-10-28T00:00:00Z",
-  "validation_checks": {
-    "development_complete": true,
-    "testing_complete": true,
-    "pr_approved": false,
-    "deployment_plan_exists": true,
-    "rollback_plan_exists": true,
-    "monitoring_configured": true,
-    "infrastructure_ready": true
-  },
-  "deployment_strategy": {
-    "type": "blue_green_with_canary",
-    "zero_downtime": true,
-    "rollback_time_minutes": 15,
-    "phases": 4,
-    "total_duration_days": 7
-  },
-  "artifacts": [
-    "deployment-artifact.json",
-    "deployment-plan.md",
-    "rollback-plan.md"
-  ],
-  "approved_by": "DevOps Lead",
-  "comments": "All pre-deployment checks complete. Deployment strategy (blue-green, canary, feature flags) ready. Infrastructure validated. Rollback plan documented (<15 min). Ready for staging deployment after PR merge.",
-  "next_stage": "Staging Deployment"
+  "status": "Approved"
 }
