@@ -5,6 +5,7 @@ This directory contains Playwright end-to-end tests for the Tailspin Shelter web
 ## Test Files
 
 - `homepage.spec.ts` - Tests for the main homepage functionality
+- `favorites.spec.ts` - Tests favorite markers on initial and paginated dog cards
 - `about.spec.ts` - Tests for the about page
 - `dog-details.spec.ts` - Tests for individual dog detail pages
 - `api-integration.spec.ts` - Tests for API integration and error handling
@@ -57,6 +58,8 @@ The tests cover the following core functionality:
 ### Homepage Tests
 - Page loads with correct title and content
 - Dog list displays properly
+- Favorite markers match browser-local IDs across pagination and refresh
+- Missing, invalid, and inaccessible favorite storage leaves the listing usable
 
 ### About Page Tests
 - About page content displays correctly
