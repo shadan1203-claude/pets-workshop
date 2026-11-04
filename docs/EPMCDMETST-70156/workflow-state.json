@@ -1,0 +1,179 @@
+{
+  "workflow_id": "EPMCDMETST-70156-2026-11-04",
+  "jira_key": "EPMCDMETST-70156",
+  "source_of_truth": "Jira story EPMCDMETST-70156",
+  "status": "IN_PROGRESS",
+  "current_stage": "pull-request",
+  "approved_stages": [
+    "human-approval",
+    "code-review",
+    "testing",
+    "pull-request"
+  ],
+  "approvals": [
+    {
+      "stage": "human-approval",
+      "decision": "APPROVED",
+      "approved_artifacts": [
+        "docs/EPMCDMETST-70156/requirements.md",
+        "docs/EPMCDMETST-70156/architecture.md",
+        "docs/EPMCDMETST-70156/test-cases.md"
+      ],
+      "decisions": {
+        "breed_order": "Alphabetical by breed name",
+        "invalid_breed_id": "Malformed/non-numeric returns HTTP 400; unknown numeric returns HTTP 200 with empty results",
+        "filter_interaction": "Apply all supplied filters together (additive)"
+      }
+    },
+    {
+      "stage": "pull-request",
+      "decision": "AUTHORIZED",
+      "scope": "Create an isolated Jira branch, commit and push only EPMCDMETST-70156 changes, and open a remote pull request."
+    },
+    {
+      "stage": "deployment",
+      "decision": "AUTHORIZED_AFTER_PR_MERGE",
+      "target": "Not specified; deployment remains blocked until target and rollback path are defined."
+    }
+  ],
+  "jira": {
+    "retrieved": true,
+    "issue_status": "Open",
+    "summary": "Homepage: Filter dog list by breed (dropdown) with server-side filtering",
+    "related_epic": "EPMCDMETST-69339"
+  },
+  "artifacts": [
+    "requirements.md",
+    "architecture.md",
+    "test-cases.md",
+    "implementation.md",
+    "code-review.md",
+    "testing.md",
+    "pr-description.md",
+    "deployment.md",
+    "tests/EPMCDMETST-70156/tasks.test.js"
+  ],
+  "required_artifacts": [
+    "docs/<JIRA_ID>/requirements.md",
+    "docs/<JIRA_ID>/architecture.md",
+    "docs/<JIRA_ID>/test-cases.md",
+    "docs/<JIRA_ID>/implementation.md",
+    "docs/<JIRA_ID>/testing.md",
+    "docs/<JIRA_ID>/code-review.md",
+    "docs/<JIRA_ID>/pr-description.md",
+    "docs/<JIRA_ID>/deployment.md",
+    "tests/<JIRA_ID>/tasks.test.js"
+  ],
+  "intake": {
+    "business_goal": "Help users find dogs of a selected breed by filtering the homepage list.",
+    "scope": [
+      "GET /api/breeds returns breed id/name entries",
+      "GET /api/dogs accepts optional breed_id and filters server-side",
+      "Homepage dropdown persists selected breed_id in URL state",
+      "Pagination retains breed_id and reports filtered totals"
+    ],
+    "exclusions": [
+      "Multi-select breeds",
+      "Breed management/CRUD"
+    ],
+    "assumptions": [
+      "Breeds are seeded and present; stated in Jira."
+    ],
+    "risks": [
+      "Current unit-test mocks for db.session.query may need to accommodate filter calls; stated in Jira."
+    ],
+    "open_questions": []
+  },
+  "decisions": [
+    {
+      "stage": "human-approval",
+      "decision": "APPROVED",
+      "breed_order": "Alphabetical by breed name",
+      "invalid_breed_id": "Malformed/non-numeric returns HTTP 400; unknown numeric returns HTTP 200 with empty results",
+      "filter_interaction": "Apply all supplied filters together (additive)"
+    }
+  ],
+  "agents_executed": [
+    "pets-workshop-orchestrator",
+    "general-purpose implementation agent",
+    "code-review agent (initial review and remediation re-review)"
+  ],
+  "agent_execution_attempts": [
+    {
+      "agent": "pets-workshop-orchestrator",
+      "result": "UNAVAILABLE",
+      "detail": "Task invocation rejected because maximum sub-agent depth of 4 was reached; requirements, architecture, and testing specialists were not invoked."
+    }
+  ],
+  "mcp_tools_used": [
+    "jira-getIssue",
+    "jira-healthCheck",
+    "github-mcp-server-search_repositories",
+    "github-mcp-server-search_pull_requests (0 results)",
+    "confluence-searchPages (failed with HTTP 400)"
+  ],
+  "validation": [
+    {
+      "check": "Jira issue retrieval",
+      "result": "PASSED",
+      "detail": "Retrieved EPMCDMETST-70156, Open Story; Jira response supplied acceptance criteria, scope, exclusions, assumption, and risk."
+    },
+    {
+      "check": "Pre-development hook initial run",
+      "result": "FAILED; issue corrected",
+      "detail": "The artifact resolver used CommonJS require under workflow/package.json's ESM mode. Converted the resolver to ESM and reran the hook successfully with JIRA_ID=EPMCDMETST-70156."
+    },
+    {
+      "check": "Pre-development hook",
+      "result": "PASSED",
+      "detail": "bash hooks/pre-development.sh with JIRA_ID=EPMCDMETST-70156 confirmed implementation prerequisites and recorded approval."
+    },
+    {
+      "check": "Flask unit tests",
+      "result": "PASSED",
+      "detail": "py -m unittest test_app from app/server; 18 tests passed."
+    },
+    {
+      "check": "Astro production build",
+      "result": "PASSED",
+      "detail": "npm run build from app/client completed."
+    },
+    {
+      "check": "Playwright focused E2E/API integration tests",
+      "result": "PASSED",
+      "detail": "npx playwright test e2e-tests/search.spec.ts e2e-tests/api-integration.spec.ts --project=chromium --reporter=dot from app/client; 29 tests passed, including delayed-response stale-pagination coverage."
+    },
+    {
+      "check": "Whitespace validation",
+      "result": "PASSED",
+      "detail": "git diff --check passed for relevant changes; Git emitted only an LF/CRLF notice for unrelated docs/EPMCDMETST-70332/workflow-state.json."
+    },
+    {
+      "check": "Code review",
+      "result": "PASSED AFTER REMEDIATION",
+      "detail": "The configured code-review agent found a Medium stale-pagination race; implementation fixed it with disabled links and a click guard, added a delayed-response Playwright test, and the reviewer confirmed resolution with no new material issues."
+    },
+    {
+      "check": "Artifact resolver",
+      "result": "PASSED",
+      "detail": "After converting workflow/artifact-paths.js to ESM, node --check and validate-stage implementation passed; Jira-scoped testing, code-review, PR-description, and deployment paths resolved."
+    },
+    {
+      "check": "Test skeleton syntax",
+      "result": "PASSED",
+      "detail": "node --check tests/EPMCDMETST-70156/tasks.test.js passed; tests were not executed."
+    }
+  ],
+  "blockers": [
+    "Requirements, architecture, and testing specialists could not be invoked because task delegation was rejected at the maximum sub-agent depth; the artifacts were prepared directly from Jira and repository evidence.",
+    "Deployment target and target-specific rollback path are not specified; deployment remains blocked even though the user authorized deployment after PR merge."
+  ],
+  "external_publication": {
+    "jira": "READ ONLY; no Jira changes requested or made.",
+    "confluence": "Search attempted and failed with HTTP 400; no publication.",
+    "github": "Repository metadata and pull-request search read only; no matching PR found; no issue, branch, PR, or remote write."
+  },
+  "worktree_note": "Pre-existing unrelated worktree changes were preserved. Implementation and test changes are local and uncommitted; no remote PR or deployment changes were made.",
+  "created_at": "2026-11-04T06:04:59.227Z",
+  "updated_at": "2026-11-04T06:08:23.670Z"
+}
