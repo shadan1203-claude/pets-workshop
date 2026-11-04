@@ -132,6 +132,14 @@
     {
       "id": "D-24",
       "decision": "Deployment preparation inspected the approved plan, architecture, repository deployment configuration, and validation evidence. No verified non-local target, accountable deployment owner, configured release procedure, target safeguards, or separate deployment approval exists. Record BLOCKED — NO DEPLOY; do not execute deployment or post-deployment checks."
+    },
+    {
+      "id": "D-25",
+      "decision": "User authorized PR creation. Created PR #21 at https://github.com/shadan1203-claude/pets-workshop/pull/21 from feature/EPMCDMETST-70141-breed-filter targeting feature/EPMCDMETST-70332-favorite-badge to avoid duplicating the already-open PR #19 changes. No merge was performed."
+    },
+    {
+      "id": "D-26",
+      "decision": "Requested PR review from the listed CODEOWNERS, but GitHub rejected the request with HTTP 422 because one or more accounts are not repository collaborators. PR currently has no recorded review requests or approvals."
     }
   ],
   "risks": [
@@ -272,7 +280,7 @@
     },
     {
       "check": "PR Generation",
-      "result": "PASS; docs/EPMCDMETST-70141/pr-description.md prepared and verified against approved scope, candidate changes, repeat Code Review, and final Testing evidence. No external PR created."
+      "result": "PASS; PR #21 https://github.com/shadan1203-claude/pets-workshop/pull/21 created from feature/EPMCDMETST-70141-breed-filter targeting feature/EPMCDMETST-70332-favorite-badge. Verified OPEN and CLEAN; no review requests or approvals are recorded. Review request to listed CODEOWNERS was rejected (HTTP 422, non-collaborator)."
     },
     {
       "check": "Deployment Preparation",
@@ -284,7 +292,7 @@
     }
   ],
   "blockers": [
-    "No explicit authorization to create a GitHub pull request; only the Jira-scoped PR description is prepared.",
+    "PR #21 is open but has no recorded review requests or approvals; GitHub rejected requests to the listed CODEOWNERS because one or more accounts are not collaborators. Do not merge without required approvals and separate merge authorization.",
     "Deployment blocked: no verified target, assigned deployment owner, configured release procedure, target-specific safeguards/rollback, or separate deployment approval. Post-deployment validation cannot run."
   ],
   "external_references": [
@@ -292,9 +300,17 @@
       "type": "Jira",
       "key": "EPMCDMETST-70141",
       "status": "Open"
+    },
+    {
+      "type": "Pull Request",
+      "key": "21",
+      "url": "https://github.com/shadan1203-claude/pets-workshop/pull/21",
+      "status": "Open",
+      "base_branch": "feature/EPMCDMETST-70332-favorite-badge",
+      "head_branch": "feature/EPMCDMETST-70141-breed-filter"
     }
   ],
   "worktree_note": "Repository had pre-existing local changes. User approved relevant uncommitted breed-filter files as candidate work; unrelated changes and all source files remain untouched.",
   "created_at": "2026-11-04T07:18:23.298Z",
-  "updated_at": "2026-11-04T14:08:07.3186003+05:30"
+  "updated_at": "2026-11-04T14:13:04.1201364+05:30"
 }

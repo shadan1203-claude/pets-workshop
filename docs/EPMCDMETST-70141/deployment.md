@@ -4,7 +4,9 @@
 
 **BLOCKED — NO DEPLOY.** No deployment was attempted and no external write was made.
 
-The final Testing report records **PASS**, and the user approved Testing. The approved plan still requires separate deployment approval; Testing approval is not deployment authorization. The PR description is prepared, but **no PR was created**.
+The final Testing report records **PASS**, and the user approved Testing. Pull request [#21](https://github.com/shadan1203-claude/pets-workshop/pull/21) is open against the existing EPMCDMETST-70332 feature branch. Separate deployment approval and a verified deployment plan are still required; PR creation and Testing approval do not authorize deployment.
+
+An attempt to request reviews from the repository's listed CODEOWNERS was rejected by GitHub because one or more requested accounts are not repository collaborators (HTTP 422). The PR currently has no recorded review requests or approvals.
 
 ## Verified scope and evidence
 
