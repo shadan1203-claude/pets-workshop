@@ -1,0 +1,397 @@
+{
+  "jira_key": "EPMCDMETST-70332",
+  "current_stage": "pr-generation",
+  "status": "WAITING_FOR_EXPLICIT_PR_CREATION_DECISION",
+  "artifacts": [
+    "docs/EPMCDMETST-70332/intake-summary.md",
+    "docs/EPMCDMETST-70332/requirements.md",
+    "docs/EPMCDMETST-70332/architecture.md",
+    "docs/EPMCDMETST-70332/design-review.md",
+    "docs/EPMCDMETST-70332/api-design.md",
+    "docs/EPMCDMETST-70332/implementation-plan.md",
+    "docs/EPMCDMETST-70332/development-report.md",
+    "docs/EPMCDMETST-70332/code-review.md",
+    "docs/EPMCDMETST-70332/testing.md",
+    "docs/EPMCDMETST-70332/pr-description.md"
+  ],
+  "created_at": "2026-11-03T08:56:07.661Z",
+  "updated_at": "2026-11-03T16:13:06.256+05:30",
+  "approvals": [
+    {
+      "stage": "requirements",
+      "decision": "APPROVED",
+      "evidence": "User: “Approve Requirements and proceed to Architecture.”"
+    },
+    {
+      "stage": "architecture",
+      "decision": "APPROVED",
+      "evidence": "User: “Approve Architecture and proceed to Design Review.”"
+    },
+    {
+      "stage": "design-review",
+      "decision": "APPROVED",
+      "evidence": "User: “Accept DR-01 and approve Design Review; proceed to Planning.” Explicit acceptance of Medium finding DR-01."
+    },
+    {
+      "stage": "api-design",
+      "decision": "APPROVED",
+      "evidence": "User: “Approve API Design and proceed to Planning.”"
+    },
+    {
+      "stage": "planning",
+      "decision": "APPROVED",
+      "evidence": "User: “Approve plan and authorize pre-development gate” (2026-11-03). This authorizes the pre-development gate; Development may proceed only through the configured Development specialist after a passing gate."
+    }
+  ],
+  "decisions": [
+    "The user accepted DR-01's SSR-to-client initialization transition and approved Design Review. The review decision is APPROVED.",
+    "Keep the approved architecture scope read-only; OQ-01 remains open.",
+    "Design Review completed by an authorized alternative reviewer, not the configured Design Review specialist.",
+    "Repository phase order requires API Design after Design Review and before Planning.",
+    "The user explicitly authorized an alternative for API Design because the canonical artifact was missing and the configured API Design specialist was unavailable. The alternative completed only API Design and recorded this deviation.",
+    "The API Design determination is no API or database changes; the existing dog-list response supplies Dog.id and favorites remain client-local. OQ-01 remains open.",
+    "The user approved API Design with “Approve API Design and proceed to Planning.” This authorizes Planning only; implementation and later phases remain unauthorized.",
+    "The user explicitly authorized an alternative agent for Planning because the configured Planning specialist was unavailable. The Planning artifact records that the author is an authorized alternative, not the configured specialist.",
+    "Planning produced only implementation-plan.md and is awaiting human approval. Do not start the pre-development gate or Development before approval.",
+    "Keep the approved marker design read-only; accepted DR-01 requires early client initialization and tests; no API changes are proposed; OQ-01 remains unresolved.",
+    "The user approved implementation-plan.md with “Approve plan and authorize pre-development gate.” Run the gate; after a pass, invoke only the configured Development specialist. If the gate fails or the specialist is unavailable, stop as directed.",
+    "The user explicitly authorized an alternative agent for Development because the configured Development specialist was unavailable. This authorized alternative implemented only PL-01 through PL-04 from the approved plan; this deviation is recorded in development-report.md.",
+    "Implementation preserves accepted DR-01 (the marker appears after client initialization), leaves OQ-01 open, and makes no storage writes, API/database changes, favorites page, or favorite-changing interaction.",
+    "Focused implementation validation and Code Review passed. Code Review recommended APPROVE with no findings.",
+    "The user explicitly authorized an alternative agent for Testing because the configured Testing specialist was unavailable. Testing completed with all executed checks passing; the alternative-agent deviation is recorded in testing.md. The phase recommends a human release-readiness / PR decision only; no release approval, PR, deployment, or commit is claimed. OQ-01 remains open and accepted DR-01 is preserved.",
+    "PR Generation was authorized as the next phase for preparation only. No configured PR Generation specialist is available; do not substitute without explicit user authorization. Creating a PR requires separate explicit authorization and has not been attempted.",
+    "The user explicitly authorized an alternative for PR Generation to prepare only the Jira-scoped PR description. The authorized alternative created pr-description.md, recorded the delegation deviation, and stopped before any GitHub write. A separate explicit PR-creation decision is still required."
+  ],
+  "blockers": [
+    "The Jira-scoped PR description is prepared. Await a separate explicit decision before creating a GitHub PR; no GitHub write, branch, issue, commit, or deployment was performed."
+  ],
+  "agents_executed": [
+    "Authorized alternative reviewer (Design Review only; not the configured Design Review specialist)",
+    "pets-workshop-orchestrator (Planning resumption; stopped at mandatory API Design gate)",
+    "Authorized alternative agent (API Design only; not the configured API Design specialist)",
+    "pets-workshop-orchestrator (Planning resumption after API Design approval; stopped because Planning specialist is unavailable)",
+    "Authorized alternative agent (Planning only; not the configured Planning specialist; deviation explicitly authorized by the user)",
+    "pets-workshop-orchestrator (Development readiness; ran the approved pre-development gate)",
+    "pets-workshop-orchestrator (Development specialist availability check)",
+    "Authorized alternative Development agent (explicitly authorized by user; configured specialist unavailable; deviation recorded)",
+    "code-review specialist (reviewed Jira-scoped implementation; APPROVE, no findings)",
+    "pets-workshop-orchestrator (Testing resumption and specialist availability)",
+    "Authorized alternative Testing agent (explicitly authorized by user because configured Testing specialist was unavailable; deviation recorded)",
+    "Authorized alternative PR Generation agent (user explicitly authorized description preparation; not the configured PR Generation specialist; no GitHub write)"
+  ],
+  "mcp_tools_used": [
+    "jira-getIssue"
+  ],
+  "validation": [
+    {
+      "check": "Architecture approval",
+      "result": "VERIFIED",
+      "detail": "Architecture.md records the user's explicit approval to proceed to Design Review."
+    },
+    {
+      "check": "Requirements artifact and approval",
+      "result": "VERIFIED",
+      "detail": "requirements.md exists and records explicit user approval to proceed to Architecture; validate-stage requirements returned docs/EPMCDMETST-70332 with exit code 0."
+    },
+    {
+      "check": "Architecture artifact",
+      "result": "VERIFIED",
+      "detail": "Resolver returned docs/EPMCDMETST-70332/architecture.md; artifact exists."
+    },
+    {
+      "check": "Design Review",
+      "result": "APPROVED_WITH_ACCEPTED_DR-01",
+      "detail": "User explicitly accepted DR-01 and approved Design Review: “Accept DR-01 and approve Design Review; proceed to Planning.” One non-blocking Medium finding; no Critical or High findings."
+    },
+    {
+      "check": "OQ-01 scope boundary",
+      "result": "PRESERVED",
+      "detail": "How favorites are changed remains open; it is not a finding or blocker for the approved read-only marker."
+    },
+    {
+      "check": "Implementation and downstream phases",
+      "result": "NOT_STARTED",
+      "detail": "No Planning, Development, tests, PR, deployment, or commit was started. This authorized work was limited to API Design."
+    },
+    {
+      "check": "Artifact resolver",
+      "result": "HISTORICAL",
+      "detail": "Before this authorized API Design work, the resolver confirmed prior artifact paths and validate-stage planning failed because api-design.md was absent. The current canonical API artifact path and api-design prerequisites were revalidated after the artifact was created."
+    },
+    {
+      "check": "Review artifact and workflow state",
+      "result": "VERIFIED",
+      "detail": "Design Review artifact contains DR-01 and the recorded human acceptance/approval. That approval is preserved; workflow-state.json now records current_stage api-design and status WAITING_FOR_API_DESIGN_APPROVAL."
+    },
+    {
+      "check": "git diff --check",
+      "result": "PASSED",
+      "detail": "No whitespace errors reported; the Jira artifact directory is untracked in this worktree, so the review markdown was additionally checked directly for trailing whitespace."
+    },
+    {
+      "check": "Mandatory API Design prerequisite",
+      "result": "SUPERSEDED",
+      "detail": "This was the prior state before explicit authorization for the alternative API Design agent. The canonical artifact is now present and submitted for human approval; no Planning validation or work was performed."
+    },
+    {
+      "check": "Planning specialist",
+      "result": "NOT_INVOKED",
+      "detail": "Planning was not started in this API Design-only task. No Planning specialist was invoked or substituted."
+    },
+    {
+      "check": "Current resumption approval and phase gate",
+      "result": "VERIFIED",
+      "detail": "User accepted DR-01 and approved Design Review with authorization to proceed to Planning. The acceptance and approval are recorded in design-review.md and this state."
+    },
+    {
+      "check": "Current resolver and prerequisites",
+      "result": "SUPERSEDED",
+      "detail": "The prior resolver check found api-design.md absent. The API Design artifact has since been created by the authorized alternative; current resolver path and api-design prerequisites were verified. Planning remains unstarted pending human approval."
+    },
+    {
+      "check": "Requirements, architecture, approved Design Review, and API Design",
+      "result": "VERIFIED",
+      "detail": "Validated the existing Jira-scoped artifacts. Requirements and architecture record their approvals; Design Review is approved with accepted, non-blocking DR-01 (SSR-to-client transition); API Design specifies no API changes and preserves OQ-01."
+    },
+    {
+      "check": "API Design user approval",
+      "result": "APPROVED",
+      "detail": "The user explicitly stated “Approve API Design and proceed to Planning.” Approval is recorded in api-design.md and this workflow state; it authorizes Planning only."
+    },
+    {
+      "check": "Planning specialist availability",
+      "result": "BLOCKED",
+      "detail": "No callable configured Planning specialist is available among the agent invocation options. .github/agents/planning.md is an Automated Documentation Sync plan document, not a callable specialist. No alternative was invoked."
+    },
+    {
+      "check": "Planning artifact and downstream phases",
+      "result": "NOT_STARTED",
+      "detail": "The resolver identifies docs/EPMCDMETST-70332/implementation-plan.md. No implementation plan was created, no plan approval was requested, and no pre-development gate or Development was started."
+    },
+    {
+      "check": "Jira source of truth",
+      "result": "VERIFIED",
+      "detail": "jira-getIssue returned EPMCDMETST-70332, Open Story, ENH-03: Show favorite badge/icon on dog cards in listing."
+    },
+    {
+      "check": "Current diff validation",
+      "result": "PASSED",
+      "detail": "git diff --check -- docs/EPMCDMETST-70332 reported no whitespace errors."
+    },
+    {
+      "check": "API Design artifact and authorization",
+      "result": "SUBMITTED_FOR_HUMAN_APPROVAL",
+      "detail": "The user authorized an alternative API Design agent because the artifact was missing and the configured specialist unavailable. The canonical artifact is now present; no human API Design approval is claimed."
+    },
+    {
+      "check": "API Design path and prerequisite validation",
+      "result": "PASSED",
+      "detail": "node workflow/artifact-paths.js path api-design --jira-id EPMCDMETST-70332 resolved docs/EPMCDMETST-70332/api-design.md; validate-stage api-design exited 0."
+    },
+    {
+      "check": "API Design content and workflow state",
+      "result": "PASSED",
+      "detail": "JSON parsing confirmed current_stage api-design, status WAITING_FOR_API_DESIGN_APPROVAL, and the canonical artifact in artifacts. Required API boundary, storage contract, OQ-01, security/privacy, compatibility, errors/observability, traceability, and pending approval sections were present."
+    },
+    {
+      "check": "Whitespace",
+      "result": "PASSED",
+      "detail": "git diff --check reported no whitespace errors; because the Jira artifact folder is untracked, api-design.md and workflow-state.json were also checked directly for trailing whitespace."
+    },
+    {
+      "check": "API Design approval",
+      "result": "APPROVED",
+      "detail": "The user explicitly stated “Approve API Design and proceed to Planning.” The approval is recorded in api-design.md and this state; it authorizes Planning only."
+    },
+    {
+      "check": "Approved phase artifacts",
+      "result": "VERIFIED",
+      "detail": "Resolver validate-stage checks passed for requirements, architecture, design-review, api-design, and planning. Requirements, Architecture, Design Review (with accepted DR-01), and API Design artifacts and approvals were inspected. OQ-01 remains open."
+    },
+    {
+      "check": "Planning specialist availability",
+      "result": "BLOCKED",
+      "detail": "No callable configured Planning specialist is available. .github/agents/planning.md is an Automated Documentation Sync plan document, not a callable Planning specialist. No alternative was authorized or invoked."
+    },
+    {
+      "check": "Planning and downstream work",
+      "result": "NOT_STARTED",
+      "detail": "implementation-plan.md was resolved via the artifact resolver but was not created. No plan approval was requested; the pre-development gate, development, tests, PR, and deployment were not started."
+    },
+    {
+      "check": "Jira current issue",
+      "result": "VERIFIED",
+      "detail": "jira-getIssue confirmed EPMCDMETST-70332 remains the Open Story “ENH-03: Show favorite badge/icon on dog cards in listing.”"
+    },
+    {
+      "check": "Planning authorization and deviation",
+      "result": "VERIFIED",
+      "detail": "The user explicitly authorized an alternative agent for Planning because the configured Planning specialist was unavailable. The author and deviation are recorded in implementation-plan.md and this state."
+    },
+    {
+      "check": "Planning artifact and resolver",
+      "result": "PASSED",
+      "detail": "node workflow/artifact-paths.js path planning --jira-id EPMCDMETST-70332 resolved docs/EPMCDMETST-70332/implementation-plan.md; validate-stage planning exited 0."
+    },
+    {
+      "check": "Planning artifact structure and approval boundary",
+      "result": "PASSED",
+      "detail": "The plan contains the required planning sections, stable task IDs and dependencies, requirement traceability, verified source/test targets, validation commands, risks, deployment and rollback considerations. It is awaiting human approval; no approval is claimed."
+    },
+    {
+      "check": "Planning scope and downstream gate",
+      "result": "VERIFIED",
+      "detail": "No code, tests, pre-development gate, Development, commit, PR, or deployment was started. OQ-01 remains open; accepted DR-01 and no-API-change decision are preserved."
+    },
+    {
+      "check": "Workflow state and artifact structure",
+      "result": "PASSED",
+      "detail": "Node validation parsed workflow-state.json, confirmed the Jira key, planning stage, AWAITING_HUMAN_APPROVAL status, canonical plan path and prior approvals, and verified all required plan headings and four unique task IDs."
+    },
+    {
+      "check": "Whitespace validation",
+      "result": "PASSED",
+      "detail": "git diff --check reported no whitespace errors. The plan and state files are untracked in this worktree, so Select-String also checked both directly and found no trailing whitespace."
+    },
+    {
+      "check": "Plan approval and scope verification",
+      "result": "APPROVED_AND_VERIFIED",
+      "detail": "User explicitly approved: “Approve plan and authorize pre-development gate.” Verified the resolver-derived plan remains limited to the read-only listing marker and approved storage contract; no writer, toggle, management page, API/database change, or OQ-01 resolution was added. Accepted DR-01's SSR-to-client initialization transition is preserved. Approval authorizes the pre-development gate; Development is limited to the configured specialist after a passing gate."
+    },
+    {
+      "check": "Pre-development gate",
+      "result": "FAILED",
+      "detail": "Initial invocation: bash hooks/pre-development.sh without JIRA_ID; exit code 1. Exact output: Checking prerequisites\nMultiple Jira workflow folders found (EPMCDMETST-69346, EPMCDMETST-70332); set JIRA_ID or pass --jira-id. The approved Jira key was then set as JIRA_ID=EPMCDMETST-70332 and the same required command was rerun; it passed. No prerequisite was bypassed."
+    },
+    {
+      "check": "Pre-development gate (Jira-scoped run)",
+      "result": "PASSED",
+      "detail": "Command: bash hooks/pre-development.sh with JIRA_ID=EPMCDMETST-70332 exported. Exit code: 0. Output: Checking prerequisites; Using Jira artifact directory: C:\\Github capstone\\pets-workshop\\docs\\EPMCDMETST-70332; All prerequisite artifacts found."
+    },
+    {
+      "check": "Development specialist availability",
+      "result": "SUPERSEDED_BY_USER_AUTHORIZATION",
+      "detail": "The configured Development specialist was unavailable. The user later explicitly authorized an alternative for Development; that authorized alternative completed the bounded approved plan, with the deviation recorded in development-report.md."
+    },
+    {
+      "check": "Implementation and tests",
+      "result": "SUPERSEDED_BY_DEVELOPMENT",
+      "detail": "At the prior readiness check, implementation and tests had not started. They were subsequently completed by the user-authorized alternative within PL-01–PL-04; see the later validation records and development-report.md."
+    },
+    {
+      "check": "Pre-development gate (authorized alternative resumption)",
+      "result": "PASSED",
+      "detail": "Re-ran `bash hooks/pre-development.sh` with JIRA_ID=EPMCDMETST-70332. Exit code 0; resolver selected docs/EPMCDMETST-70332 and reported all prerequisite artifacts found."
+    },
+    {
+      "check": "Development authorization and deviation",
+      "result": "VERIFIED",
+      "detail": "The user explicitly authorized an alternative agent for Development because the configured Development specialist was unavailable. Work was limited to approved plan tasks PL-01–PL-04; deviation is recorded in development-report.md and this state."
+    },
+    {
+      "check": "Implementation scope",
+      "result": "COMPLETED_WITHIN_APPROVED_PLAN",
+      "detail": "Added card ID hooks and an accessible marker; read/normalized the approved localStorage value for initial and paginated render paths; added focused E2E cases and documentation. No storage writes, favorite controls, favorites page, API/database changes, or OQ-01 resolution."
+    },
+    {
+      "check": "Focused Playwright validation",
+      "result": "PASSED",
+      "detail": "From app/client, `npm run test:e2e:chromium -- --grep \"favorite|pagination\"` passed: 10 tests. Coverage included matching/non-matching cards, pagination, refresh, absent/malformed/non-array/invalid values, mixed entries, accessibility, and storage-access failure."
+    },
+    {
+      "check": "Astro production build",
+      "result": "PASSED",
+      "detail": "From app/client, `npm run build` completed successfully using the Astro Node adapter."
+    },
+    {
+      "check": "Documentation",
+      "result": "UPDATED",
+      "detail": "Documented the read-only localStorage marker in the root product README and added the focused spec and coverage to app/client/e2e-tests/README.md. The generic Astro starter README was not rewritten."
+    },
+    {
+      "check": "Handoff boundary",
+      "result": "SUPERSEDED_BY_CODE_REVIEW",
+      "detail": "At development handoff, the report was waiting for Code Review. Code Review has since completed with APPROVE; the separate Testing phase, PR, deployment, and commit remain unperformed."
+    },
+    {
+      "check": "Development-stage resolver validation",
+      "result": "PASSED",
+      "detail": "`node workflow/artifact-paths.js validate-stage development --jira-id EPMCDMETST-70332` exited 0 and resolved the Jira-scoped artifact directory."
+    },
+    {
+      "check": "Workflow state and whitespace",
+      "result": "PASSED",
+      "detail": "At development handoff, Node parsed workflow-state.json and verified the Jira key, WAITING_FOR_CODE_REVIEW status, and canonical development-report path. Code Review later recorded the current READY_FOR_TESTING status. No trailing whitespace was found in the state, report, or new Playwright spec; git diff --check passed."
+    },
+    {
+      "check": "Development artifact and worktree",
+      "result": "VERIFIED",
+      "detail": "Development report exists at the resolver-derived path and validate-stage development passed. Scoped worktree paths include the reported README, card component, listing page, E2E README, and new favorites.spec.ts. Existing unrelated deletions/additions were left untouched."
+    },
+    {
+      "check": "Code Review specialist",
+      "result": "APPROVED",
+      "detail": "Callable code-review specialist reviewed implementation and tests against the approved Jira scope and phase artifacts. Recommendation APPROVE; no findings reported. Results recorded in docs/EPMCDMETST-70332/code-review.md."
+    },
+    {
+      "check": "Testing phase",
+      "result": "NOT_STARTED",
+      "detail": "Code Review gate passed. No separate Testing-phase checks were run; implementation-reported Playwright/build outcomes are not represented as a Testing-phase result."
+    },
+    {
+      "check": "Testing specialist availability",
+      "result": "BLOCKED",
+      "detail": "No callable configured Testing specialist was available in the agent invocation options. .github/agents/testing.md is a testing strategy/results document, not a callable specialist. The orchestrator-agent invocation was rejected because maximum sub-agent depth was reached. No alternative Testing agent was invoked; no Testing-phase checks or testing.md report were produced. Await explicit user authorization before using an alternative."
+    },
+    {
+      "check": "Testing resumption prerequisites",
+      "result": "VERIFIED",
+      "detail": "Resolver paths confirmed development-report.md, code-review.md, testing.md, and workflow-state.json. validate-stage testing passed its artifact-presence prerequisites. code-review.md records APPROVE with no findings; jira-getIssue confirmed the Jira story remains Open."
+    },
+    {
+      "check": "Development report consistency",
+      "result": "CORRECTED",
+      "detail": "The development report opening incorrectly said Code Review had not run, contradicting the later handoff and approved code-review.md. The opening and handoff now reflect Code Review APPROVE and Testing blocked. Reported Playwright/build outcomes remain implementation supporting evidence, not a Testing-phase result."
+    },
+    {
+      "check": "Testing specialist invocation",
+      "result": "BLOCKED",
+      "detail": "Historical state before the user's explicit authorization: the configured Testing specialist was unavailable, and no alternative had yet been authorized."
+    },
+    {
+      "check": "Testing phase execution",
+      "result": "PASSED",
+      "detail": "User-authorized alternative Testing agent (not the configured specialist) ran `npm run test:e2e:chromium -- --grep 'favorite|pagination'` from app/client: exit 0, 10 passed; and `bash hooks/post-codegen.sh` from the repository root: exit 0, Astro build passed and backend unit tests ran 13 tests, all passed. Exact commands, acceptance traceability, and limitations are recorded in testing.md."
+    },
+    {
+      "check": "Testing report and resolver",
+      "result": "PASSED",
+      "detail": "`node workflow/artifact-paths.js path testing --jira-id EPMCDMETST-70332` resolved docs/EPMCDMETST-70332/testing.md; `validate-stage testing` exited 0. The report records all checks, acceptance evidence, alternative-agent deviation, and environment limits."
+    },
+    {
+      "check": "Release-readiness handoff",
+      "result": "AWAITING_HUMAN_DECISION",
+      "detail": "Testing recommends a human release-readiness / PR decision. No release approval, PR, deployment, or commit is claimed. OQ-01 remains open; DR-01 remains accepted."
+    },
+    {
+      "check": "PR Generation resumption",
+      "result": "BLOCKED",
+      "detail": "Verified testing.md reports focused Chromium Playwright command exit 0 with 10 passed and bash hooks/post-codegen.sh exit 0 with Astro production build and 13 backend unit tests passed. Testing maps Jira acceptance criteria and records Chromium-only and unmeasured SSR-to-client transition limitations. Development report and Code Review APPROVE artifact are present. Resolver validate-stage testing passed."
+    },
+    {
+      "check": "PR Generation specialist",
+      "result": "UNAVAILABLE; ALTERNATIVE EXPLICITLY AUTHORIZED",
+      "detail": "The configured PR Generation specialist was unavailable. The user explicitly authorized an alternative for preparation of the Jira-scoped description only; the delegation deviation is recorded in pr-description.md."
+    },
+    {
+      "check": "PR description and external writes",
+      "result": "PREPARED; AWAITING_EXPLICIT_PR_CREATION_DECISION",
+      "detail": "`node workflow/artifact-paths.js path pr-description --jira-id EPMCDMETST-70332` resolved docs/EPMCDMETST-70332/pr-description.md. The draft records the approved scope, requirements mapping, exact Testing and Code Review outcomes, Chromium-only and unmeasured SSR-transition limitations, accepted DR-01, and open OQ-01. No GitHub write, branch, issue, commit, PR, or deployment was performed."
+    },
+    {
+      "check": "PR description factual and state validation",
+      "result": "PASSED",
+      "detail": "The resolver path command returned docs/EPMCDMETST-70332/pr-description.md. Node parsed workflow-state.json and asserted the Jira key, current stage, waiting status, artifact entry, and explicit-authorization blocker; PR claims were checked against testing.md, code-review.md, and changed listing/card files. No trailing whitespace was found in the PR description or state; git diff --check passed."
+    }
+  ]
+}
