@@ -1,7 +1,9 @@
 # Pull Request — EPMCDMETST-70156
 
-**Status:** Prepared for authorized remote PR
+**Status:** Open — PR #20
 **Source:** Jira EPMCDMETST-70156
+
+**Pull request:** https://github.com/shadan1203-claude/pets-workshop/pull/20
 
 ## Base and dependency
 
@@ -34,4 +36,4 @@ The configured code-review agent initially identified a Medium stale-pagination 
 
 ## Authorization
 
-Remote PR creation was explicitly authorized by the user. The PR link and returned state will be recorded in `workflow-state.json` after GitHub confirms creation.
+The user explicitly authorized remote PR creation. GitHub confirmed PR #20 is open and mergeable against its selected base branch.

@@ -1,6 +1,6 @@
 # Deployment — EPMCDMETST-70156
 
-**Status:** Not deployed; awaiting authorization and target
+**Status:** Blocked; deployment target is not specified
 **Deployment target:** Not specified
 **Source:** Jira EPMCDMETST-70156
 
@@ -17,6 +17,7 @@ Deploy the approved breed-ID filter for the dog API and homepage after a remote 
 
 ## Authorization and rollback
 
-- Deployment has not been authorized or performed.
+- The user authorized deployment after PR merge, but the PR is still open and its base PR #19 is also open.
+- Deployment has not been performed.
 - The target environment and operator are not specified.
 - A target-specific rollback procedure cannot be validated until the environment and release mechanism are known. No deployment artifact or rollback action is claimed.

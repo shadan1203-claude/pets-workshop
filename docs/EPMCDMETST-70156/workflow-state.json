@@ -2,8 +2,8 @@
   "workflow_id": "EPMCDMETST-70156-2026-11-04",
   "jira_key": "EPMCDMETST-70156",
   "source_of_truth": "Jira story EPMCDMETST-70156",
-  "status": "IN_PROGRESS",
-  "current_stage": "pull-request",
+  "status": "BLOCKED",
+  "current_stage": "deployment",
   "approved_stages": [
     "human-approval",
     "code-review",
@@ -162,18 +162,43 @@
       "check": "Test skeleton syntax",
       "result": "PASSED",
       "detail": "node --check tests/EPMCDMETST-70156/tasks.test.js passed; tests were not executed."
+    },
+    {
+      "check": "Pull request creation and verification",
+      "result": "PASSED",
+      "detail": "Created PR #20 after explicit user authorization. gh pr view confirmed OPEN and mergeable, targeting feature/EPMCDMETST-70332-favorite-badge; gh pr diff --name-only confirmed only Jira-scoped implementation, tests, and artifacts."
+    },
+    {
+      "check": "Pull request diff summary command",
+      "result": "UNSUPPORTED FLAG; alternate verification passed",
+      "detail": "The installed gh CLI does not support gh pr diff --stat; used gh pr diff --name-only to verify the PR file scope."
     }
   ],
   "blockers": [
     "Requirements, architecture, and testing specialists could not be invoked because task delegation was rejected at the maximum sub-agent depth; the artifacts were prepared directly from Jira and repository evidence.",
+    "PR #20 is open and depends on open base PR #19; deployment must wait until the PR chain is merged.",
     "Deployment target and target-specific rollback path are not specified; deployment remains blocked even though the user authorized deployment after PR merge."
   ],
   "external_publication": {
     "jira": "READ ONLY; no Jira changes requested or made.",
     "confluence": "Search attempted and failed with HTTP 400; no publication.",
-    "github": "Repository metadata and pull-request search read only; no matching PR found; no issue, branch, PR, or remote write."
+    "github": {
+      "pull_request": "https://github.com/shadan1203-claude/pets-workshop/pull/20",
+      "state": "OPEN",
+      "mergeable": true,
+      "head": "feature/EPMCDMETST-70156-breed-filter",
+      "base": "feature/EPMCDMETST-70332-favorite-badge",
+      "base_pull_request": "https://github.com/shadan1203-claude/pets-workshop/pull/19"
+    }
   },
-  "worktree_note": "Pre-existing unrelated worktree changes were preserved. Implementation and test changes are local and uncommitted; no remote PR or deployment changes were made.",
+  "github_cli_operations": [
+    "gh repo view shadan1203-claude/pets-workshop --json nameWithOwner,defaultBranchRef",
+    "gh pr list --repo shadan1203-claude/pets-workshop --head feature/EPMCDMETST-70332-favorite-badge --state all --json number,title,state,baseRefName,url",
+    "gh pr create --repo shadan1203-claude/pets-workshop --base feature/EPMCDMETST-70332-favorite-badge --head feature/EPMCDMETST-70156-breed-filter --title \"Add homepage dog breed filtering\"",
+    "gh pr view 20 --repo shadan1203-claude/pets-workshop --json number,title,state,baseRefName,headRefName,url,isDraft,mergeable,reviewDecision",
+    "gh pr diff 20 --repo shadan1203-claude/pets-workshop --name-only"
+  ],
+  "worktree_note": "Pre-existing unrelated worktree changes were preserved. Story changes are committed and pushed on feature/EPMCDMETST-70156-breed-filter. PR #20 is open; no deployment has occurred.",
   "created_at": "2026-11-04T06:04:59.227Z",
   "updated_at": "2026-11-04T06:08:23.670Z"
 }
