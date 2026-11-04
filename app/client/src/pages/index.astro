@@ -15,18 +15,24 @@ let breeds: { id: number; name: string }[] = [];
 
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
 const name = Astro.url.searchParams.get('name') || '';
-const category = Astro.url.searchParams.get('breed') || Astro.url.searchParams.get('category') || '';
-const hasActiveFilters = name !== '' || category !== '';
+const breedId = Astro.url.searchParams.get('breed_id') || '';
+const legacyBreed = Astro.url.searchParams.get('breed') || '';
+const legacyCategory = Astro.url.searchParams.get('category') || '';
+const hasActiveFilters = name !== '' || breedId !== '' || legacyBreed !== '' || legacyCategory !== '';
 
 const dogsParams = new URLSearchParams({ page: String(currentPage), per_page: String(PAGE_SIZE) });
 if (name) dogsParams.set('name', name);
-if (category) dogsParams.set('breed', category);
+if (breedId) dogsParams.set('breed_id', breedId);
+if (legacyBreed) dogsParams.set('breed', legacyBreed);
+if (legacyCategory) dogsParams.set('category', legacyCategory);
 
 function buildPageUrl(targetPage: number): string {
   const params = new URLSearchParams();
   params.set('page', String(targetPage));
   if (name) params.set('name', name);
-  if (category) params.set('breed', category);
+  if (breedId) params.set('breed_id', breedId);
+  if (legacyBreed) params.set('breed', legacyBreed);
+  if (legacyCategory) params.set('category', legacyCategory);
   return `/?${params.toString()}`;
 }
 
@@ -77,19 +83,21 @@ try {
       </div>
 
       <div class="sm:w-64 w-full">
-        <label for="category-select" class="block text-sm font-medium text-slate-300 mb-1">Category</label>
+        <label for="category-select" class="block text-sm font-medium text-slate-300 mb-1">Breed</label>
         <select
           id="category-select"
-          name="category"
+          name="breed_id"
           class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500/50 transition-colors"
           data-testid="category-select"
         >
-          <option value="" selected={category === ''}>All</option>
+          <option value="" selected={breedId === ''}>All</option>
           {breeds.map((breed) => (
-            <option value={breed.name} selected={category === breed.name}>{breed.name}</option>
+            <option value={breed.id} selected={breedId === String(breed.id)}>{breed.name}</option>
           ))}
         </select>
       </div>
+      {legacyBreed && <input type="hidden" name="breed" value={legacyBreed} />}
+      {legacyCategory && <input type="hidden" name="category" value={legacyCategory} />}
 
       <button
         type="button"
@@ -168,7 +176,7 @@ try {
 
     const form = document.getElementById('search-form');
     const nameInput = document.getElementById('name-search');
-    const categorySelect = document.getElementById('category-select');
+    const breedSelect = document.getElementById('category-select');
     const resultsContainer = document.getElementById('dog-results');
     const paginationRoot = document.getElementById('pagination-root');
     const clearButton = document.getElementById('clear-filters');
@@ -213,11 +221,23 @@ try {
       return div.innerHTML;
     }
 
+    function currentFilters() {
+      const current = new URLSearchParams(window.location.search);
+      return {
+        name: nameInput.value.trim(),
+        breedId: breedSelect.value,
+        breed: current.get('breed') || '',
+        category: current.get('category') || '',
+      };
+    }
+
     function buildFilteredUrl(targetPage, params) {
       const search = new URLSearchParams();
       search.set('page', String(targetPage));
       if (params.name) search.set('name', params.name);
-      if (params.category) search.set('breed', params.category);
+      if (params.breedId) search.set('breed_id', params.breedId);
+      if (params.breed) search.set('breed', params.breed);
+      if (params.category) search.set('category', params.category);
       return `/?${search.toString()}`;
     }
 
@@ -286,21 +306,49 @@ try {
       statusEl.hidden = !message;
     }
 
-    async function fetchAndRender(targetPage) {
-      const name = nameInput.value.trim();
-      const category = categorySelect.value;
+    function setPaginationPending(pending) {
+      if (pending) {
+        paginationRoot.setAttribute('aria-busy', 'true');
+      } else {
+        paginationRoot.removeAttribute('aria-busy');
+      }
+
+      paginationRoot.querySelectorAll('a[data-testid="pagination-prev"], a[data-testid="pagination-next"]').forEach((anchor) => {
+        if (pending) {
+          if (anchor.hasAttribute('href')) {
+            anchor.dataset.pendingHref = anchor.href;
+            anchor.removeAttribute('href');
+          }
+          anchor.setAttribute('aria-disabled', 'true');
+          anchor.tabIndex = -1;
+        } else {
+          if (anchor.dataset.pendingHref) {
+            anchor.href = anchor.dataset.pendingHref;
+            delete anchor.dataset.pendingHref;
+          }
+          anchor.removeAttribute('aria-disabled');
+          anchor.removeAttribute('tabindex');
+        }
+      });
+    }
+
+    async function fetchAndRender(targetPage, historyMode = 'replace', filters = currentFilters()) {
 
       if (abortController) {
         abortController.abort();
       }
       const controller = new AbortController();
       abortController = controller;
-      clearButton.hidden = !(name || category);
+      setPaginationPending(true);
+      const hasActiveFilters = Boolean(filters.name || filters.breedId || filters.breed || filters.category);
+      clearButton.hidden = !hasActiveFilters;
       setStatus('Searching...');
 
       const search = new URLSearchParams({ page: String(targetPage), per_page: String(pageSize) });
-      if (name) search.set('name', name);
-      if (category) search.set('breed', category);
+      if (filters.name) search.set('name', filters.name);
+      if (filters.breedId) search.set('breed_id', filters.breedId);
+      if (filters.breed) search.set('breed', filters.breed);
+      if (filters.category) search.set('category', filters.category);
 
       try {
         const response = await fetch(`${API_BASE}?${search.toString()}`, { signal: controller.signal });
@@ -315,15 +363,25 @@ try {
         }
         const data = await response.json();
 
-        const hasActiveFilters = Boolean(name) || Boolean(category);
         setStatus('');
         renderDogs(data.dogs, hasActiveFilters);
-        renderPagination(data.page, data.total_pages, { name, category });
+        renderPagination(data.page, data.total_pages, filters);
+        setPaginationPending(true);
 
-        window.history.replaceState({}, '', buildFilteredUrl(data.page, { name, category }));
+        const nextUrl = buildFilteredUrl(data.page, filters);
+        if (historyMode === 'push') {
+          window.history.pushState({}, '', nextUrl);
+        } else if (historyMode === 'replace') {
+          window.history.replaceState({}, '', nextUrl);
+        }
       } catch (err) {
         if (err && err.name === 'AbortError') return;
         setStatus('Search failed. Please try again.');
+      } finally {
+        if (abortController === controller) {
+          setPaginationPending(false);
+          abortController = null;
+        }
       }
     }
 
@@ -331,9 +389,10 @@ try {
       const anchor = event.target.closest('a[data-testid="pagination-prev"], a[data-testid="pagination-next"]');
       if (!anchor) return;
       event.preventDefault();
+      if (paginationRoot.getAttribute('aria-busy') === 'true') return;
       const targetUrl = new URL(anchor.href);
       const targetPage = Number(targetUrl.searchParams.get('page')) || 1;
-      fetchAndRender(targetPage);
+      fetchAndRender(targetPage, 'push');
     }
 
     nameInput.addEventListener('input', () => {
@@ -341,23 +400,30 @@ try {
       debounceTimer = window.setTimeout(() => fetchAndRender(1), 300);
     });
 
-    categorySelect.addEventListener('change', () => {
-      fetchAndRender(1);
+    breedSelect.addEventListener('change', () => {
+      fetchAndRender(1, 'push');
     });
 
     clearButton.addEventListener('click', () => {
       window.clearTimeout(debounceTimer);
       nameInput.value = '';
-      categorySelect.value = '';
-      fetchAndRender(1);
+      breedSelect.value = '';
+      fetchAndRender(1, 'push', { name: '', breedId: '', breed: '', category: '' });
     });
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       window.clearTimeout(debounceTimer);
-      fetchAndRender(1);
+      fetchAndRender(1, 'replace');
     });
 
     paginationRoot.addEventListener('click', handlePaginationClick);
+
+    window.addEventListener('popstate', () => {
+      const params = new URLSearchParams(window.location.search);
+      nameInput.value = params.get('name') || '';
+      breedSelect.value = params.get('breed_id') || '';
+      fetchAndRender(Math.max(1, Number(params.get('page')) || 1), 'none');
+    });
   </script>
 </Layout>

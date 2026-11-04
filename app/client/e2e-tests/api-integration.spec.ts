@@ -65,8 +65,57 @@ test.describe('API Integration', () => {
     }
   });
 
+  test('should filter dogs by breed ID and paginate the filtered result set', async ({ request }) => {
+    const breedsResponse = await request.get('http://localhost:5100/api/breeds');
+    const breedsData = await breedsResponse.json();
+    const huskyId = breedsData.breeds.find((breed: { name: string }) => breed.name === 'Husky').id;
+
+    const firstPageResponse = await request.get(
+      `http://localhost:5100/api/dogs?breed_id=${huskyId}&per_page=2&page=1`
+    );
+    expect(firstPageResponse.ok()).toBeTruthy();
+    const firstPage = await firstPageResponse.json();
+    expect(firstPage.total).toBe(3);
+    expect(firstPage.total_pages).toBe(2);
+    expect(firstPage.page).toBe(1);
+    for (const dog of firstPage.dogs) {
+      expect(dog.breed).toBe('Husky');
+    }
+
+    const secondPageResponse = await request.get(
+      `http://localhost:5100/api/dogs?breed_id=${huskyId}&per_page=2&page=2`
+    );
+    const secondPage = await secondPageResponse.json();
+    expect(secondPage.page).toBe(2);
+    expect(secondPage.total).toBe(3);
+    expect(secondPage.dogs).toHaveLength(1);
+    expect(secondPage.dogs[0].breed).toBe('Husky');
+  });
+
+  test('should reject malformed breed IDs and return empty results for unknown IDs', async ({ request }) => {
+    const malformed = await request.get('http://localhost:5100/api/dogs?breed_id=husky');
+    expect(malformed.status()).toBe(400);
+
+    const unknown = await request.get('http://localhost:5100/api/dogs?breed_id=99999');
+    expect(unknown.status()).toBe(200);
+    const data = await unknown.json();
+    expect(data.dogs).toEqual([]);
+    expect(data.total).toBe(0);
+  });
+
   test('should combine name and category filters via the API', async ({ request }) => {
     const response = await request.get('http://localhost:5100/api/dogs?name=Bel&category=Golden%20Retriever');
+
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.total).toBe(1);
+    expect(data.dogs[0].name).toBe('Bella');
+  });
+
+  test('should combine breed ID with name and legacy breed filters via the API', async ({ request }) => {
+    const response = await request.get(
+      'http://localhost:5100/api/dogs?breed_id=1&name=Bel&breed=Golden%20Retriever'
+    );
 
     expect(response.ok()).toBeTruthy();
     const data = await response.json();
