@@ -172,6 +172,11 @@
       "check": "Pull request diff summary command",
       "result": "UNSUPPORTED FLAG; alternate verification passed",
       "detail": "The installed gh CLI does not support gh pr diff --stat; used gh pr diff --name-only to verify the PR file scope."
+    },
+    {
+      "check": "GitHub PR checks",
+      "result": "NO CHECKS REPORTED",
+      "detail": "gh pr checks 20 reported no checks on the feature branch; local unit tests, build, and focused Playwright tests passed."
     }
   ],
   "blockers": [
@@ -196,7 +201,9 @@
     "gh pr list --repo shadan1203-claude/pets-workshop --head feature/EPMCDMETST-70332-favorite-badge --state all --json number,title,state,baseRefName,url",
     "gh pr create --repo shadan1203-claude/pets-workshop --base feature/EPMCDMETST-70332-favorite-badge --head feature/EPMCDMETST-70156-breed-filter --title \"Add homepage dog breed filtering\"",
     "gh pr view 20 --repo shadan1203-claude/pets-workshop --json number,title,state,baseRefName,headRefName,url,isDraft,mergeable,reviewDecision",
-    "gh pr diff 20 --repo shadan1203-claude/pets-workshop --name-only"
+    "gh pr diff 20 --repo shadan1203-claude/pets-workshop --name-only",
+    "gh pr edit 20 --repo shadan1203-claude/pets-workshop --body-file docs/EPMCDMETST-70156/pr-description.md",
+    "gh pr checks 20 --repo shadan1203-claude/pets-workshop"
   ],
   "worktree_note": "Pre-existing unrelated worktree changes were preserved. Story changes are committed and pushed on feature/EPMCDMETST-70156-breed-filter. PR #20 is open; no deployment has occurred.",
   "created_at": "2026-11-04T06:04:59.227Z",
