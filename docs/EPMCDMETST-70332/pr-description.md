@@ -1,6 +1,13 @@
 # Pull Request Description — EPMCDMETST-70332
 
-**Draft only — prepared for review; no GitHub PR has been created.**
+**Pull request created and verified:** [#19](https://github.com/shadan1203-claude/pets-workshop/pull/19) — OPEN, base `main`, head `feature/EPMCDMETST-70332-favorite-badge`, merge state `CLEAN`.
+
+**Verified commit:** `fff972bdbfeb38fa7a45791de67e962cd938008c` (`Add favorite markers to dog listings`); one commit, 15 changed files. No merge or deployment is claimed.
+
+**External PR-body note:** The verified PR body still contains the original
+draft-only sentence claiming no PR had been created. This Jira-scoped record
+has been corrected to the actual PR state; the PR body was not edited during
+this resumption.
 
 **Jira:** EPMCDMETST-70332 — ENH-03: Show favorite badge/icon on dog cards in listing
 
@@ -17,7 +24,7 @@ Users can recognize already-favorited dogs while browsing the paginated listing,
 - Add dog-ID hooks and an initially hidden, accessible “Favorited” marker to dog cards.
 - Read and validate safe integer IDs from the approved localStorage key; treat missing, malformed, non-array, invalid, or inaccessible storage as an empty set.
 - Apply markers to both initial server-rendered cards and client-rendered results after pagination or filtering.
-- Add Playwright coverage and update the product and E2E documentation.
+- Add Playwright coverage and update the E2E test documentation.
 - Do not add a storage writer, toggle, favorites page, API/backend/database change, or telemetry. **OQ-01 (how favorites are added or removed) remains open.**
 
 ## Architecture Impact
@@ -72,4 +79,4 @@ Revert the scoped card-marker and browser-reader changes, their focused E2E spec
 
 ## Workflow Delegation
 
-Development and Testing were completed by explicitly authorized alternative agents because their configured specialists were unavailable; the deviations are recorded in `development-report.md` and `testing.md`. This PR description was also prepared by an explicitly authorized alternative because the configured PR Generation specialist was unavailable. The configured code-review specialist completed Code Review. This draft is not a PR, release, or deployment approval.
+Development, Testing, and PR description preparation were completed by explicitly authorized alternatives because their configured specialists were unavailable; deviations are recorded in their Jira-scoped artifacts. The configured code-review specialist completed Code Review. PR #19 was created and verified after separate explicit user authorization. This does not authorize or claim merge or deployment. The GitHub PR body was not edited during this resumption; this local artifact records the verified PR and commit metadata.

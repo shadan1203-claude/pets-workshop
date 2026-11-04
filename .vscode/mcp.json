@@ -1,0 +1,30 @@
+{
+  "servers": {
+    "github": {
+      "command": "node",
+      "args": [
+        ".vscode/mcp/github-server.js"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ]
+    },
+    "jira": {
+      "command": "node",
+      "args": [
+        ".vscode/mcp/jira-server.js"
+      ]
+    },
+    "confluence": {
+      "command": "node",
+      "args": [
+        ".vscode/mcp/confluence-server.js"
+      ]
+    }
+  }
+}

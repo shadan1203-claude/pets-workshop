@@ -1,0 +1,113 @@
+{
+  "workflow_id": "EPMCDMETST-69346-2026-11-02",
+  "jira_key": "EPMCDMETST-69346",
+  "source_of_truth": "Jira story EPMCDMETST-69346",
+  "status": "BLOCKED",
+  "current_stage": "development",
+  "approved_stages": [
+    "intake",
+    "requirements",
+    "architecture",
+    "design-review",
+    "planning"
+  ],
+  "jira": {
+    "retrieved": true,
+    "issue_status": "Open",
+    "confluence_context_page_ids": [
+      "34177025",
+      "34144257",
+      "34111489",
+      "34078721",
+      "34045954"
+    ],
+    "confluence_context_note": "Retrieved pages contained stale Jira-access and breed-only statements; Jira governs conflicts."
+  },
+  "artifacts": [
+    "migration-report.md",
+    "requirements.md",
+    "architecture.md",
+    "design-review.md",
+    "api-design.md",
+    "implementation-plan.md",
+    "workflow-state.json"
+  ],
+  "decisions": [
+    {
+      "id": "D-01",
+      "decision": "Keep Jira AC-03 as end-to-end rendered results within 300 ms after typing stops."
+    },
+    {
+      "id": "D-02",
+      "decision": "Order dogs by Dog.id ascending for deterministic pagination; do not add a user-facing sort control."
+    },
+    {
+      "id": "D-03",
+      "decision": "Limit name search to 100 characters and treat percent and underscore literally; retain the 100-character Category/Breed limit."
+    },
+    {
+      "id": "D-04",
+      "decision": "On breed-catalog failure, show a clear accessible error while keeping name search usable."
+    },
+    {
+      "id": "D-05",
+      "decision": "Resolve the pre-development hook mismatch through Jira-aware artifact path migration, as explicitly requested."
+    }
+  ],
+  "design_review": {
+    "round_1": "Rejected; High AC-03 timing and pagination-order findings.",
+    "round_2": "Approved With Conditions; user approved. Conditions carried into planning and implementation."
+  },
+  "agents_executed": [
+    "Requirements Agent: initial and revised requirements",
+    "Architecture Agent: initial and revised architecture",
+    "Design Review Agent: Round 1 and Round 2",
+    "API Design Agent role: general-purpose agent used because no dedicated repository agent definition exists",
+    "Planning Agent"
+  ],
+  "mcp_tools_used": [
+    "confluence-listSpaces",
+    "jira-getIssue",
+    "confluence-searchPages",
+    "confluence-getPage"
+  ],
+  "validation": [
+    {
+      "check": "Jira AC-01 through AC-08 traceability",
+      "result": "MANUAL REVIEW PASSED"
+    },
+    {
+      "check": "Round 2 architecture/design review",
+      "result": "APPROVED WITH CONDITIONS; user approved"
+    },
+    {
+      "check": "bash hooks/pre-development.sh",
+      "result": "FAILED with exit code 1",
+      "detail": "Historical result before path migration; root-level path mismatch is resolved. Current Jira-aware gate reports the missing docs/EPMCDMETST-69346/intake-summary.md prerequisite."
+    },
+    {
+      "check": "Jira artifact path migration",
+      "result": "VALIDATED",
+      "detail": "Resolver, session-manager, migration, stage-prerequisite, and prompt-cache tests passed. The pre-development gate now resolves docs/EPMCDMETST-69346 and is blocked only by the missing intake-summary.md artifact."
+    },
+    {
+      "check": "Automated tests and builds",
+      "result": "NOT RUN",
+      "detail": "Development is blocked before implementation."
+    }
+  ],
+  "deployment": {
+    "environment": "Not Found",
+    "version": null,
+    "approved": false,
+    "status": "BLOCKED"
+  },
+  "blockers": [
+    "Development remains blocked until docs/EPMCDMETST-69346/intake-summary.md is recorded and the Jira-aware pre-development gate passes.",
+    "Deployment target, credential provisioning evidence, and rollback approval are Not Found."
+  ],
+  "external_publication": {
+    "confluence": "NOT RUN; available Confluence MCP tools in this workflow are read/search only."
+  },
+  "worktree_note": "Pre-existing unrelated workspace changes were preserved."
+}

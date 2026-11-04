@@ -1,0 +1,11 @@
+{
+  "workflowId": null,
+  "currentStage": "NOT_STARTED",
+  "status": "NOT_STARTED",
+  "approvedStages": [],
+  "artifacts": {},
+  "decisions": [],
+  "risks": [],
+  "blockers": [],
+  "lastUpdated": null
+}

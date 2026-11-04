@@ -1,13 +1,78 @@
 {
-    "cSpell.words": [
-        "CODEOWNERS",
-        "codespace",
-        "Codespaces",
-        "containerapp",
-        "creds",
-        "devcontainer",
-        "devcontainers",
-        "prebuild"
-    ],
-    "github.copilot.nextEditSuggestions.enabled": true,    
+  "chat.agent.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": true,
+    "yaml": true,
+    "json": true
+  },
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": ".github/agents/orchestrator.agent.md"
+    }
+  ],
+  "mcp.enabled": true,
+  "mcp.configFile": "${workspaceFolder}/.vscode/mcp.json",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": true,
+  "editor.quickSuggestions": {
+    "comments": true,
+    "strings": true,
+    "other": true
+  },
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.encoding": "utf8",
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.git": false
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.next": true,
+    "**/coverage": true
+  },
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.autofetchPeriod": 180,
+  "markdown.preview.breaks": true,
+  "markdown.preview.linkify": true,
+  "markdown.extension.toc.updateOnSave": true,
+  "explorer.compactFolders": false,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.env.windows": {
+    "PROJECT_ROOT": "${workspaceFolder}"
+  },
+  "npm.enableScriptExplorer": true,
+  "workbench.editor.enablePreview": false,
+  "security.workspace.trust.enabled": true,
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "/.github/workflows/*"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/.vscode/mcp.json"
+      ],
+      "schema": {}
+    }
+  ],
+  "airun.settings": {
+    "workspaceId": "58665dbb-cb95-461b-b984-3b341a28a031"
+  }
 }

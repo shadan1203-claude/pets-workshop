@@ -2,11 +2,11 @@
 
 ## Disposition
 
-**BLOCKED — NO DEPLOY.** No deployment was attempted and no external write was made.
+**BLOCKED — NO DEPLOY.** No deployment was attempted.
 
-The final Testing report records **PASS**, and the user approved Testing. Pull request [#21](https://github.com/shadan1203-claude/pets-workshop/pull/21) is open against the existing EPMCDMETST-70332 feature branch. Separate deployment approval and a verified deployment plan are still required; PR creation and Testing approval do not authorize deployment.
+The final Testing report records **PASS**, and the user approved Testing. Pull request [#21](https://github.com/shadan1203-claude/pets-workshop/pull/21) is **merged** into `feature/EPMCDMETST-70332-favorite-badge` (merge commit `356fb1d9a097e826edcec71ee76d0511abc388e7`). This does not put the change on `main`: the base feature PR [#19](https://github.com/shadan1203-claude/pets-workshop/pull/19) remains open. The merge has no recorded review approvals or status checks. Separate deployment approval and a verified deployment plan are still required; merging a feature PR and Testing approval do not authorize deployment.
 
-An attempt to request reviews from the repository's listed CODEOWNERS was rejected by GitHub because one or more requested accounts are not repository collaborators (HTTP 422). The PR currently has no recorded review requests or approvals.
+An attempt to request reviews from the repository's listed CODEOWNERS was rejected by GitHub because one or more requested accounts are not repository collaborators (HTTP 422). No PR review requests or approvals were recorded before PR #21 was merged.
 
 ## Verified scope and evidence
 
@@ -14,7 +14,7 @@ An attempt to request reviews from the repository's listed CODEOWNERS was reject
 - `architecture.md` confirms local-development defaults and a standalone Astro Node adapter. It reports no production topology, TLS configuration, deployment pipeline, production monitoring configuration, or SQLite persistence/backup policy.
 - `code-review.md` recommends the scoped code changes, but does not authorize deployment.
 - `testing.md` records all final required tests and the build as passing. Validation used local test services and a seeded test database; no production configuration, deployment target, or production smoke test was exercised.
-- `pr-description.md` is a proposed description and explicitly records that no GitHub PR has been created.
+- `pr-description.md` records the feature proposal and the deployment limits; PR #21's merged state and destination were independently verified through GitHub.
 - Repository deployment configuration inspected: `README.md` describes local two-service operation; `app/client/Dockerfile` builds/runs the Astro frontend but does not identify a deployment destination; `.github` has no workflows directory (only `CODEOWNERS` and Dependabot configuration); the repository contains no other matching deployment manifests. `CODEOWNERS` names repository maintainers, not deployment operators. The Azure/GitHub Actions material under `content/github-actions` is a workshop walkthrough that instructs readers to create workflows and infrastructure, not an installed or configured release target.
 
 ## Exact blockers / unknowns
