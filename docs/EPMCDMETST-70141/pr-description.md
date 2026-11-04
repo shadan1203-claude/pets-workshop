@@ -21,4 +21,4 @@ Complete the approved breed-filter flow for the homepage dog listing, using inte
 
 ## Scope and risks
 
-Scope is limited to the EPMCDMETST-70141 breed-filter implementation and its related tests, documentation, and workflow gate repair. Unrelated pre-existing worktree changes are excluded. Validation used the repository's local test environment; no production deployment or smoke test was performed. Jira comments and linked Confluence context were not verified. This is a proposed description only: **no GitHub PR has been created**.
+Scope is limited to the EPMCDMETST-70141 breed-filter implementation and its related tests, documentation, and workflow gate repair. Unrelated pre-existing worktree changes are excluded. Validation used the repository's local test environment; no production deployment or smoke test was performed. Jira comments and linked Confluence context were not verified. Deployment remains blocked pending a verified target, operational safeguards, and separate approval.
