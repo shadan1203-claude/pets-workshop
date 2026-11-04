@@ -17,6 +17,42 @@ test.describe('API Integration', () => {
     await expect(page.getByTestId('dog-breed').nth(2)).toHaveText('German Shepherd');
   });
 
+  test('TC-INT-002 server-renders the selected breed and API-matching dog results', async ({ page, request }) => {
+    const breedsResponse = await request.get('http://localhost:5100/api/breeds');
+    expect(breedsResponse.ok()).toBeTruthy();
+    const breedsData = await breedsResponse.json();
+    const husky = breedsData.breeds.find((breed: { id: number; name: string }) => breed.name === 'Husky');
+    expect(husky).toBeTruthy();
+
+    const expectedResponse = await request.get(
+      `http://localhost:5100/api/dogs?breed_id=${husky.id}&page=1&per_page=6`
+    );
+    expect(expectedResponse.ok()).toBeTruthy();
+    const expected = await expectedResponse.json();
+    expect(expected.total).toBe(expected.dogs.length);
+
+    await page.goto(`/?breed_id=${husky.id}`);
+
+    await expect(page.getByTestId('category-select')).toHaveValue(String(husky.id));
+    const dogCards = page.getByTestId('dog-card');
+    await expect(dogCards).toHaveCount(expected.total);
+    const renderedDogs = await dogCards.evaluateAll((cards) =>
+      cards.map((card) => ({
+        id: Number(card.getAttribute('data-dog-id')),
+        name: card.querySelector('[data-testid="dog-name"]')?.textContent?.trim(),
+        breed: card.querySelector('[data-testid="dog-breed"]')?.textContent?.trim(),
+      }))
+    );
+    const expectedDogs = expected.dogs.map((dog: { id: number; name: string; breed: string }) => ({
+      id: dog.id,
+      name: dog.name,
+      breed: dog.breed,
+    }));
+    expect(renderedDogs.sort((a, b) => a.id - b.id)).toEqual(
+      expectedDogs.sort((a, b) => a.id - b.id)
+    );
+  });
+
   test('should render dog details from the API', async ({ page }) => {
     await page.goto('/dog/1');
 
@@ -65,8 +101,79 @@ test.describe('API Integration', () => {
     }
   });
 
+  test('should filter dogs by breed ID and paginate the filtered result set', async ({ request }) => {
+    const breedsResponse = await request.get('http://localhost:5100/api/breeds');
+    const breedsData = await breedsResponse.json();
+    const huskyId = breedsData.breeds.find((breed: { name: string }) => breed.name === 'Husky').id;
+
+    const firstPageResponse = await request.get(
+      `http://localhost:5100/api/dogs?breed_id=${huskyId}&per_page=2&page=1`
+    );
+    expect(firstPageResponse.ok()).toBeTruthy();
+    const firstPage = await firstPageResponse.json();
+    expect(firstPage.total).toBe(3);
+    expect(firstPage.total_pages).toBe(2);
+    expect(firstPage.page).toBe(1);
+    for (const dog of firstPage.dogs) {
+      expect(dog.breed).toBe('Husky');
+    }
+
+    const secondPageResponse = await request.get(
+      `http://localhost:5100/api/dogs?breed_id=${huskyId}&per_page=2&page=2`
+    );
+    const secondPage = await secondPageResponse.json();
+    expect(secondPage.page).toBe(2);
+    expect(secondPage.total).toBe(3);
+    expect(secondPage.dogs).toHaveLength(1);
+    expect(secondPage.dogs[0].breed).toBe('Husky');
+  });
+
+  test('TC-INT-001 same-origin proxy forwards breed_id and name and preserves upstream errors', async ({ page, request }) => {
+    await page.goto('/');
+    const proxyOrigin = new URL(page.url()).origin;
+
+    const successful = await request.get(
+      new URL('/api/dogs?breed_id=1&name=a', page.url()).toString()
+    );
+    expect(new URL(successful.url()).origin).toBe(proxyOrigin);
+    expect(successful.status()).toBe(200);
+    const successfulBody = await successful.json();
+    expect(successfulBody.total).toBe(1);
+    expect(successfulBody.dogs).toHaveLength(1);
+    expect(successfulBody.dogs[0]).toMatchObject({ name: 'Bella', breed: 'Golden Retriever' });
+
+    const malformed = await request.get(
+      new URL('/api/dogs?breed_id=husky', page.url()).toString()
+    );
+    expect(new URL(malformed.url()).origin).toBe(proxyOrigin);
+    expect(malformed.status()).toBe(400);
+    expect(await malformed.json()).toEqual({ error: 'breed_id must be an integer' });
+  });
+
+  test('should reject malformed breed IDs and return empty results for unknown IDs', async ({ request }) => {
+    const malformed = await request.get('http://localhost:5100/api/dogs?breed_id=husky');
+    expect(malformed.status()).toBe(400);
+
+    const unknown = await request.get('http://localhost:5100/api/dogs?breed_id=99999');
+    expect(unknown.status()).toBe(200);
+    const data = await unknown.json();
+    expect(data.dogs).toEqual([]);
+    expect(data.total).toBe(0);
+  });
+
   test('should combine name and category filters via the API', async ({ request }) => {
     const response = await request.get('http://localhost:5100/api/dogs?name=Bel&category=Golden%20Retriever');
+
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data.total).toBe(1);
+    expect(data.dogs[0].name).toBe('Bella');
+  });
+
+  test('should combine breed ID with name and legacy breed filters via the API', async ({ request }) => {
+    const response = await request.get(
+      'http://localhost:5100/api/dogs?breed_id=1&name=Bel&breed=Golden%20Retriever'
+    );
 
     expect(response.ok()).toBeTruthy();
     const data = await response.json();
