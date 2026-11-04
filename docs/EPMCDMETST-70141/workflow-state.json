@@ -143,11 +143,7 @@
     },
     {
       "id": "D-27",
-      "decision": "Verified PR #21 is MERGED into feature/EPMCDMETST-70332-favorite-badge at merge commit 356fb1d9a097e826edcec71ee76d0511abc388e7; PR #19 targeting main was OPEN at that time. GitHub reported no PR reviews or status checks."
-    },
-    {
-      "id": "D-28",
-      "decision": "User explicitly authorized merging PR #19 to main, accepting that its diff includes both EPMCDMETST-70141 breed filtering and EPMCDMETST-70332 favorite markers. PR #19 was merged to main at commit 2f81fb178f5b5918159239aea85f11a205d2055d. GitHub shows no reviews or CI checks. The user provided no deployment target, owner, runbook, or target-specific approval, so no deployment was attempted."
+      "decision": "Verified PR #21 is MERGED by the repository account into feature/EPMCDMETST-70332-favorite-badge at merge commit 356fb1d9a097e826edcec71ee76d0511abc388e7; PR #19 targeting main remains OPEN. GitHub reports no PR reviews or status checks. The change is not on main, and deployment remains blocked by missing target, owner, runbook, safeguards, and deployment approval."
     }
   ],
   "risks": [
@@ -300,12 +296,12 @@
     },
     {
       "check": "PR merge status",
-      "result": "GitHub API reports PR #21 MERGED into feature/EPMCDMETST-70332-favorite-badge at 2026-11-04T08:47:02Z (merge commit 356fb1d9a097e826edcec71ee76d0511abc388e7). At the user's explicit authorization to include both feature scopes, PR #19 MERGED into main at 2026-11-04T08:59:09Z (merge commit 2f81fb178f5b5918159239aea85f11a205d2055d). Neither PR has recorded reviews or CI checks. No deployment was performed."
+      "result": "GitHub API reports PR #21 MERGED into feature/EPMCDMETST-70332-favorite-badge at 2026-11-04T08:47:02Z (merge commit 356fb1d9a097e826edcec71ee76d0511abc388e7). PR #19 to main remains OPEN. No deployment was performed."
     }
   ],
   "blockers": [
-    "PRs #19 and #21 were merged without recorded review approvals or CI checks. The user explicitly authorized PR #19 to merge both feature scopes into main; do not make further branch changes without authorization.",
-    "Deployment blocked: the user supplied no deployment target, accountable operator, approved runbook/safeguards/rollback, or target-specific deployment approval. No deployment or post-deployment validation was performed."
+    "PR #21 merged into the EPMCDMETST-70332 feature branch, not main; PR #19 remains OPEN. PR #21 has no recorded review approvals or status checks. No further merge action was authorized or performed.",
+    "Deployment blocked: no verified target, assigned deployment owner, configured release procedure, target-specific safeguards/rollback, or separate deployment approval. Post-deployment validation cannot run."
   ],
   "external_references": [
     {
@@ -326,13 +322,12 @@
       "type": "Pull Request",
       "key": "19",
       "url": "https://github.com/shadan1203-claude/pets-workshop/pull/19",
-      "status": "Merged",
+      "status": "Open",
       "base_branch": "main",
-      "head_branch": "feature/EPMCDMETST-70332-favorite-badge",
-      "merge_commit": "2f81fb178f5b5918159239aea85f11a205d2055d"
+      "head_branch": "feature/EPMCDMETST-70332-favorite-badge"
     }
   ],
   "worktree_note": "Repository had pre-existing local changes. User approved relevant uncommitted breed-filter files as candidate work; unrelated changes and all source files remain untouched.",
   "created_at": "2026-11-04T07:18:23.298Z",
-  "updated_at": "2026-11-04T14:29:18.5631383+05:30"
+  "updated_at": "2026-11-04T14:18:11.6012942+05:30"
 }
