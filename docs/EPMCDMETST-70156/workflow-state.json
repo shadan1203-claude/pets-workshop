@@ -110,7 +110,13 @@
     "jira-healthCheck",
     "github-mcp-server-search_repositories",
     "github-mcp-server-search_pull_requests (0 results)",
-    "confluence-searchPages (failed with HTTP 400)"
+    "confluence-searchPages (failed with HTTP 400)",
+    "jira-healthCheck (four invocations during the 2026-11-04 session)",
+    "jira-getIssue (verified story remains Open)",
+    "github-mcp-server-pull_request_read get/get_status/get_check_runs/get_reviews for PR #20",
+    "github-mcp-server-pull_request_read get for dependent PR #19",
+    "github-mcp-server-actions_list list_workflow_runs for PR #19 and #20 (orchestrator resume)",
+    "github-mcp-server-list_branches (orchestrator resume)"
   ],
   "validation": [
     {
@@ -155,8 +161,8 @@
     },
     {
       "check": "Artifact resolver",
-      "result": "PASSED",
-      "detail": "After converting workflow/artifact-paths.js to ESM, node --check and validate-stage implementation passed; Jira-scoped testing, code-review, PR-description, and deployment paths resolved."
+      "result": "PARTIAL; direct CLI failed",
+      "detail": "The artifact-paths.js conversion to ESM occurred only in the original uncommitted worktree and is not included in PR #20. Direct resolver invocation in the workflow package fails because the unchanged resolver uses CommonJS require under ESM. Earlier Jira artifact paths were obtained through a temporary compatibility invocation."
     },
     {
       "check": "Test skeleton syntax",
@@ -177,11 +183,23 @@
       "check": "GitHub PR checks",
       "result": "NO CHECKS REPORTED",
       "detail": "gh pr checks 20 reported no checks on the feature branch; local unit tests, build, and focused Playwright tests passed."
+    },
+    {
+      "check": "2026-11-04 workflow resume",
+      "result": "BLOCKED; no phase advanced",
+      "detail": "Jira MCP confirmed EPMCDMETST-70156 remains Open. GitHub MCP confirmed PR #20 and dependent PR #19 remain open. Both have pending combined statuses with zero status entries, zero check runs, and no formal reviews. No merge was attempted."
+    },
+    {
+      "check": "Deployment stage artifact gate",
+      "result": "FAILED; BLOCKED",
+      "detail": "The orchestrator reports required docs/EPMCDMETST-70156/design-review.md, implementation-plan.md, and development-report.md are absent. Deployment target, operator, prerequisites, release procedure, validation, and rollback path are also unspecified."
     }
   ],
   "blockers": [
     "Requirements, architecture, and testing specialists could not be invoked because task delegation was rejected at the maximum sub-agent depth; the artifacts were prepared directly from Jira and repository evidence.",
     "PR #20 is open and depends on open base PR #19; deployment must wait until the PR chain is merged.",
+    "Neither PR has formal review, commit status, or check-run evidence; CI/review gates are not evidenced as passing.",
+    "Required prior-stage artifacts design-review.md, implementation-plan.md, and development-report.md are absent; the complete SDLC gate sequence was not satisfied.",
     "Deployment target and target-specific rollback path are not specified; deployment remains blocked even though the user authorized deployment after PR merge."
   ],
   "external_publication": {

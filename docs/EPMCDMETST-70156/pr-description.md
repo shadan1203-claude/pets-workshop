@@ -4,6 +4,7 @@
 **Source:** Jira EPMCDMETST-70156
 
 **Pull request:** https://github.com/shadan1203-claude/pets-workshop/pull/20
+**Current disposition (2026-11-04):** Open, unmerged, and stacked on open PR #19. GitHub has reported no check runs, commit statuses, or formal reviews for either PR; passing remote CI/review evidence is not available.
 
 ## Base and dependency
 
@@ -23,6 +24,7 @@ The PR targets `feature/EPMCDMETST-70332-favorite-badge` so that its diff contai
 - `npm run build` — passed.
 - Focused Playwright search and API integration suite — 29 passed.
 - `git diff --check` — passed.
+- GitHub PR #20 check runs, combined statuses, and formal reviews — none reported as of 2026-11-04. This is not a CI pass.
 
 ## Review
 
