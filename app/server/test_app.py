@@ -66,6 +66,22 @@ class TestApp(unittest.TestCase):
         
         # Verify query was called
         mock_query.assert_called_once()
+
+    @patch('app.db.session.query')
+    def test_TC_API_008_normalizes_page_and_per_page(self, mock_query):
+        mock_query_instance = self._setup_query_mock(mock_query, [])
+        mock_query_instance.count.return_value = 205
+
+        response = self.app.get('/api/dogs?page=0&per_page=101')
+
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(data['page'], 1)
+        self.assertEqual(data['per_page'], 100)
+        self.assertEqual(data['total'], 205)
+        self.assertEqual(data['total_pages'], 3)
+        mock_query_instance.offset.assert_called_once_with(0)
+        mock_query_instance.limit.assert_called_once_with(100)
         
     @patch('app.db.session.query')
     def test_get_dogs_empty(self, mock_query):
@@ -148,6 +164,65 @@ class TestApp(unittest.TestCase):
         self.assertIn('breeds.name', filter_arg)
 
     @patch('app.db.session.query')
+    def test_get_dogs_filter_by_breed_id(self, mock_query):
+        dog = self._create_mock_dog(1, "Buddy", "Golden Retriever")
+        mock_query_instance = self._setup_query_mock(mock_query, [dog])
+
+        response = self.app.get('/api/dogs?breed_id=2')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.data)['dogs'][0]['breed'], 'Golden Retriever')
+        mock_query_instance.filter.assert_called_once()
+        filter_expression = mock_query_instance.filter.call_args[0][0]
+        self.assertIn('breeds.id', str(filter_expression).lower())
+        self.assertEqual(filter_expression.right.value, 2)
+
+    @patch('app.db.session.query')
+    def test_get_dogs_breed_id_filtered_total_pages(self, mock_query):
+        dog = self._create_mock_dog(1, "Buddy", "Husky")
+        mock_query_instance = self._setup_query_mock(mock_query, [dog])
+        mock_query_instance.count.return_value = 13
+
+        response = self.app.get('/api/dogs?breed_id=2&per_page=6')
+
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEqual(data['total'], 13)
+        self.assertEqual(data['total_pages'], 3)
+        self.assertEqual(data['per_page'], 6)
+        filter_expression = mock_query_instance.filter.call_args[0][0]
+        self.assertIn('breeds.id', str(filter_expression).lower())
+
+    @patch('app.db.session.query')
+    def test_get_dogs_unknown_breed_id_returns_empty(self, mock_query):
+        mock_query_instance = self._setup_query_mock(mock_query, [])
+
+        response = self.app.get('/api/dogs?breed_id=99999')
+
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEqual(data['dogs'], [])
+        self.assertEqual(data['total'], 0)
+        self.assertEqual(data['total_pages'], 1)
+        mock_query_instance.filter.assert_called_once()
+
+    def test_get_dogs_out_of_range_breed_id_returns_empty(self):
+        response = self.app.get('/api/dogs?breed_id=9223372036854775808')
+
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEqual(data['dogs'], [])
+        self.assertEqual(data['total'], 0)
+        self.assertEqual(data['total_pages'], 1)
+
+    def test_get_dogs_malformed_breed_id_returns_400(self):
+        for value in ('', 'husky', '1.5', '1_5'):
+            with self.subTest(value=value):
+                response = self.app.get(f'/api/dogs?breed_id={value}')
+                self.assertEqual(response.status_code, 400)
+                self.assertIn('error', json.loads(response.data))
+
+    @patch('app.db.session.query')
     def test_get_dogs_filter_combined(self, mock_query):
         """Test that name and category filters can be combined"""
         dog = self._create_mock_dog(1, "Buddy", "Golden Retriever")
@@ -157,6 +232,18 @@ class TestApp(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(mock_query_instance.filter.call_count, 2)
+
+    @patch('app.db.session.query')
+    def test_get_dogs_id_filter_combines_with_existing_filters(self, mock_query):
+        dog = self._create_mock_dog(1, "Buddy", "Golden Retriever")
+        mock_query_instance = self._setup_query_mock(mock_query, [dog])
+
+        response = self.app.get(
+            '/api/dogs?breed_id=2&name=Bud&category=Golden%20Retriever'
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(mock_query_instance.filter.call_count, 3)
 
     @patch('app.db.session.query')
     def test_get_dogs_filter_no_match_returns_empty(self, mock_query):
@@ -190,10 +277,24 @@ class TestApp(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.data)
+        mock_query_instance.order_by.assert_called_once()
+        self.assertIn('breeds.name', str(mock_query_instance.order_by.call_args[0][0]).lower())
         self.assertEqual(data['breeds'], [
             {'id': 1, 'name': 'Beagle'},
             {'id': 2, 'name': 'Golden Retriever'},
         ])
+
+    @patch('app.db.session.query')
+    def test_TC_API_007_empty_breed_collection(self, mock_query):
+        mock_query_instance = MagicMock()
+        mock_query.return_value = mock_query_instance
+        mock_query_instance.order_by.return_value = mock_query_instance
+        mock_query_instance.all.return_value = []
+
+        response = self.app.get('/api/breeds')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json(), {'breeds': []})
 
     @patch('app.db.session.query')
     def test_get_dogs_filter_by_breed_param(self, mock_query):

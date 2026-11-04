@@ -23,8 +23,19 @@ def get_dogs() -> tuple[Response, int] | Response:
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 6, type=int)
     name = request.args.get('name', '', type=str).strip()
+    breed_id_value = request.args.get('breed_id')
     # 'category' is an alias for 'breed'; 'breed' takes precedence when both are given
     breed = (request.args.get('breed') or request.args.get('category') or '').strip()
+
+    breed_id: Optional[int] = None
+    if breed_id_value is not None:
+        digits = breed_id_value[1:] if breed_id_value.startswith('-') else breed_id_value
+        if not digits or not digits.isascii() or not digits.isdecimal():
+            return jsonify({'error': 'breed_id must be an integer'}), 400
+        try:
+            breed_id = int(breed_id_value)
+        except ValueError:
+            return jsonify({'error': 'breed_id must be an integer'}), 400
 
     if len(name) > MAX_FILTER_LENGTH:
         return jsonify({'error': f'name must be at most {MAX_FILTER_LENGTH} characters'}), 400
@@ -34,6 +45,15 @@ def get_dogs() -> tuple[Response, int] | Response:
     page = max(1, page)
     per_page = max(1, min(per_page, 100))
 
+    if breed_id is not None and not -(2 ** 63) <= breed_id < 2 ** 63:
+        return jsonify({
+            'dogs': [],
+            'page': page,
+            'per_page': per_page,
+            'total': 0,
+            'total_pages': 1
+        })
+
     query = db.session.query(
         Dog.id,
         Dog.name,
@@ -42,6 +62,9 @@ def get_dogs() -> tuple[Response, int] | Response:
 
     if name:
         query = query.filter(Dog.name.ilike(f'%{name}%'))
+
+    if breed_id is not None:
+        query = query.filter(Breed.id == breed_id)
 
     # An unknown breed is not an error: it simply yields an empty result set
     if breed:

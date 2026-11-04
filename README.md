@@ -19,13 +19,14 @@ The Flask backend (`app/server`) exposes the following endpoints:
 - `GET /api/dogs` — returns a paginated list of dogs. Supports optional query params:
   - `page` (default `1`), `per_page` (default `6`, max `100`)
   - `name` — case-insensitive partial match on the dog's name (max 100 characters)
-  - `breed` — case-insensitive exact match on the breed name (max 100 characters); `category` is accepted as an alias
-  - Filters are applied before pagination, so `total` and `total_pages` reflect the filtered results. The response shape is always `{dogs, page, per_page, total, total_pages}`.
+  - `breed_id` — integer breed ID used by the homepage breed dropdown
+  - `breed` — legacy case-insensitive exact match on breed name (max 100 characters); `category` is accepted as an alias
+  - Filters are applied before pagination, so `total` and `total_pages` reflect the filtered results; `total_pages` is at least `1`. The response shape is always `{dogs, page, per_page, total, total_pages}`.
   - Values longer than 100 characters return `400` with `{"error": ...}`. An unknown breed returns `200` with an empty `dogs` list.
 - `GET /api/dogs/<id>` — returns details for a single dog.
-- `GET /api/breeds` — returns `{"breeds": [{"id", "name"}, ...]}` ordered alphabetically (used to populate the category filter).
+- `GET /api/breeds` — returns `{"breeds": [{"id", "name"}, ...]}` ordered by breed name (used to populate the homepage dropdown).
 
-The homepage (`app/client`) uses `name` and `breed` to power an instant search/filter experience without a full page reload (name input is debounced by 300ms, and in-flight requests are cancelled with `AbortController` so stale responses never overwrite newer ones; filters are kept in the URL and a "Clear filters" button resets them), while keeping server-side pagination and a no-JS fallback via standard form submission.
+The homepage (`app/client`) provides an **All Breeds** option and uses the selected `breed_id` with the `name` search to update results without a full page reload. Changing breed resets pagination to page 1; pagination URLs preserve the selected breed and other active filters. The name input is debounced by 300ms, and in-flight requests are cancelled with `AbortController` so stale responses never overwrite newer ones; filters are kept in the URL and a "Clear filters" button resets them. Empty filtered results show an empty state, while server-side pagination and a no-JS fallback via standard form submission remain available. Dog cards also show a “Favorited” marker when the dog ID is present in the browser's `tailspin:favorites:v1` localStorage JSON array; the listing reads this state but does not modify it.
 
 ## Running locally
 
