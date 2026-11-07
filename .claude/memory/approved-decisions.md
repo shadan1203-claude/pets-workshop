@@ -4,10 +4,10 @@ This append-only register contains durable architectural or implementation decis
 
 ## Decision Register
 
-No approved decisions have been recorded in this memory file yet.
-
 | Decision ID | Decision | Reason | Approval Date | Approver | Impacted Requirements | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
+| ADR-001 | Code Review precedes Testing Execution in the SDLC sequence. | Avoid test cycles on code that fails review. | 2026-11-07 | Human user (identity not stated) | Governance | Chat decision during the Claude-native refactor audit |
+| ADR-002 | Refactor the SDLC framework to Claude Code conventions as a separate scope from EPMCDMETST-70052; remove the documentation-sync package, its skills and its agent documents; baseline commit first. | Audit found Copilot-era artifacts and unwired governance. | 2026-11-07 | Human user (identity not stated) | Governance | Chat approval; baseline commit 40ab235 |
 
 ## Add or Amend a Decision
 

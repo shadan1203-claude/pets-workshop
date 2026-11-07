@@ -45,7 +45,17 @@ test("createIssue sends a Jira Story request and returns verified identifiers", 
   });
   assert.equal(api.calls[0].method, "POST");
   assert.equal(api.calls[0].options.body.fields.issuetype.name, "Story");
-  assert.equal(api.calls[0].options.body.fields.description.type, "doc");
+  assert.equal(api.calls[0].options.body.fields.description, "Allow filtering dogs by adoption status.");
+});
+
+test("addComment and updateIssue send plain-text bodies for Jira REST API v2", async () => {
+  const api = mockApi([{ id: "7" }, {}]);
+  const tools = createJiraTools(api, config);
+  await tools.find(({ name }) => name === "addComment").handler({ issueKey: "PET-1", comment: "Line one\nLine two" });
+  await tools.find(({ name }) => name === "updateIssue").handler({ issueKey: "PET-1", fields: { description: "Updated" } });
+
+  assert.equal(api.calls[0].options.body.body, "Line one\nLine two");
+  assert.equal(api.calls[1].options.body.fields.description, "Updated");
 });
 
 test("updateIssue rejects fields outside its allowlist", async () => {

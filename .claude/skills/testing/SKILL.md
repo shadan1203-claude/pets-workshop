@@ -1,33 +1,17 @@
-Testing Skill
-Purpose
-Verify implementation quality.
+---
+name: testing
+description: Execute approved test suites and report honest results, coverage, and acceptance-criterion status. Use when writing testing.md.
+---
 
-Responsibilities
-Create:
+# Testing
 
-Unit Tests
-Integration Tests
-Negative Tests
-Edge Case Tests
-Input
-Generated Source Code
+Input: approved implementation and review, `test-cases.md`, and the repository's test projects. Output: `testing.md` at the resolver path. Commands and coverage rules are in `.claude/rules/testing.md`.
 
-Output
-docs/test-report.md
+## Report contents
 
-Report Format
-Coverage
-Passed Tests
-Failed Tests
-Risks
-Recommendations
-Rules
-Target minimum:
+Exact commands and environment, results per suite, failures and skips, coverage actually collected (or `Not collected`), AC coverage table, risks, and recommendations.
 
-80% coverage
+## Rules
 
-Validate:
-
-Happy path
-Negative path
-Error path
+- `NOT RUN`, skipped, blocked, or failed is never `PASS`; coverage counts only from a real report.
+- Failures return to development; repeat code review and testing. Never waive or weaken tests without explicit human approval.

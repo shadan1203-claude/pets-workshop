@@ -31,7 +31,7 @@ Create only the resolver-returned `design-review` artifact, expected as `docs/<J
 
 Critical or High findings that remain unresolved block planning and implementation. `Approved With Conditions` is not a waiver: list each condition and require evidence of resolution or explicit human acceptance where permitted by project governance. Never characterize a finding as resolved without evidence.
 
-Validate complete traceability and evidence. Update `workflow/workflow-state.json` stage/status, timestamp, artifact, decisions, risks, and blockers without deleting history. Record human approval in `approvedStages` only after an explicit current response. Request approval before planning; stop until the human approves and blocking findings are resolved.
+Validate complete traceability and evidence. Update `workflow/workflow-state.json` stage/status, timestamp, artifact, decisions, risks, and blockers without deleting history. Record human approval in `approvedStages` only after an explicit current response. Request approval before API design; stop until the human approves and blocking findings are resolved.
 
 ## Example
 

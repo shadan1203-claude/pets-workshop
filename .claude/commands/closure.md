@@ -11,7 +11,7 @@ Perform post-deployment validation and prepare closure evidence. Do not close th
 
 1. Verify Jira key and matching workflow state. Require verified deployment evidence and approved deployment. If deployment is not applicable, require documented governance evidence and an explicit human-approved disposition; do not silently skip it.
 2. Resolve `requirements`, `architecture`, `implementation-plan`, `test-cases`, `tasks-test`, `development-report`, `code-review`, `testing`, `pr-description`, `deployment`, and `deployment-validation` using `workflow/artifact-paths.js`. Confirm every required path resolves inside its allowed Jira-scoped location (the test asset only in the explicitly requested `tests/<JIRA_ID>/` location). If resolver is missing or any required file is absent, record a blocker and stop.
-3. Read the approved requirements/ACs, final test report, PR evidence, deployment plan and evidence, applicable hooks, and `.claude/agents/testing.md`. Do not infer deployment success from PR merge or command invocation.
+3. Read the approved requirements/ACs, final test report, PR evidence, deployment plan and evidence, applicable hooks, `.claude/agents/closure.md`, and `.claude/skills/documentation-sync/SKILL.md`. Do not infer deployment success from PR merge or command invocation.
 
 ## Validation
 

@@ -13,17 +13,7 @@ const logger = createLogger("jira");
 const issueKeySchema = z.string().trim().min(2).max(64).regex(/^[A-Za-z][A-Za-z0-9_]*-\d+$/);
 const projectKeySchema = z.string().trim().min(1).max(64).regex(/^[A-Za-z][A-Za-z0-9_]*$/);
 
-function adfFromText(text) {
-  return {
-    type: "doc",
-    version: 1,
-    content: text.split(/\r?\n/).map((line) => ({
-      type: "paragraph",
-      content: line ? [{ type: "text", text: line }] : [],
-    })),
-  };
-}
-
+// REST API v2 takes plain-text (wiki markup) bodies; ADF is only valid on v3.
 const issueFields = ["summary", "description", "labels", "assignee", "priority", "duedate", "components", "fixVersions"];
 
 export function createJiraTools(api, config) {
@@ -70,7 +60,7 @@ export function createJiraTools(api, config) {
               project: { key: projectKey },
               issuetype: { name: issueType },
               summary,
-              description: adfFromText(description),
+              description,
               labels,
             },
           },
@@ -93,9 +83,7 @@ export function createJiraTools(api, config) {
       handler: async ({ issueKey, fields }) => {
         const unsupported = Object.keys(fields).filter((field) => !issueFields.includes(field));
         if (unsupported.length) throw new Error(`Unsupported Jira update fields: ${unsupported.join(", ")}`);
-        const normalized = { ...fields };
-        if (typeof normalized.description === "string") normalized.description = adfFromText(normalized.description);
-        await api.request("PUT", `rest/api/2/issue/${encodeURIComponent(issueKey)}`, { body: { fields: normalized } });
+        await api.request("PUT", `rest/api/2/issue/${encodeURIComponent(issueKey)}`, { body: { fields } });
         return { success: true };
       },
     },
@@ -108,7 +96,7 @@ export function createJiraTools(api, config) {
       }),
       handler: async ({ issueKey, comment }) => {
         const result = await api.request("POST", `rest/api/2/issue/${encodeURIComponent(issueKey)}/comment`, {
-          body: { body: adfFromText(comment) },
+          body: { body: comment },
         });
         return { commentId: String(result.id ?? "") };
       },

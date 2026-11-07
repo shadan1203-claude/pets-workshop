@@ -11,7 +11,7 @@ Create the Jira-scoped requirements specification from the approved intake. Do n
 
 1. Verify the Jira key against the active issue using Jira MCP when available. Set `JIRA_ID`; do not infer it from an unrelated artifact.
 2. Resolve `intake-summary` and `requirements` with `workflow/artifact-paths.js`. Run `node workflow/artifact-paths.js ensure --jira-id "$JIRA_ID"` first. If the resolver is absent or fails, stop and report a blocker; never hardcode a fallback path.
-3. Read the intake summary, `.claude/CLAUDE.md`, `.claude/agents/requirements.md`, and `.claude/skills/requirement-analysis/SKILL.md`. Confirm the intake decision is explicitly approved in the current workflow state and by the human. Otherwise stop.
+3. Read the intake summary, `.claude/CLAUDE.md`, `.claude/agents/requirements.md`, and `.claude/skills/requirements-analysis/SKILL.md`. Confirm the intake decision is explicitly approved in the current workflow state and by the human. Otherwise stop.
 4. Check `workflow/workflow-state.json`: `workflowId` must match `JIRA_ID`, intake approval must be recorded, and this command must not overwrite an active workflow for another issue.
 5. Use the requirements specialist agent and the requirements skill when available. Jira and Confluence MCP remain authoritative for external requirements.
 

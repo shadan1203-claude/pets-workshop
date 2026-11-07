@@ -1,21 +1,18 @@
-Design Review Skill
-Review:
+---
+name: design-review
+description: Independently review requirements and architecture and report severity-rated findings. Use when writing design-review.md.
+---
 
-requirements.md
-architecture.md
-Identify:
+# Design Review
 
-Design flaws
-Security issues
-Scalability concerns
-Performance risks
-Reliability concerns
-Generate:
+Input: approved `requirements.md` and `architecture.md`. Output: `design-review.md` at the resolver path.
 
-docs/design-review.md
+## Review dimensions
 
-Do not implement code.
+Requirement alignment and traceability, security and privacy, reliability, scalability, performance, maintainability, observability, testability, compatibility, dependencies, and operational risk.
 
-Do not modify requirements.
+## Rules
 
-Only review and recommend.
+- Each finding has an ID, severity (Critical, High, Medium, Low), evidence, affected requirement IDs, impact, and a recommendation.
+- Report an explicit outcome: Approved, Approved With Conditions, Rejected, or Blocked; state whether each Critical and High finding is resolved, mitigated, or open.
+- Review and recommend only; do not modify requirements, architecture, or code.

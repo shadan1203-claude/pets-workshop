@@ -33,8 +33,7 @@ The repository contains the `pets-workshop` dog-shelter management application a
 
 - Repository hook scripts are under `hooks/`.
 - No `.github/workflows/` files were found in the inspected checkout.
-- Deployment documentation conflicts: `docs/deployment-target.md` names Azure App Service and a GitHub Actions pipeline and marks the target approved; `docs/release-governance.md` identifies local/manual development deployment, says production is `Not Found`, and says no automated pipeline or infrastructure definition is present.
-- Treat the deployment target and automation status as unresolved until source/configuration and the active Jira-scoped approved release artifacts establish them. Never infer a production target or command from this summary.
+- Deployment target and automation are unresolved: no approved target or `.github/workflows/` pipeline is evidenced (see RISK-004). Treat them as `Not Found` until source/configuration and the active Jira-scoped approved release artifacts establish them. Never infer a production target or command from this summary.
 
 ## Illustrative Command Sequence
 

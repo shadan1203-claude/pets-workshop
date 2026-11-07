@@ -11,7 +11,7 @@ Produce the architecture artifact for an approved requirements baseline. This ph
 
 1. Verify the active Jira key, set `JIRA_ID`, and confirm `workflow/workflow-state.json` belongs to this Jira workflow.
 2. Resolve `requirements` and `architecture` via `workflow/artifact-paths.js` after `ensure --jira-id "$JIRA_ID"`. If that resolver is unavailable or returns an unsafe path, stop without writing and report the blocker.
-3. Read the requirements artifact, `.claude/CLAUDE.md`, `.claude/agents/architecture.md`, and `.claude/skills/architecture/SKILL.md`. Require explicit requirements approval from the current human interaction and state. If absent, stop.
+3. Read the requirements artifact, `.claude/CLAUDE.md`, `.claude/agents/architecture.md`, and `.claude/skills/architecture-design/SKILL.md`. Require explicit requirements approval from the current human interaction and state. If absent, stop.
 4. Use the architecture agent and skill when available. Inspect relevant source, tests, configuration, CI, and existing approved architecture. Do not rely on an agent's claims without repository evidence.
 
 ## Generate

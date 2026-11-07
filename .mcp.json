@@ -14,15 +14,6 @@
       "type": "stdio",
       "command": "node",
       "args": ["mcp/github-server.js"]
-    },
-    "filesystem": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "${PROJECT_ROOT:-.}"
-      ]
     }
   }
 }

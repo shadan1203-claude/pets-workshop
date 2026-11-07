@@ -1,32 +1,20 @@
-Implementation Skill
-Purpose
-Generate production quality code.
+---
+name: implementation
+description: Implement approved tasks and tests with minimal, convention-following changes and a traceable development report. Use during development.
+---
 
-Responsibilities
-Implement requirements
-Follow coding standards
-Generate unit tests
-Input
-docs/architecture.md
+# Implementation
 
-docs/implementation-plan.md
+Input: approved requirements, architecture, API design, plan, and test design. Output: source and test changes plus `development-report.md` at the resolver path. Standards are in `.claude/rules/coding.md`.
 
-Output
-Application code
+## Workflow
 
-Coding Standards
-SOLID
-DRY
-Clean Code
-Dependency Injection
-Mandatory
-Error handling
-Logging
-Validation
-Unit tests
-Deliverables
-src/
+1. Run `hooks/pre-development.sh`; stop on failure.
+2. Implement tasks in plan order, following neighboring code conventions; add or update the approved tests.
+3. Run `hooks/post-codegen.sh` and the verified test commands.
+4. Report changed files, requirement/AC/test traceability, exact commands, and `PASS`, `FAIL`, or `NOT RUN` results.
 
-tests/
+## Rules
 
-README.md
+- Smallest change that satisfies the approved scope; no new dependencies or unrelated refactors.
+- Never weaken a test to pass; record clarification requests instead of guessing.

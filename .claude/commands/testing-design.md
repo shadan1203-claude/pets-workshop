@@ -9,7 +9,7 @@ Design tests from approved requirements, architecture, and plan. This phase spec
 
 ## Preconditions and paths
 
-1. Verify the active Jira key and matching workflow state. Require approved requirements, architecture, design review, and implementation plan. Read `.claude/CLAUDE.md`, `.claude/agents/testing.md`, and `.claude/skills/testing/SKILL.md`.
+1. Verify the active Jira key and matching workflow state. Require approved requirements, architecture, design review, and implementation plan. Read `.claude/CLAUDE.md`, `.claude/agents/testing-design.md`, and `.claude/skills/testing-design/SKILL.md`.
 2. Resolve `requirements`, `architecture`, `implementation-plan`, `test-cases`, and the Jira test-skeleton artifact via `workflow/artifact-paths.js`, after `ensure --jira-id "$JIRA_ID"`. The expected test asset is `tests/<JIRA_ID>/tasks.test.js`; verify the resolver returns that exact issue-scoped destination and that it is outside `docs/` only because the user explicitly requires a repository test asset. If the resolver does not support this artifact or is missing, stop and report the blocker; do not construct the path yourself.
 3. Read all inputs and inspect existing test frameworks/configuration before choosing syntax or assumptions. Do not add a test dependency as part of design.
 

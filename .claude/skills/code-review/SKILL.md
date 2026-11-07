@@ -1,39 +1,21 @@
-Code Review Skill
-Purpose
-Perform automated review of generated code.
+---
+name: code-review
+description: Review an implementation diff for correctness, security, maintainability, performance, and test adequacy with severity-rated findings. Use when writing code-review.md.
+---
 
-Responsibilities
-Review:
+# Code Review
 
-Quality
-Security
-Maintainability
-Performance
-Input
-src/
+Input: the actual diff and source, `development-report.md`, and the approved test design. Output: `code-review.md` at the resolver path.
 
-tests/
+## Checklist
 
-Output
-docs/code-review.md
+- Security: input validation, authorization, secrets, error handling, injection.
+- Correctness: requirements and ACs met, edge cases handled, no unrequested changes.
+- Quality: readability, duplication, consistency with neighboring code.
+- Performance: queries, pagination bounds, network calls.
+- Tests: coverage of every AC, no weakened or skipped tests.
 
-Checklist
-Security
-Input validation
-Authentication
-Authorization
-Secrets handling
-Quality
-SOLID
-DRY
-Readability
-Performance
-Database queries
-Network calls
-Memory usage
-Review Severity
-High
+## Rules
 
-Medium
-
-Low
+- Findings use Critical, High, Medium, or Low with file and line evidence and a recommendation.
+- Critical and High must be resolved and re-reviewed before testing. Never modify source.

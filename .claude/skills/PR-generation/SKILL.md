@@ -1,27 +1,17 @@
-Pull Request Generation Skill
-Purpose
-Prepare pull request documentation.
+---
+name: pr-generation
+description: Prepare a traceable pull request description from verified evidence. Use when writing pr-description.md.
+---
 
-Input
-requirements.md
+# PR Generation
 
-architecture.md
+Input: approved requirements, plan, code review, and testing evidence. Output: `pr-description.md` at the resolver path. PR creation rules are in `.claude/rules/deployment.md`.
 
-implementation-plan.md
+## Sections
 
-test-report.md
+Summary, business value, changes, requirement and AC traceability, verified test evidence, known limitations, deployment impact, and a reviewer checklist.
 
-Output
-docs/pr-description.md
+## Rules
 
-Required Sections
-Summary
-Business Value
-Changes
-Architecture Impact
-Testing Evidence
-Deployment Impact
-Rollback Plan
-Reviewer Checklist
-Rules
-Keep concise Highlight risks Highlight test evidence
+- Verify the final diff and identifiers; cite only evidence that exists.
+- Create the PR only after explicit approval of that PR; record the number and URL only from the verified response.

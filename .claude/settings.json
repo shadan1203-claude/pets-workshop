@@ -1,14 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "agent": "pets-workshop-orchestrator",
-  "autoMemoryEnabled": true,
-  "autoCompactEnabled": true,
-  "autoCompactWindow": 500000,
   "permissions": {
     "defaultMode": "default",
     "disableBypassPermissionsMode": "disable",
-    "blockReadsOutsideWorkingDirectories": true,
-    "blockWritesOutsideWorkingDirectories": true,
     "allow": [
       "Bash(npm run build)",
       "Bash(npm test)"
@@ -36,8 +31,7 @@
       "PowerShell(docker *)",
       "mcp__jira__*",
       "mcp__confluence__*",
-      "mcp__github__*",
-      "mcp__filesystem__*"
+      "mcp__github__*"
     ],
     "deny": [
       "Read(./.env)",
@@ -57,23 +51,10 @@
       "PowerShell(git push -f *)"
     ]
   },
-  "allowedMcpServers": [
-    { "serverName": "jira" },
-    { "serverName": "confluence" },
-    { "serverName": "github" },
-    { "serverName": "filesystem" }
-  ],
   "enabledMcpjsonServers": [
     "jira",
     "confluence",
-    "github",
-    "filesystem"
-  ],
-  "enabledMcpjsonServers": [
-    "jira",
-    "confluence",
-    "github",
-    "filesystem"
+    "github"
   ],
   "hooks": {
     "SessionStart": [
@@ -81,33 +62,37 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node",
-            "args": ["${CLAUDE_PROJECT_DIR}/hooks/load-workflow-state.js"],
-            "timeout": 5,
-            "onFailure": "continue"
+            "command": "node \"$CLAUDE_PROJECT_DIR/hooks/load-workflow-state.js\"",
+            "timeout": 5
           }
         ]
       }
     ],
     "PreToolUse": [
       {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/hooks/gate-guard.js\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
             "if": "Bash(git commit *)",
-            "command": "bash",
-            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-commit.sh"],
-            "timeout": 600,
-            "onFailure": "block"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/pre-commit.sh\"",
+            "timeout": 600
           },
           {
             "type": "command",
             "if": "Bash(gh pr create *)",
-            "command": "bash",
-            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-pr.sh"],
-            "timeout": 600,
-            "onFailure": "block"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/pre-pr.sh\"",
+            "timeout": 600
           }
         ]
       },
@@ -117,18 +102,26 @@
           {
             "type": "command",
             "if": "PowerShell(git commit *)",
-            "command": "bash",
-            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-commit.sh"],
-            "timeout": 600,
-            "onFailure": "block"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/pre-commit.sh\"",
+            "timeout": 600
           },
           {
             "type": "command",
             "if": "PowerShell(gh pr create *)",
-            "command": "bash",
-            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-pr.sh"],
-            "timeout": 600,
-            "onFailure": "block"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/pre-pr.sh\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/hooks/post-edit-check.js\"",
+            "timeout": 30
           }
         ]
       }

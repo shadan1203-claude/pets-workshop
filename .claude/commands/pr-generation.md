@@ -11,7 +11,7 @@ Prepare the Jira-scoped pull-request description from completed, approved implem
 
 1. Verify Jira key and workflow state. Require approved requirements, development, final code review, and testing, with no unresolved blocking findings or required test failures.
 2. Resolve `requirements`, `development-report`, `code-review`, `testing`, and `pr-description` through `workflow/artifact-paths.js`; stop if resolver or inputs are missing.
-3. Read `.claude/CLAUDE.md`, `.claude/agents/code-review.md`, and `.claude/skills/PR-generation/SKILL.md` (if present). Verify branch/diff and test evidence from repository/GitHub, not just narrative reports. Use GitHub MCP when available.
+3. Read `.claude/CLAUDE.md`, `.claude/agents/pr-generation.md`, and `.claude/skills/pr-generation/SKILL.md`. Verify branch/diff and test evidence from repository/GitHub, not just narrative reports. Use GitHub MCP when available.
 
 ## Description
 
