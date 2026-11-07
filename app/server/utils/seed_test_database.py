@@ -1,6 +1,6 @@
 """Seed a test database with deterministic data for e2e tests.
 
-Creates a fresh SQLite database with a small set of known dogs and breeds.
+Creates a fresh SQLite database with a deterministic set of known dogs and breeds.
 The database path defaults to server/e2e_test_dogshelter.db but can be
 overridden via the DATABASE_PATH environment variable.
 """
@@ -106,6 +106,30 @@ TEST_DOGS = [
         'gender': 'Female',
         'status': AdoptionStatus.ADOPTED,
         'description': 'A sweet and affectionate dog who loves cuddles.',
+    },
+    {
+        'name': 'Cooper',
+        'breed': 'Golden Retriever',
+        'age': 2,
+        'gender': 'Male',
+        'status': AdoptionStatus.AVAILABLE,
+        'description': 'A cheerful companion who enjoys long walks.',
+    },
+    {
+        'name': 'Rosie',
+        'breed': 'Golden Retriever',
+        'age': 4,
+        'gender': 'Female',
+        'status': AdoptionStatus.AVAILABLE,
+        'description': 'A gentle dog who loves meeting new people.',
+    },
+    {
+        'name': 'Finn',
+        'breed': 'Golden Retriever',
+        'age': 3,
+        'gender': 'Male',
+        'status': AdoptionStatus.AVAILABLE,
+        'description': 'A playful friend who is happy to learn new tricks.',
     },
 ]
 

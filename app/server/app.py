@@ -1,7 +1,9 @@
 import os
-from typing import Dict, List, Any, Optional
-from flask import Flask, jsonify, request, Response
-from models import init_db, db, Dog, Breed
+from typing import Any, Dict, List, Optional
+
+from flask import Flask, Response, jsonify, request
+
+from models import Breed, Dog, db, init_db
 
 # Get the server directory path
 base_dir: str = os.path.abspath(os.path.dirname(__file__))
@@ -14,22 +16,35 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the database with the app
 init_db(app)
 
+
 @app.route('/api/dogs', methods=['GET'])
 def get_dogs() -> Response:
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 6, type=int)
+    breed = request.args.get('breed', type=str)
     page = max(1, page)
     per_page = max(1, min(per_page, 100))
 
     query = db.session.query(
-        Dog.id, 
-        Dog.name, 
+        Dog.id,
+        Dog.name,
         Breed.name.label('breed')
     ).join(Breed, Dog.breed_id == Breed.id)
-    
+
+    if breed is not None:
+        breed_filter = breed.strip()
+        if breed_filter:
+            escaped_breed_filter = (
+                breed_filter
+                .replace('\\', '\\\\')
+                .replace('%', '\\%')
+                .replace('_', '\\_')
+            )
+            query = query.filter(Breed.name.ilike(escaped_breed_filter, escape='\\'))
+
     total = query.count()
     dogs_query = query.offset((page - 1) * per_page).limit(per_page).all()
-    
+
     dogs_list: List[Dict[str, Any]] = [
         {
             'id': dog.id,
@@ -38,7 +53,7 @@ def get_dogs() -> Response:
         }
         for dog in dogs_query
     ]
-    
+
     return jsonify({
         'dogs': dogs_list,
         'page': page,
@@ -47,9 +62,18 @@ def get_dogs() -> Response:
         'total_pages': max(1, -(-total // per_page))
     })
 
+
+@app.route('/api/breeds', methods=['GET'])
+def get_breeds() -> Response:
+    breeds = db.session.query(Breed).order_by(Breed.name.asc()).all()
+    return jsonify([
+        {'id': breed.id if hasattr(breed, 'id') else breed[0], 'name': breed.name if hasattr(breed, 'name') else breed[1]}
+        for breed in breeds
+    ])
+
+
 @app.route('/api/dogs/<int:id>', methods=['GET'])
 def get_dog(id: int) -> tuple[Response, int] | Response:
-    # Query the specific dog by ID and join with breed to get breed name
     dog_query = db.session.query(
         Dog.id,
         Dog.name,
@@ -59,12 +83,10 @@ def get_dog(id: int) -> tuple[Response, int] | Response:
         Dog.gender,
         Dog.status
     ).join(Breed, Dog.breed_id == Breed.id).filter(Dog.id == id).first()
-    
-    # Return 404 if dog not found
+
     if not dog_query:
         return jsonify({"error": "Dog not found"}), 404
-    
-    # Convert the result to a dictionary
+
     dog: Dict[str, Any] = {
         'id': dog_query.id,
         'name': dog_query.name,
@@ -74,12 +96,14 @@ def get_dog(id: int) -> tuple[Response, int] | Response:
         'gender': dog_query.gender,
         'status': dog_query.status.name
     }
-    
+
     return jsonify(dog)
+
 
 @app.route('/health', methods=['GET'])
 def health() -> Response:
     return jsonify({"status": "UP"})
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5100) # Port 5100 to avoid macOS conflicts
+    app.run(debug=True, port=5100)
