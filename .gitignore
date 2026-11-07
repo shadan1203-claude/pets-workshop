@@ -52,3 +52,7 @@ app/server/e2e_test_dogshelter.db
 
 # local Claude Code settings
 .claude/settings.local.json
+
+# local tool data
+.codemie/analytics/
+.vscode/settings.json

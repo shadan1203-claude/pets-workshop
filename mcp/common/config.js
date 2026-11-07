@@ -3,7 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const MCP_ROOT = fileURLToPath(new URL("..", import.meta.url));
+// mcp/.env wins; dotenv never overrides variables that are already set.
 dotenv.config({ path: path.join(MCP_ROOT, ".env"), quiet: true });
+dotenv.config({ path: path.join(MCP_ROOT, "..", ".env"), quiet: true });
 
 function required(name) {
   const value = process.env[name]?.trim();
