@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "agent": "pets-workshop-orchestrator",
+  "autoMemoryEnabled": true,
+  "autoCompactEnabled": true,
+  "autoCompactWindow": 500000,
+  "permissions": {
+    "defaultMode": "default",
+    "disableBypassPermissionsMode": "disable",
+    "blockReadsOutsideWorkingDirectories": true,
+    "blockWritesOutsideWorkingDirectories": true,
+    "allow": [
+      "Bash(npm run build)",
+      "Bash(npm test)"
+    ],
+    "ask": [
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh *)",
+      "Bash(npm run deploy *)",
+      "Bash(kubectl *)",
+      "Bash(helm *)",
+      "Bash(terraform *)",
+      "Bash(az deployment *)",
+      "Bash(gcloud *)",
+      "Bash(docker *)",
+      "PowerShell(git commit *)",
+      "PowerShell(git push *)",
+      "PowerShell(gh *)",
+      "PowerShell(npm run deploy *)",
+      "PowerShell(kubectl *)",
+      "PowerShell(helm *)",
+      "PowerShell(terraform *)",
+      "PowerShell(az deployment *)",
+      "PowerShell(gcloud *)",
+      "PowerShell(docker *)",
+      "mcp__jira__*",
+      "mcp__confluence__*",
+      "mcp__github__*",
+      "mcp__filesystem__*"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Read(./secrets/**)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -fd *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "PowerShell(git reset --hard *)",
+      "PowerShell(git clean -fd *)",
+      "PowerShell(git push --force *)",
+      "PowerShell(git push -f *)"
+    ]
+  },
+  "allowedMcpServers": [
+    { "serverName": "jira" },
+    { "serverName": "confluence" },
+    { "serverName": "github" },
+    { "serverName": "filesystem" }
+  ],
+  "enabledMcpjsonServers": [
+    "jira",
+    "confluence",
+    "github",
+    "filesystem"
+  ],
+  "enabledMcpjsonServers": [
+    "jira",
+    "confluence",
+    "github",
+    "filesystem"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/hooks/load-workflow-state.js"],
+            "timeout": 5,
+            "onFailure": "continue"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "bash",
+            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-commit.sh"],
+            "timeout": 600,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "Bash(gh pr create *)",
+            "command": "bash",
+            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-pr.sh"],
+            "timeout": 600,
+            "onFailure": "block"
+          }
+        ]
+      },
+      {
+        "matcher": "PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "PowerShell(git commit *)",
+            "command": "bash",
+            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-commit.sh"],
+            "timeout": 600,
+            "onFailure": "block"
+          },
+          {
+            "type": "command",
+            "if": "PowerShell(gh pr create *)",
+            "command": "bash",
+            "args": ["${CLAUDE_PROJECT_DIR}/hooks/pre-pr.sh"],
+            "timeout": 600,
+            "onFailure": "block"
+          }
+        ]
+      }
+    ]
+  }
+}

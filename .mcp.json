@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "jira": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["mcp/jira-server.js"]
+    },
+    "confluence": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["mcp/confluence-server.js"]
+    },
+    "github": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["mcp/github-server.js"]
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${PROJECT_ROOT:-.}"
+      ]
+    }
+  }
+}

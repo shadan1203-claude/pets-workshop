@@ -1,0 +1,22 @@
+{
+  "workflowId": "EPMCDMETST-70052",
+  "currentStage": "intake",
+  "status": "AWAITING_APPROVAL",
+  "approvedStages": [],
+  "artifacts": {
+    "intake-summary": "docs/EPMCDMETST-70052/intake-summary.md"
+  },
+  "decisions": [
+    "2026-11-07: Human approved the artifact resolver workflow/artifact-paths.js (approver: human user; identity not stated in the coordinator message). Scope: resolver only. Not intake approval. Does not approve any later phase."
+  ],
+  "risks": [
+    "C-1: Jira labels (capstone, codemie, expense-tracker) do not match the pets-workshop dog-shelter repository. Human must confirm the intended repository before intake approval.",
+    "R-2: Homepage e2e tests may assume fixed dog counts and ordering (Jira Risks).",
+    "R-3: Status enum form (AVAILABLE name versus 'Available' stored value) must be confirmed for the API contract.",
+    "R-4: No non-functional requirements defined in Jira.",
+    "R-5: Confluence docs subtask EPMCDMETST-70056 has no confirmed destination; publication requires explicit authorization.",
+    "GET /api/dogs (app/server/app.py:99) has no available_only parameter yet; the frontend checkbox does not exist yet."
+  ],
+  "blockers": [],
+  "lastUpdated": "2026-11-07"
+}
