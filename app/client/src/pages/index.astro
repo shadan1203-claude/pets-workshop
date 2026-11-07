@@ -14,10 +14,28 @@ let error: string | null = null;
 
 const selectedBreed = Astro.url.searchParams.get('breed') || '';
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+// Checked only for exactly one value equal to "true" (any case), mirroring the API parser.
+// Invalid, empty, repeated or "false" values are ignored and the unfiltered list is shown.
+const availableOnlyValues = Astro.url.searchParams.getAll('available_only');
+const availableOnly = availableOnlyValues.length === 1 && availableOnlyValues[0].toLowerCase() === 'true';
 const query = new URLSearchParams({ page: String(currentPage), per_page: String(PAGE_SIZE) });
 if (selectedBreed) {
   query.set('breed', selectedBreed);
 }
+if (availableOnly) {
+  query.set('available_only', 'true');
+}
+
+const pageHref = (targetPage: number) => {
+  const params = new URLSearchParams({ page: String(targetPage) });
+  if (selectedBreed) {
+    params.set('breed', selectedBreed);
+  }
+  if (availableOnly) {
+    params.set('available_only', 'true');
+  }
+  return `/?${params.toString()}`;
+};
 
 try {
   const [dogsResponse, breedsResponse] = await Promise.all([
@@ -73,6 +91,23 @@ try {
               <option value={breed.name} selected={selectedBreed.toLowerCase() === breed.name.toLowerCase()}>{breed.name}</option>
             ))}
           </select>
+          <input
+            type="checkbox"
+            id="available_only"
+            name="available_only"
+            value="true"
+            checked={availableOnly}
+            class="h-4 w-4 rounded border-slate-700 bg-slate-900 accent-blue-500 focus:outline focus:outline-2 focus:outline-blue-500"
+            data-testid="available-only-checkbox"
+          />
+          <label for="available_only" class="py-1 text-sm font-medium text-slate-300">Only available</label>
+          <button
+            type="submit"
+            class="rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 hover:border-blue-500/50 hover:text-blue-400 focus:outline focus:outline-2 focus:outline-blue-500 transition-colors"
+            data-testid="apply-filters"
+          >
+            Apply
+          </button>
         </form>
 
         <DogList dogs={dogs} total={total} breed={selectedBreed} />
@@ -81,7 +116,7 @@ try {
           <nav class="flex justify-center items-center gap-2 mt-10" data-testid="pagination">
             {page > 1 ? (
               <a
-                href={`/?page=${page - 1}${selectedBreed ? `&breed=${encodeURIComponent(selectedBreed)}` : ''}`}
+                href={pageHref(page - 1)}
                 class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                 data-testid="pagination-prev"
               >
@@ -99,7 +134,7 @@ try {
 
             {page < totalPages ? (
               <a
-                href={`/?page=${page + 1}${selectedBreed ? `&breed=${encodeURIComponent(selectedBreed)}` : ''}`}
+                href={pageHref(page + 1)}
                 class="px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                 data-testid="pagination-next"
               >

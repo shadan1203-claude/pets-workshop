@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional
 from flask import Flask, Response, jsonify, request
 
 from models import Breed, Dog, Reminder, Vaccination, db, init_db
+from models.dog import AdoptionStatus
 from models.reminder import ReminderStatus
 
 # Get the server directory path
@@ -51,6 +52,23 @@ def _parse_iso_date(raw_value: Any, field_name: str, *, allow_none: bool = False
         raise ValueError(f'{field_name} cannot be in the future')
 
     return parsed
+
+
+def _parse_available_only(values: List[str]) -> tuple[bool, Optional[str]]:
+    """Return (filter_enabled, error_message) for the raw available_only values."""
+    if not values:
+        return False, None
+    if len(values) > 1:
+        return False, 'available_only may be supplied only once'
+    value = values[0]
+    if value == '':
+        return False, 'available_only must not be empty'
+    lowered = value.lower()
+    if lowered == 'true':
+        return True, None
+    if lowered == 'false':
+        return False, None
+    return False, "available_only must be 'true' or 'false'"
 
 
 def _get_dog_or_404(dog_id: int) -> Optional[Dog]:
@@ -104,6 +122,10 @@ def get_dogs() -> Response:
     page = max(1, page)
     per_page = max(1, min(per_page, 100))
 
+    available_only, available_only_error = _parse_available_only(request.args.getlist('available_only'))
+    if available_only_error:
+        return _error('Invalid input', 400, {'available_only': available_only_error})
+
     query = db.session.query(
         Dog.id,
         Dog.name,
@@ -121,8 +143,11 @@ def get_dogs() -> Response:
             )
             query = query.filter(Breed.name.ilike(escaped_breed_filter, escape='\\'))
 
+    if available_only:
+        query = query.filter(Dog.status == AdoptionStatus.AVAILABLE)
+
     total = query.count()
-    dogs_query = query.offset((page - 1) * per_page).limit(per_page).all()
+    dogs_query = query.order_by(Dog.id).offset((page - 1) * per_page).limit(per_page).all()
 
     dogs_list: List[Dict[str, Any]] = [
         {
