@@ -1,11 +1,12 @@
 import unittest
+from datetime import datetime
 from types import SimpleNamespace
 from unittest.mock import patch, MagicMock
 import json
 from sqlalchemy import create_engine, select
 from sqlalchemy.dialects.sqlite import dialect
 from app import app  # Changed from relative import to absolute import
-from models import Breed
+from models import Breed, Dog, Reminder, Vaccination, db
 
 # filepath: app/server/test_app.py
 class TestApp(unittest.TestCase):
@@ -190,6 +191,46 @@ class TestApp(unittest.TestCase):
             {'id': 1, 'name': 'Golden Retriever'},
             {'id': 2, 'name': 'Husky'}
         ])
+
+    def test_get_dog_vaccinations_success(self):
+        """Test the existing dog vaccination list response without database access."""
+        vaccination = SimpleNamespace(
+            id=12,
+            dog_id=1,
+            vaccine_name='Rabies',
+            vaccination_date=datetime(2025, 4, 3, 9, 0),
+            booster_due_date=datetime(2026, 4, 3, 9, 0),
+            notes='Initial dose',
+            created_at=datetime(2025, 4, 3, 9, 30),
+            updated_at=None,
+        )
+        query = MagicMock()
+        query.filter.return_value = query
+        query.order_by.return_value = query
+        query.all.return_value = [vaccination]
+
+        with patch('app._get_dog_or_404', return_value=SimpleNamespace(id=1)) as mock_get_dog, \
+                patch('app.db.session.query', return_value=query) as mock_query:
+            response = self.app.get('/api/dogs/1/vaccinations')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.data), {
+            'vaccinations': [{
+                'id': 12,
+                'dog_id': 1,
+                'vaccine_name': 'Rabies',
+                'vaccination_date': '2025-04-03T09:00:00',
+                'booster_due_date': '2026-04-03T09:00:00',
+                'notes': 'Initial dose',
+                'created_at': '2025-04-03T09:30:00Z',
+                'updated_at': None,
+            }]
+        })
+        mock_get_dog.assert_called_once_with(1)
+        mock_query.assert_called_once_with(Vaccination)
+        query.filter.assert_called_once()
+        query.order_by.assert_called_once()
+        query.all.assert_called_once_with()
 
     def test_health_success(self):
         """Test the health check endpoint returns UP status"""
