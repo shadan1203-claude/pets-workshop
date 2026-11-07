@@ -7,6 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "npm run test:e2e",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
@@ -14,9 +15,9 @@
     "test:e2e:chromium": "playwright test --project=chromium"
   },
   "dependencies": {
-    "@astrojs/node": "^10.0.4",
+    "@astrojs/node": "^11.1.5",
     "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.1.6",
+    "astro": "^7.3.2",
     "esbuild-wasm": "^0.28.0",
     "typescript": "^6.0.2"
   },
